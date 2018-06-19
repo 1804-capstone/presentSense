@@ -1,0 +1,3 @@
+rootProject.name = 'presentSenseApp'
+
+include ':app'
