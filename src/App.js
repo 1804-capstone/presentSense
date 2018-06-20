@@ -8,7 +8,7 @@ const StackNavigator = createStackNavigator({
   HomeScreen: {screen: Home},
   Dashboard: {screen: Dashboard}
   }, {
-    initialRouteName: 'LoginScreen'
+    initialRouteName: 'HomeScreen'
   })
 
 export default class App extends React.Component {
