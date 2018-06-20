@@ -5,6 +5,10 @@
 
 # dependencies
 /node_modules
+/functions/node_modules
+
+# podfiles
+/ios/Pods
 
 # misc
 .env.local
@@ -15,3 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#PLIST
+/ios/presentSenseApp/GoogleService-Info.plist
