@@ -37,6 +37,17 @@ export default class Home extends React.Component {
       }
       // Healthkit is available
     });
+
+    AppleHealthKit.initHealthKit(options, (err, results) => {
+      if (err) {
+        console.log("error initializing Healthkit: ", err);
+        return;
+      } else {
+        console.log("HEALTHKIT IS INITIALIZED!!!!!!");
+      }
+      // Healthkit is initialized...
+      // now safe to read and write Healthkit data...
+    });
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
