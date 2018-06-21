@@ -23,3 +23,6 @@ yarn-error.log*
 #PLIST
 /ios/presentSenseApp/GoogleService-Info.plist
 
+/ios/presentSenseApp.xcodeproj/xcuserdata/monicagonzalez.xcuserdatad/xcschemes/xcschememanagement.plist
+/ios/presentSenseApp.xcworkspace/xcuserdata/monicagonzalez.xcuserdatad/UserInterfaceState.xcuserstate
+
