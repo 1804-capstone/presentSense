@@ -25,3 +25,4 @@ yarn-error.log*
 
 #xcode user data garbage
 /ios/presentSenseApp.xcworkspace/xcuserdata/
+/ios/presentSenseApp.xcodeproj/project.xcworkspace/xcuserdata
