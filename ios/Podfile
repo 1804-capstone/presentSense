@@ -32,6 +32,8 @@ target 'presentSenseApp' do
     # Pods for testing
   end
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 end
 
 # target 'presentSenseApp-tvOS' do
