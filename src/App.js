@@ -1,15 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation'
-import { Login, Home, Dashboard } from './components'
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { createStackNavigator } from "react-navigation";
+import { Login, Home, Dashboard, LoginForm, Loading } from "./components";
 
-const StackNavigator = createStackNavigator({
-  LoginScreen: {screen: Login},
-  HomeScreen: {screen: Home},
-  Dashboard: {screen: Dashboard}
-  }, {
-    initialRouteName: 'HomeScreen'
-  })
+const StackNavigator = createStackNavigator(
+  {
+    LoginScreen: { screen: Login },
+    HomeScreen: { screen: Home },
+    Dashboard: { screen: Dashboard },
+    LoginForm: { screen: LoginForm },
+    Loading: { screen: Loading }
+  },
+  {
+    initialRouteName: "Loading"
+  }
+);
 
 export default class App extends React.Component {
   render() {
@@ -27,8 +32,8 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
