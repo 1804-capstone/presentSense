@@ -25,4 +25,6 @@ yarn-error.log*
 
 /ios/presentSenseApp.xcodeproj/xcuserdata/monicagonzalez.xcuserdatad/xcschemes/xcschememanagement.plist
 /ios/presentSenseApp.xcworkspace/xcuserdata/monicagonzalez.xcuserdatad/UserInterfaceState.xcuserstate
+/ios/presentSenseApp.xcodeproj
+/ios/presentSenseApp.xcworkspace
 
