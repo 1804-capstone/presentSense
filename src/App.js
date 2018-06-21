@@ -12,7 +12,7 @@ const StackNavigator = createStackNavigator(
     Loading: { screen: Loading }
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "HomeScreen"
   }
 );
 

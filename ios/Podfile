@@ -21,6 +21,7 @@ target 'presentSenseApp' do
 
   pod 'Fabric', '~> 1.7.6'
   pod 'Crashlytics', '~> 3.10.1'
+  # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'presentSenseApp-tvOSTests' do
     inherit! :search_paths
@@ -32,7 +33,6 @@ target 'presentSenseApp' do
     # Pods for testing
   end
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
 end
 
