@@ -45,3 +45,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+
+# OSX
+# we don't want this garbage
+.DS_Store
