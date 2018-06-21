@@ -23,3 +23,5 @@ yarn-error.log*
 #PLIST
 /ios/presentSenseApp/GoogleService-Info.plist
 
+#xcode user data garbage
+/ios/presentSenseApp.xcworkspace/xcuserdata/
