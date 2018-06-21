@@ -46,11 +46,9 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-<<<<<<< HEAD
-#OSX
-#
-=======
 # OSX
 # we don't want this garbage
->>>>>>> master
 .DS_Store
+
+#no android assets
+/android/app/src/main/assets/fonts
