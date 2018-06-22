@@ -20,13 +20,14 @@ export default class Heartrate extends React.Component {
     this.getHR = this.getHR.bind(this);
   }
   getHR() {
+    heartOptions = { ...heartOptions, endDate: new Date().toISOString };
     AppleHealthKit.getHeartRateSamples(heartOptions, (err, results) => {
       if (err) {
         return;
         console.log("~~~~~~~~~~~~~~~error getting heart data");
       }
       console.log("LAST HEART SAMPLE", results);
-      this.setState({ rate: results[results.length - 1].value });
+      this.setState({ rate: results[0].value });
     });
   }
   render() {
