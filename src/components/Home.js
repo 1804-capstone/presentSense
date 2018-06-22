@@ -59,7 +59,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#4DB6AC"
-          onPress={() => navigate("Dashboard")}
+          onPress={() => navigate("Heartrate")}
         />
         <Button
           title="Preferences"

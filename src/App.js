@@ -1,7 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "react-navigation";
-import { Login, Home, Dashboard, LoginForm, Loading } from "./components";
+import {
+  Login,
+  Home,
+  Dashboard,
+  LoginForm,
+  Loading,
+  Heartrate
+} from "./components";
 
 const StackNavigator = createStackNavigator(
   {
@@ -9,7 +16,8 @@ const StackNavigator = createStackNavigator(
     HomeScreen: { screen: Home },
     Dashboard: { screen: Dashboard },
     LoginForm: { screen: LoginForm },
-    Loading: { screen: Loading }
+    Loading: { screen: Loading },
+    Heartrate: { screen: Heartrate }
   },
   {
     initialRouteName: "HomeScreen"

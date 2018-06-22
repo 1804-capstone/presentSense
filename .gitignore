@@ -49,6 +49,7 @@ project.xcworkspace
 # OSX
 # we don't want this garbage
 .DS_Store
+*.DS_Store
 
 #no android assets
 /android/app/src/main/assets/fonts
