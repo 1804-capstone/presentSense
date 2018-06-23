@@ -69,7 +69,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#26A69A"
-          onPress={() => navigate("MyAccount")}
+          onPress={() => navigate("Dashboard")}
         />
         <Button
           title="My Entries"
