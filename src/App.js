@@ -13,6 +13,9 @@ import {
   Heartrate
 } from "./components";
 
+import MoodInputForm from "./components/forms/MoodInputForm";
+import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
+
 const StackNavigator = createStackNavigator(
   {
     LoginScreen: { screen: Login },
@@ -20,7 +23,9 @@ const StackNavigator = createStackNavigator(
     Dashboard: { screen: Dashboard },
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
-    Heartrate: { screen: Heartrate }
+    Heartrate: { screen: Heartrate },
+    MoodInputForm: { screen: MoodInputForm },
+    OuterInfluenceForm: { screen: OuterInfluenceForm }
   },
   {
     initialRouteName: "HomeScreen"
