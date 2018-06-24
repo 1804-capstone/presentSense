@@ -6,7 +6,8 @@ import {
   Button,
   TouchableHighlight,
   TextInput,
-  ScrollView
+  ScrollView,
+  StyleSheet
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -38,8 +39,8 @@ export default class OuterInfluenceForm extends React.Component {
             Which of these affected your mood, good or bad, the most today?
           </Text>
           <View style={styles.component}>
-            <RadioForm formHorizontal={true} animation={true}>
-              {this.state.data.map((obj, i) => {
+            <RadioForm formHorizontal={false} animation={true}>
+              {this.state.outerInfluences.map((obj, i) => {
                 let onPress = (value, index) => {
                   this.setState({
                     value: value,
@@ -47,16 +48,16 @@ export default class OuterInfluenceForm extends React.Component {
                   });
                 };
                 return (
-                  <RadioButton labelHorizontal={true} key={i}>
+                  <RadioButton labelHorizontal={false} key={i}>
                     {/*  You can set RadioButtonLabel before RadioButtonInput */}
                     <RadioButtonInput
                       obj={obj}
                       index={i}
                       isSelected={this.state.valueIndex === i}
                       onPress={onPress}
-                      buttonInnerColor={"#f39c12"}
+                      buttonInnerColor={"#4DB6AC"}
                       buttonOuterColor={
-                        this.state.valueIndex === i ? "#2196f3" : "#000"
+                        this.state.valueIndex === i ? "#00796B" : "#000"
                       }
                       buttonSize={30}
                       buttonStyle={{}}
@@ -66,7 +67,7 @@ export default class OuterInfluenceForm extends React.Component {
                       obj={obj}
                       index={i}
                       onPress={onPress}
-                      labelStyle={{ fontWeight: "bold", color: "#2ecc71" }}
+                      labelStyle={{ fontWeight: "bold", color: "#00796B" }}
                       labelWrapStyle={{}}
                     />
                   </RadioButton>
@@ -74,7 +75,8 @@ export default class OuterInfluenceForm extends React.Component {
               })}
             </RadioForm>
             <Text>
-              selected: {this.state.data[this.state.valueIndex].label}
+              selected:{" "}
+              {this.state.outerInfluences[this.state.valueIndex].label}
             </Text>
           </View>
         </ScrollView>
@@ -87,7 +89,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#E0F2F1",
+    justifyContent: "space-between",
+    paddingTop: "10%",
+    paddingBottom: "10%"
   },
   welcome: {
     fontSize: 20,
