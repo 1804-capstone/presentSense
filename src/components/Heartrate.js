@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
 import THREE from "./three";
+import { MeshLine, MeshLineMaterial } from "three.meshline";
 //these actions should let us talk to healthkit
 import {
   fetchLatestHeartRate,
@@ -28,12 +29,13 @@ class Heartrate extends React.Component {
     this.onContextCreate = this.onContextCreate.bind(this);
   }
   componentDidMount() {
-    if (this.props.lastHr === {}) {
+    if (!this.props.lastHr) {
       this.props.fetchLatestHeartRate(heartOptions);
     }
-    if (this.props.hrSamples === []) {
+    if (!this.props.hrSamples) {
       this.props.fetchHeartRateOverTime(heartOptions);
     }
+    this.getHR();
   }
   componentWillUnmount() {
     cancelAnimationFrame();
@@ -55,6 +57,11 @@ class Heartrate extends React.Component {
     });
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 1);
+    let camera;
+    let scene;
+    let cube;
+    let lineGeometry;
+    let line;
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 150;
@@ -75,22 +82,81 @@ class Heartrate extends React.Component {
 
       cube = new THREE.Mesh(geometry, material);
       cube.position.y = 150;
-      scene.add(cube);
-      //meshy
+      // scene.add(cube);
+      //meshyline
+      lineGeometry = new THREE.Geometry();
+      // for (let j = 0; j < Math.PI; j += (2 * Math.PI) / 100) {
+      //   let v = new THREE.Vector3(
+      //     Math.cos(j) * 100,
+      //     150 + Math.sin(j) * 100,
+      //     0
+      //   );
+      //   lineGeometry.vertices.push(v);
+      // }
+      let numPoints = heartOptions.limit;
+      let angle = (2 * Math.PI) / numPoints;
+      let startingData = 100;
+      for (let i = 0; i < numPoints; i++) {
+        let v = new THREE.Vector3(
+          startingData * Math.sin(angle * i),
+          150 + startingData * Math.cos(angle * i),
+          0
+        );
+        lineGeometry.vertices.push(v);
+      }
+      line = new MeshLine();
+      //tapered line
+      line.setGeometry(lineGeometry, function(p) {
+        return 1 - p;
+      });
+      // line.geometry.attributes.position.needsUpdate = true;
+      let lineMaterial = new MeshLineMaterial({ lineWidth: 30 });
+      let LineMesh = new THREE.Mesh(line.geometry, lineMaterial);
+      scene.add(LineMesh);
     }
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
 
-      cube.rotation.y += 0.05;
-      cube.rotation.x -= clock.getDelta();
-      // if (this.props.lastHr && this.props.lastHR.value > 0) {
-      //   cube.scale.x = this.props.lastHr.value;
-      // }
-      //console.log("DO I HAVE PROPS", this.props);
-      this.props.lastHr && this.props.lastHr.value > 0
-        ? (cube.scale.x = 5 * Math.sin(clock.getElapsedTime()))
-        : (cube.scale.x = 1);
+      // cube.rotation.y += 0.05;
+      // cube.rotation.x -= clock.getDelta();
+      // // if (this.props.lastHr && this.props.lastHR.value > 0) {
+      // //   cube.scale.x = this.props.lastHr.value;
+      // // }
+      // console.log("DO I HAVE PROPS", this.props);
+      // this.props.lastHr && this.props.lastHr.value > 0
+      //   ? (cube.scale.x = 1 + 1 * Math.sin(clock.getElapsedTime()))
+      //   : (cube.scale.x = 1);
+      lineGeometry.verticesNeedUpdate = true;
+
+      let numPoints = heartOptions.limit;
+      let angle = (2 * Math.PI) / numPoints;
+      let startingData;
+      for (let i = 0; i < numPoints; i++) {
+        if (this.props.hrSamples && this.props.hrSamples.length) {
+          startingData =
+            this.props.hrSamples[i].value +
+            50 *
+              Math.sin(
+                (clock.getElapsedTime() * this.props.hrSamples[i].value) / 50 -
+                  this.props.hrSamples[i].value
+              );
+          console.log("SUCCESS");
+        } else {
+          startingData = 100 + 40 * Math.sin(clock.getElapsedTime());
+        }
+        let v = new THREE.Vector3(
+          startingData * Math.sin(angle * i),
+          150 + startingData * Math.cos(angle * i),
+          0
+        );
+        lineGeometry.vertices[i] = v;
+      }
+      // console.log(lineGeometry.vertices);
+      line.setGeometry(lineGeometry, function(p) {
+        return 1 - p;
+      });
+      lineGeometry.verticesNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
     };
@@ -103,6 +169,7 @@ class Heartrate extends React.Component {
     heartOptions = { ...heartOptions, endDate: new Date().toISOString() };
     this.props.fetchLatestHeartRate(heartOptions);
     this.setState({ rate: this.props.lastHr.value || 0 });
+    this.props.fetchHeartRateOverTime(heartOptions);
   }
   render() {
     return (
