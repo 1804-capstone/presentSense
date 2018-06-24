@@ -26,6 +26,8 @@ target 'presentSenseApp' do
   target 'presentSenseApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'react-native-webgl', :path => '../node_modules/react-native-webgl'
+
   end
 
   target 'presentSenseAppTests' do
