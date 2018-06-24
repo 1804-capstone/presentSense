@@ -27,6 +27,7 @@ class Heartrate extends React.Component {
     };
     this.getHR = this.getHR.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
+    this.interpolateArray = this.interpolateArray.bind(this);
   }
   componentDidMount() {
     if (!this.props.lastHr) {
@@ -93,7 +94,7 @@ class Heartrate extends React.Component {
       //   );
       //   lineGeometry.vertices.push(v);
       // }
-      let numPoints = heartOptions.limit;
+      let numPoints = heartOptions.limit * 30;
       let angle = (2 * Math.PI) / numPoints;
       let startingData = 100;
       for (let i = 0; i < numPoints; i++) {
@@ -106,9 +107,7 @@ class Heartrate extends React.Component {
       }
       line = new MeshLine();
       //tapered line
-      line.setGeometry(lineGeometry, function(p) {
-        return 1 - p;
-      });
+      line.setGeometry(lineGeometry);
       // line.geometry.attributes.position.needsUpdate = true;
       let lineMaterial = new MeshLineMaterial({ lineWidth: 30 });
       let LineMesh = new THREE.Mesh(line.geometry, lineMaterial);
@@ -127,21 +126,31 @@ class Heartrate extends React.Component {
       // this.props.lastHr && this.props.lastHr.value > 0
       //   ? (cube.scale.x = 1 + 1 * Math.sin(clock.getElapsedTime()))
       //   : (cube.scale.x = 1);
+
       lineGeometry.verticesNeedUpdate = true;
 
-      let numPoints = heartOptions.limit;
+      let numPoints = heartOptions.limit * 30;
       let angle = (2 * Math.PI) / numPoints;
       let startingData;
+      let smoothedData;
+      let targetLength = numPoints;
+      if (this.props.hrSamples && this.props.hrSamples.length) {
+        //set last data to same as first so we have a smooth circle
+        this.props.hrSamples[
+          this.props.hrSamples.length - 1
+        ] = this.props.hrSamples[0];
+        let data = this.props.hrSamples.map(sample => sample.value);
+        smoothedData = this.interpolateArray(data, targetLength);
+        console.log(smoothedData);
+      } else {
+        smoothedData = new Array(targetLength).fill(100);
+      }
       for (let i = 0; i < numPoints; i++) {
         if (this.props.hrSamples && this.props.hrSamples.length) {
           startingData =
-            this.props.hrSamples[i].value +
-            50 *
-              Math.sin(
-                (clock.getElapsedTime() * this.props.hrSamples[i].value) / 50 -
-                  this.props.hrSamples[i].value
-              );
-          console.log("SUCCESS");
+            smoothedData[i] +
+            50 +
+            50 * Math.sin(2 * clock.getElapsedTime() - smoothedData[i] * 0.1);
         } else {
           startingData = 100 + 40 * Math.sin(clock.getElapsedTime());
         }
@@ -152,10 +161,9 @@ class Heartrate extends React.Component {
         );
         lineGeometry.vertices[i] = v;
       }
+      console.log(lineGeometry.vertices);
       // console.log(lineGeometry.vertices);
-      line.setGeometry(lineGeometry, function(p) {
-        return 1 - p;
-      });
+      line.setGeometry(lineGeometry);
       lineGeometry.verticesNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
@@ -164,6 +172,24 @@ class Heartrate extends React.Component {
     init();
     animate();
   };
+  interpolateArray(data, fitCount) {
+    let linearInterpolate = function(before, after, atPoint) {
+      return before + (after - before) * atPoint;
+    };
+
+    let newData = new Array();
+    let springFactor = new Number((data.length - 1) / (fitCount - 1));
+    newData[0] = data[0]; // for new allocation
+    for (let i = 1; i < fitCount - 1; i++) {
+      let tmp = i * springFactor;
+      let before = new Number(Math.floor(tmp)).toFixed();
+      let after = new Number(Math.ceil(tmp)).toFixed();
+      let atPoint = tmp - before;
+      newData[i] = linearInterpolate(data[before], data[after], atPoint);
+    }
+    newData[fitCount - 1] = data[data.length - 1]; // for new allocation
+    return newData;
+  }
   getHR() {
     //destructure our options so we can set new options with new NOW date
     heartOptions = { ...heartOptions, endDate: new Date().toISOString() };
