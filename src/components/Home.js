@@ -69,7 +69,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#26A69A"
-          onPress={() => navigate("MyAccount")}
+          onPress={() => navigate("Dashboard")}
         />
         <Button
           title="My Entries"
@@ -79,7 +79,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#009688"
-          onPress={() => navigate("MyEntries")}
+          onPress={() => navigate("MoodInputForm")}
         />
         <Button
           title="Stress Relief"
@@ -99,7 +99,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00796B"
-          onPress={() => navigate("HeatMap")}
+          onPress={() => navigate("StepsGraph")}
         />
       </View>
     );
