@@ -1,6 +1,7 @@
 import React from "react";
 import firebase from "react-native-firebase";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { Button } from "react-native-elements";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class LoginForm extends React.Component {
   };
   render() {
     return (
-      <View style={{ backgroundColor: "green" }}>
+      <View style={{ backgroundColor: "#E0F2F1" }}>
         <Text>Login!</Text>
         {this.state.errorMessage && (
           <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
@@ -53,8 +54,24 @@ export default class LoginForm extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
-        <Button title="Sign Up" onPress={this.handleSignup} />
+        <Button
+          title="Login"
+          raised
+          borderRadius={10}
+          large={false}
+          fontSize={24}
+          backgroundColor="#00796B"
+          onPress={this.handleLogin}
+        />
+        <Button
+          title="Sign Up"
+          raised
+          borderRadius={10}
+          large={false}
+          fontSize={24}
+          backgroundColor="#00796B"
+          onPress={this.handleSignup}
+        />
       </View>
     );
   }
