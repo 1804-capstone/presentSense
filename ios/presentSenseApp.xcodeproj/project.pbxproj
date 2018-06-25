@@ -595,13 +595,9 @@
 		13B07FAE1A68108700A75B9A /* presentSenseApp */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				F57F722020E1415F00ADB517 /* GoogleService-Info.plist */,
-=======
 				40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */,
 				6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */,
 				5194D1D820E0114C009C5422 /* GoogleService-Info.plist */,
->>>>>>> 71085b4cb08cc959cb2810db2ef6cd9e98cfd811
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
 				408771B220E14273005699AC /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -1305,12 +1301,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-<<<<<<< HEAD
-=======
 
 				6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */,
 				5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */,
->>>>>>> 71085b4cb08cc959cb2810db2ef6cd9e98cfd811
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				451F77C9F8674423933CB13D /* Entypo.ttf in Resources */,
 				D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */,
