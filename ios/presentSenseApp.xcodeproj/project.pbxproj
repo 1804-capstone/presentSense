@@ -44,6 +44,8 @@
 		513522E920DC426A003F24CC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513522E820DC426A003F24CC /* HealthKit.framework */; };
 		5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5194D1D820E0114C009C5422 /* GoogleService-Info.plist */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */; };
+		60D794FB20E03B40008A4B2F /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D794D120E03A57008A4B2F /* libART.a */; };
 		6F7115B8D0FA4E9DBD645427 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0721FF8275C435B84E71106 /* FontAwesome.ttf */; };
 		7D0C0ABC5879478A8DE75A0F /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -325,6 +327,20 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		60D794D020E03A57008A4B2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60D794CB20E03A57008A4B2F /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = ART;
+		};
+		60D794D220E03A57008A4B2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60D794CB20E03A57008A4B2F /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 323A12871E5F266B004975B8;
+			remoteInfo = "ART-tvOS";
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -382,6 +398,8 @@
 		5194D1D820E0114C009C5422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/rn-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		60D794CB20E03A57008A4B2F /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		6AC1EC8C8B1E46679AB4FD4B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		728CEAC04B45BA9CDBF2C312 /* libPods-presentSenseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-presentSenseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72C3DA4586864129A4D99627 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
@@ -419,6 +437,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60D794FB20E03B40008A4B2F /* libART.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -566,6 +585,7 @@
 		13B07FAE1A68108700A75B9A /* presentSenseApp */ = {
 			isa = PBXGroup;
 			children = (
+				6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */,
 				5194D1D820E0114C009C5422 /* GoogleService-Info.plist */,
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -649,6 +669,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		60D794CC20E03A57008A4B2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60D794D120E03A57008A4B2F /* libART.a */,
+				60D794D320E03A57008A4B2F /* libART-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,6 +690,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				60D794CB20E03A57008A4B2F /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -861,6 +891,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 60D794CC20E03A57008A4B2F /* Products */;
+					ProjectRef = 60D794CB20E03A57008A4B2F /* ART.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1181,6 +1215,20 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		60D794D120E03A57008A4B2F /* libART.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libART.a;
+			remoteRef = 60D794D020E03A57008A4B2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		60D794D320E03A57008A4B2F /* libART-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libART-tvOS.a";
+			remoteRef = 60D794D220E03A57008A4B2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1217,6 +1265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */,
 				5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				451F77C9F8674423933CB13D /* Entypo.ttf in Resources */,

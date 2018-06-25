@@ -10,7 +10,8 @@ import {
   Dashboard,
   LoginForm,
   Loading,
-  Heartrate
+  Heartrate,
+  StepsGraph
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -27,6 +28,7 @@ const StackNavigator = createStackNavigator(
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
+    StepsGraph: { screen: StepsGraph }
     MoodInputForm: { screen: MoodInputForm },
     OuterInfluenceForm: { screen: OuterInfluenceForm },
     AccomplishForm: { screen: AccomplishForm },
