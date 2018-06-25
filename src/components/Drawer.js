@@ -16,7 +16,8 @@ const Screen = {
 
 export const DrawerHeader = props => {
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center', height: 100, zIndex: 2}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center',
+      }}>
         <Image style={styles.icon_claw} source={iconClaw} />
       </View>
       )
@@ -44,15 +45,18 @@ const styles = StyleSheet.create({
     height: 10,
   },
   viewCont: {
-    flexDirection: 'row',
-    paddingTop: 40,
-    justifyContent: 'space-around',
-    height: 150,
+    flexDirection: 'column',
+    padding: 50,
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    // height: 150,
+    height: Screen.height,
     backgroundColor: 'steelblue',
     opacity: 0.7
   },
   text: {
     color: 'white',
-    fontSize: 30
+    fontSize: 30,
+    padding: 40
   }
 })
