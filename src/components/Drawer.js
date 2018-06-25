@@ -17,7 +17,6 @@ const Screen = {
 export const DrawerHeader = props => {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center',
-      // height: 100, zIndex: 2
       }}>
         <Image style={styles.icon_claw} source={iconClaw} />
       </View>

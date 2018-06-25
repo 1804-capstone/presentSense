@@ -10,12 +10,17 @@ import { StyleSheet,
         Image,
         Dimensions } from "react-native";
 
+const Screen = {
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height
+}
 
 export default class Test extends React.Component {
   render() {
       return (
         <View style={{backgroundColor: "#E0F2F1"}}>
           <View style={styles.compContainer}>
+          <Text> HI? </Text>
             {/* THIS IS WHERE TO PLUG IN THE GRAPH COMPONENT
             <View style={styles.square} />
           </View>
@@ -24,15 +29,14 @@ export default class Test extends React.Component {
           </View>
           <Drawer
               initialDrawerSize={.15}
-              renderContainerView={() => {
-              // <View style={{
-              //   height:147,
-              //   backgroundColor: "#E0F2F1",
-              //   backgroundColor:"#4DB6AC",
-              //   zIndex: 0}}>
-                 return (<Text>this is the div border</Text>)
-                // </View>
-              }}
+              // GRAPH COMPONENT MAY ALSO GO HERE, WE'LL SEE
+              renderContainerView={() =>
+                <View style={{
+                    height: Screen.height,
+                    backgroundColor: "#E0F2F1",
+                    }}>
+                  <Text>this is the div border</Text>
+                  </View>}
               renderDrawerView={() => <DrawerView />}
               renderInitDrawerView={() => (<View style={{
                   backgroundColor: 'black',
