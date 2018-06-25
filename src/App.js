@@ -10,7 +10,8 @@ import {
   Dashboard,
   LoginForm,
   Loading,
-  Heartrate
+  Heartrate,
+  StepsGraph
 } from "./components";
 
 const StackNavigator = createStackNavigator(
@@ -20,7 +21,8 @@ const StackNavigator = createStackNavigator(
     Dashboard: { screen: Dashboard },
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
-    Heartrate: { screen: Heartrate }
+    Heartrate: { screen: Heartrate },
+    StepsGraph: { screen: StepsGraph }
   },
   {
     initialRouteName: "HomeScreen"

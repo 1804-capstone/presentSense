@@ -99,7 +99,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00796B"
-          onPress={() => navigate("HeatMap")}
+          onPress={() => navigate("StepsGraph")}
         />
       </View>
     );
