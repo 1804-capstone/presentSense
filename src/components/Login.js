@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "react-native-firebase";
 import { StyleSheet, Text, View, Image } from "react-native";
-
+import AnimBlob from './AnimBlob'
 import LoginForm from "./LoginForm";
 
 class Login extends React.Component {
@@ -26,15 +26,22 @@ class Login extends React.Component {
 
   render() {
     const { user } = this.state;
-    if (!this.state.user) {
-      return <LoginForm />;
-    }
     return (
-      <View style={{ flex: 1, backgroundColor: "steelblue" }}>
+      <View style={{backgroundColor: "#E0F2F1"}}>
+        <View>
+          <AnimBlob style={{height: 400}}/>
+        </View>
+     {/* {!this.state.user &&   */}
+        <View style={{marginTop: 350}}>
+        <LoginForm />
+        </View>
+        {/* } */}
+      {/* <View style={{ flex: 1, backgroundColor:  }}>
         <Image
           source={require("../images/confusedsmiley.png")}
           // style={{ width: 350, height: 350 }}
         />
+      </View> */}
       </View>
     );
   }
