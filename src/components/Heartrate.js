@@ -63,6 +63,10 @@ class Heartrate extends React.Component {
     let cube;
     let lineGeometry;
     let line;
+    let heartGeometry;
+    let heartMesh;
+    let heartMaterial;
+
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 150;
@@ -83,17 +87,9 @@ class Heartrate extends React.Component {
 
       cube = new THREE.Mesh(geometry, material);
       cube.position.y = 150;
-      // scene.add(cube);
+
       //meshyline
       lineGeometry = new THREE.Geometry();
-      // for (let j = 0; j < Math.PI; j += (2 * Math.PI) / 100) {
-      //   let v = new THREE.Vector3(
-      //     Math.cos(j) * 100,
-      //     150 + Math.sin(j) * 100,
-      //     0
-      //   );
-      //   lineGeometry.vertices.push(v);
-      // }
       let numPoints = heartOptions.limit * 30;
       let angle = (2 * Math.PI) / numPoints;
       let startingData = 100;
@@ -106,26 +102,59 @@ class Heartrate extends React.Component {
         lineGeometry.vertices.push(v);
       }
       line = new MeshLine();
-      //tapered line
       line.setGeometry(lineGeometry);
-      // line.geometry.attributes.position.needsUpdate = true;
       let lineMaterial = new MeshLineMaterial({ lineWidth: 30 });
       let LineMesh = new THREE.Mesh(line.geometry, lineMaterial);
       scene.add(LineMesh);
+
+      heartGeometry = new THREE.Geometry();
+      // heartGeometry.vertices.push(new THREE.Vector3(-10, 10, 0));
+      // heartGeometry.vertices.push(new THREE.Vector3(-10, -10, 0));
+      // heartGeometry.vertices.push(new THREE.Vector3(10, -10, 0));
+      let num = heartOptions.limit;
+      let angle2 = (2 * Math.PI) / num;
+      for (let i = 0; i < num; i++) {
+        let v = new THREE.Vector3(
+          startingData * Math.sin(angle2 * i),
+          150 + startingData * Math.cos(angle2 * i),
+          0
+        );
+        heartGeometry.vertices.push(v);
+        heartGeometry.vertices.push(new THREE.Vector3(0, 150, 0));
+        if (i === num - 1) {
+          heartGeometry.vertices.push(
+            new THREE.Vector3(
+              startingData * Math.sin(angle2 * 0),
+              150 + startingData * Math.cos(angle2 * 0),
+              0
+            )
+          );
+        }
+      }
+      // heartGeometry.faces.push(new THREE.Face3(0, 1, 2));
+      // heartGeometry.faces.push(new THREE.Face3(2, 3, 4));
+      // heartGeometry.faces.push(new THREE.Face3(4, 5, 6));
+      // heartGeometry.faces.push(new THREE.Face3(6, 7, 8));
+      // heartGeometry.faces.push(new THREE.Face3(8, 9, 10));
+      // heartGeometry.faces.push(new THREE.Face3(10, 11, 12));
+      // heartGeometry.faces.push(new THREE.Face3(12, 13, 14));
+      // heartGeometry.faces.push(new THREE.Face3(14, 15, 16));
+      // heartGeometry.faces.push(new THREE.Face3(16, 17, 18));
+      // heartGeometry.faces.push(new THREE.Face3(18, 19, 20));
+      for (let i = 0; i < heartGeometry.vertices.length - 1; i += 2) {
+        let face = new THREE.Face3(i, i + 1, i + 2);
+        heartGeometry.faces.push(face);
+      }
+
+      heartMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+      heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
+      scene.add(heartMesh);
     }
+    //heartmesh
+
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
-
-      // cube.rotation.y += 0.05;
-      // cube.rotation.x -= clock.getDelta();
-      // // if (this.props.lastHr && this.props.lastHR.value > 0) {
-      // //   cube.scale.x = this.props.lastHr.value;
-      // // }
-      // console.log("DO I HAVE PROPS", this.props);
-      // this.props.lastHr && this.props.lastHr.value > 0
-      //   ? (cube.scale.x = 1 + 1 * Math.sin(clock.getElapsedTime()))
-      //   : (cube.scale.x = 1);
 
       lineGeometry.verticesNeedUpdate = true;
 
@@ -141,7 +170,7 @@ class Heartrate extends React.Component {
         ] = this.props.hrSamples[0];
         let data = this.props.hrSamples.map(sample => sample.value);
         smoothedData = this.interpolateArray(data, targetLength);
-        console.log(smoothedData);
+        // console.log(smoothedData);
       } else {
         smoothedData = new Array(targetLength).fill(100);
       }
@@ -161,8 +190,6 @@ class Heartrate extends React.Component {
         );
         lineGeometry.vertices[i] = v;
       }
-      console.log(lineGeometry.vertices);
-      // console.log(lineGeometry.vertices);
       line.setGeometry(lineGeometry);
       lineGeometry.verticesNeedUpdate = true;
       gl.flush();
