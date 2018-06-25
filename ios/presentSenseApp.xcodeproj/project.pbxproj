@@ -39,10 +39,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* presentSenseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* presentSenseAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3FFE513EEDCB4B7CA993B2D8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AC1EC8C8B1E46679AB4FD4B /* SimpleLineIcons.ttf */; };
-		4064C07320DC4AED007C79BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4064C04B20DC4AED007C79BE /* GoogleService-Info.plist */; };
 		451F77C9F8674423933CB13D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D374F8371C8547BCA3EA4C08 /* Entypo.ttf */; };
 		4FD925DD35764ECE1B820802 /* libPods-presentSenseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 728CEAC04B45BA9CDBF2C312 /* libPods-presentSenseApp.a */; };
 		513522E920DC426A003F24CC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513522E820DC426A003F24CC /* HealthKit.framework */; };
+		5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5194D1D820E0114C009C5422 /* GoogleService-Info.plist */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6F7115B8D0FA4E9DBD645427 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0721FF8275C435B84E71106 /* FontAwesome.ttf */; };
 		7D0C0ABC5879478A8DE75A0F /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */; };
@@ -376,10 +376,10 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F04D16390BA4594B281C180 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		31B461C98E75EB0C15C003FE /* Pods-presentSenseAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		4064C04B20DC4AED007C79BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "presentSenseApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
 		513522E720DC426A003F24CC /* presentSenseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = presentSenseApp.entitlements; path = presentSenseApp/presentSenseApp.entitlements; sourceTree = "<group>"; };
 		513522E820DC426A003F24CC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		5194D1D820E0114C009C5422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/rn-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6AC1EC8C8B1E46679AB4FD4B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -566,7 +566,7 @@
 		13B07FAE1A68108700A75B9A /* presentSenseApp */ = {
 			isa = PBXGroup;
 			children = (
-				4064C04B20DC4AED007C79BE /* GoogleService-Info.plist */,
+				5194D1D820E0114C009C5422 /* GoogleService-Info.plist */,
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1217,7 +1217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				4064C07320DC4AED007C79BE /* GoogleService-Info.plist in Resources */,
+				5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				451F77C9F8674423933CB13D /* Entypo.ttf in Resources */,
 				D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */,
