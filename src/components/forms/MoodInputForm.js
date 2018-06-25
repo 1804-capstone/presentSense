@@ -58,7 +58,7 @@ export default class MoodInputForm extends React.Component {
                       }
                       buttonSize={30}
                       buttonStyle={{}}
-                      buttonWrapStyle={{ marginLeft: 10 }}
+                      // buttonWrapStyle={{ marginLeft: 10 }}
                     />
                     <RadioButtonLabel
                       obj={obj}
@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
   radioStyle: {
     borderRightWidth: 1,
     borderColor: "#2196f3",
-    paddingRight: 10
+    paddingRight: 0
   },
   radioButtonWrap: {
-    marginRight: 5
+    marginRight: 0
   }
 });

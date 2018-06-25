@@ -52,7 +52,7 @@ class FadeInView extends React.Component {
   }
 }
 
-export default class Test extends React.Component {
+export default class AnimBlob extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -61,12 +61,9 @@ export default class Test extends React.Component {
 
   render() {
     return (
-      <View style={styles.full}>
+      <View>
       <View style={styles.imgTitleCont}>
       <FadeInView style={{width: '90%', height: 400}}>
-          {/* <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>Fading in</Text> */}
-        {/* </FadeInView> */}
-      {/* <FadeInView style={styles.img}> */}
         <Image source={pic2} style={styles.img}/>
       </FadeInView>
         <Text style={styles.title}>PresentSense</Text>
@@ -77,11 +74,6 @@ export default class Test extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  full: {
-    backgroundColor: "#E0F2F1",
-    width: '100%',
-    height: '100%'
-  },
   imgTitleCont: {
     width: '100%',
     height: 205,
