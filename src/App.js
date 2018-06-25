@@ -11,7 +11,8 @@ import {
   LoginForm,
   Loading,
   Heartrate,
-  StepsGraph
+  StepsGraph,
+  Signup
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -37,7 +38,7 @@ const StackNavigator = createStackNavigator(
   },
 
   {
-    initialRouteName: "HomeScreen"
+    initialRouteName: "Loading"
   }
 );
 
