@@ -20,11 +20,11 @@ export default class MoodInputForm extends React.Component {
     super(props);
     this.state = {
       moodInput: [
-        { label: "awful", value: 0 },
-        { label: "not great", value: 1 },
+        { label: "fantastic", value: 0 },
+        { label: "good", value: 1 },
         { label: "ok", value: 2 },
-        { label: "good", value: 3 },
-        { label: "fantastic", value: 4 }
+        { label: "not great", value: 3 },
+        { label: "awful", value: 4 }
       ],
       value: 0,
       valueIndex: 0
