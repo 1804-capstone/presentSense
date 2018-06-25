@@ -7,3 +7,4 @@ export { default as LoginForm } from "./LoginForm";
 export { default as Loading } from "./Loading";
 export { default as Heartrate } from "./Heartrate";
 export { default as StepsGraph } from "./StepsGraph";
+

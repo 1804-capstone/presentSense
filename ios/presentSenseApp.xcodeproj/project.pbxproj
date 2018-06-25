@@ -42,6 +42,7 @@
 		451F77C9F8674423933CB13D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D374F8371C8547BCA3EA4C08 /* Entypo.ttf */; };
 		4FD925DD35764ECE1B820802 /* libPods-presentSenseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 728CEAC04B45BA9CDBF2C312 /* libPods-presentSenseApp.a */; };
 		513522E920DC426A003F24CC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513522E820DC426A003F24CC /* HealthKit.framework */; };
+		5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5194D1D820E0114C009C5422 /* GoogleService-Info.plist */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */; };
 		60D794FB20E03B40008A4B2F /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D794D120E03A57008A4B2F /* libART.a */; };
@@ -394,6 +395,7 @@
 		4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
 		513522E720DC426A003F24CC /* presentSenseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = presentSenseApp.entitlements; path = presentSenseApp/presentSenseApp.entitlements; sourceTree = "<group>"; };
 		513522E820DC426A003F24CC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		5194D1D820E0114C009C5422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/rn-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */,
+				5194D1D820E0114C009C5422 /* GoogleService-Info.plist */,
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1263,6 +1266,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */,
+				5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				451F77C9F8674423933CB13D /* Entypo.ttf in Resources */,
 				D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */,

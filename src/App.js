@@ -14,6 +14,12 @@ import {
   StepsGraph
 } from "./components";
 
+import MoodInputForm from "./components/forms/MoodInputForm";
+import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
+import AccomplishForm from "./components/forms/AccomplishForm";
+import StruggleForm from "./components/forms/StruggleForm";
+import JournalForm from "./components/forms/JournalForm";
+
 const StackNavigator = createStackNavigator(
   {
     LoginScreen: { screen: Login },
@@ -23,7 +29,13 @@ const StackNavigator = createStackNavigator(
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
     StepsGraph: { screen: StepsGraph }
+    MoodInputForm: { screen: MoodInputForm },
+    OuterInfluenceForm: { screen: OuterInfluenceForm },
+    AccomplishForm: { screen: AccomplishForm },
+    StruggleForm: { screen: StruggleForm },
+    JournalForm: { screen: JournalForm }
   },
+
   {
     initialRouteName: "HomeScreen"
   }
