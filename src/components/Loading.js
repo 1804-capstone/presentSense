@@ -28,7 +28,7 @@ export default class Loading extends React.Component {
         <ActivityIndicator size="large" />
         <Button
           title="do navigation"
-          onPress={() => this.props.navigation.navigate("Signup")}
+          onPress={() => this.props.navigation.navigate("LoginScreen")}
         />
       </View>
     );
