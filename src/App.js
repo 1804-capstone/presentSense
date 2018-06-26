@@ -12,6 +12,7 @@ import {
   Loading,
   Heartrate,
   StepsGraph,
+  GraphMaker,
   Signup
 } from "./components";
 
@@ -29,7 +30,7 @@ const StackNavigator = createStackNavigator(
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
-    StepsGraph: { screen: StepsGraph },
+    GraphMaker: { screen: GraphMaker },
     MoodInputForm: { screen: MoodInputForm },
     OuterInfluenceForm: { screen: OuterInfluenceForm },
     AccomplishForm: { screen: AccomplishForm },

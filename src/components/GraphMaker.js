@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { line } from "d3-shape";
 import * as d3Array from "d3-array";
 import * as d3 from "d3";
+import StepsGraph from "./StepsGraph";
 
 //thunks we're gonna need
 import {
@@ -13,7 +14,6 @@ import {
   fetchLatestHeartRate
 } from "../store/heartrate";
 import { fetchLatestSteps } from "../store/steps";
-import StepsGraph from "./StepsGraph";
 let queryOptions = {
   startDate: new Date(2018, 5, 1).toISOString(), // required
   endDate: new Date().toISOString() // optional; default now
@@ -60,14 +60,14 @@ class Graphmaker extends React.Component {
           startDate={queryOptions.startDate}
           endDate={queryOptions.endDate}
           data={{
-            steps: this.props.stepSamples || [],
-            heartRate: this.props.heartRateSamples || []
+            steps: this.props.stepSamples,
+            heartRate: this.props.heartRateSamples
           }}
         />
       </View>
     );
     const noData = <Text>nope :(</Text>;
-    return this.props.heartRateSamples && this.props.stepSamples
+    return this.props.heartRateSamples.length && this.props.stepSamples.length
       ? graphContent
       : noData;
   }
