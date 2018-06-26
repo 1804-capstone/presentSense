@@ -14,6 +14,10 @@ import {
 } from "../store/heartrate";
 import { fetchLatestSteps } from "../store/steps";
 import StepsGraph from "./StepsGraph";
+let queryOptions = {
+  startDate: new Date(2018, 5, 1).toISOString(), // required
+  endDate: new Date().toISOString() // optional; default now
+};
 
 class Graphmaker extends React.Component {
   constructor(props) {
@@ -27,11 +31,11 @@ class Graphmaker extends React.Component {
     this.getHeartRate = this.getHeartRate.bind(this);
   }
   componentDidMount() {
-    if (!this.props.heartRateSamples) {
+    if (!this.props.heartRateSamples || !this.props.heartRateSamples.length) {
       this.props.fetchHeartRateOverTime(queryOptions);
       this.setState({ heartRate: this.props.heartRateSamples });
     }
-    if (!this.props.stepSamples) {
+    if (!this.props.stepSamples || !this.props.stepSamples.length) {
       this.props.fetchStepsOverTime(queryOptions);
       this.setState({ steps: this.props.stepSamples });
     }
@@ -50,16 +54,22 @@ class Graphmaker extends React.Component {
     this.props.fetchHeartRateOverTime(heartOptions);
   }
   render() {
-    const graphContent =(
+    const graphContent = (
       <View>
-      <StepsGraph
-        startDate={}
-        endDate={}
-        data={{steps: this.props.stepSamples || [], heartRate: this.props.heartRateSamples || []}}/>
+        <StepsGraph
+          startDate={queryOptions.startDate}
+          endDate={queryOptions.endDate}
+          data={{
+            steps: this.props.stepSamples || [],
+            heartRate: this.props.heartRateSamples || []
+          }}
+        />
       </View>
-      );
-    const noData = <Text>nope :(</Text>
-    return this.props.heartRateSamples && this.props.stepSamples ? graphContent : noData
+    );
+    const noData = <Text>nope :(</Text>;
+    return this.props.heartRateSamples && this.props.stepSamples
+      ? graphContent
+      : noData;
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -75,3 +85,8 @@ const mapStateToProps = state => {
     stepSamples: state.steps
   };
 };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Graphmaker);
