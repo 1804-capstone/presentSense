@@ -16,7 +16,7 @@ import AppleHealthKit from "rn-apple-healthkit";
 
 let stepOptions = {
   startDate: new Date(2018, 5, 1).toISOString(), // required
-  endDate: new Date(2018, 5, 7).toISOString() // optional; default now
+  endDate: new Date().toISOString() // optional; default now
 };
 
 const data = [
@@ -63,9 +63,11 @@ class StepsGraph extends React.Component {
     };
     this.getSteps = this.getSteps.bind(this);
     this.makeGraph = this.makeGraph.bind(this);
+    this.newStepOptions = this.newStepOptions.bind(this);
   }
   componentDidMount() {
     if (!this.props.steps.length) {
+      this.newStepOptions();
       this.props.fetchLatestSteps(stepOptions);
     }
     this.getSteps();
@@ -73,18 +75,22 @@ class StepsGraph extends React.Component {
   }
 
   async getSteps() {
-    // stepOptions = { ...stepOptions, endDate: new Date() };
     try {
+      this.newStepOptions();
       await this.props.fetchLatestSteps(stepOptions);
       this.setState({ steps: this.props.steps });
     } catch (err) {
       console.log("error gettting steps", err);
     }
   }
+  newStepOptions() {
+    stepOptions = { ...stepOptions, endDate: new Date().toISOString() };
+  }
   async makeGraph() {
     let stepValues;
     try {
       if (!this.props.steps || !this.props.steps.length) {
+        this.newStepOptions();
         this.props.fetchLatestSteps(stepOptions);
         stepValues = this.props.steps.map(step => ({
           value: step.value,
@@ -130,11 +136,9 @@ class StepsGraph extends React.Component {
     } catch (err) {
       console.log("error with steps making graph", err);
     }
-    // console.log("step values", stepValues);
   }
 
   render() {
-    // console.log("DO I HAVE PROPS", this.props);
     this.props.steps && this.props.steps.length && !this.state.lineShape.length
       ? this.makeGraph()
       : null;
@@ -149,7 +153,7 @@ class StepsGraph extends React.Component {
           height={Dimensions.get("window").height * 0.5}
         >
           <Group x={0} y={0}>
-            <Shape d={this.state.lineShape} stroke="#000" strokeWidth={1} />
+            <Shape d={this.state.lineShape} stroke="#000" strokeWidth={3} />
           </Group>
         </Surface>
       </View>
