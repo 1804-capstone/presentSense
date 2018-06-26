@@ -18,7 +18,7 @@ export default class Loading extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       console.log("***********************", user);
 
-      this.props.navigation.navigate(user ? "Home" : "LoginScreen");
+      this.props.navigation.navigate(user ? "HomeScreen" : "LoginScreen");
     });
   }
   render() {
@@ -28,7 +28,7 @@ export default class Loading extends React.Component {
         <ActivityIndicator size="large" />
         <Button
           title="do navigation"
-          onPress={() => this.props.navigation.navigate("Login")}
+          onPress={() => this.props.navigation.navigate("LoginScreen")}
         />
       </View>
     );

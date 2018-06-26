@@ -596,8 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */,
-				6075EEE920E0023A00F68CBE /* GoogleService-Info.plist */,
-				5194D1D820E0114C009C5422 /* GoogleService-Info.plist */,
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
 				408771B220E14273005699AC /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -652,6 +650,7 @@
 			children = (
 				72C3DA4586864129A4D99627 /* libRNFirebase.a */,
 				4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */,
+				F57F722020E1415F00ADB517 /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1301,9 +1300,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-
-				6075EF1120E0023A00F68CBE /* GoogleService-Info.plist in Resources */,
-				5194D20020E0114C009C5422 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				451F77C9F8674423933CB13D /* Entypo.ttf in Resources */,
 				D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */,
