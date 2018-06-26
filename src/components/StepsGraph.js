@@ -54,61 +54,143 @@ const data = [
   }
 ];
 
-const y = scaleLinear()
-  .domain([0, 40000])
-  .range([0, 400]);
-const x = scaleTime()
-  .domain([new Date(2018, 6, 4), new Date(2018, 6, 12)])
-  .range([0, 400]);
+// const y = scaleLinear()
+//   .domain([0, 10000])
+//   .range([0, 400]);
+// const x = scaleTime()
+//   .domain([new Date(2018, 4, 1), new Date(2018, 4, 8)])
+//   .range([0, 400]);
 
-const dataLine = line()
-  .x(function(d) {
-    return x(d.date);
-  })
-  .y(function(d) {
-    return y(d.value);
-  });
+// const dataLine = line()
+//   .x(function(d) {
+//     return x(d.date);
+//   })
+//   .y(function(d) {
+//     return y(d.value);
+//   });
 
-const dataShape = dataLine(data);
+//const dataShape = dataLine(data);
 
 class StepsGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      steps: []
+      steps: [],
+      lineShape: ""
     };
     this.getSteps = this.getSteps.bind(this);
+    this.makeGraph = this.makeGraph.bind(this);
   }
   componentDidMount() {
     if (!this.props.steps.length) {
       this.props.fetchLatestSteps(stepOptions);
     }
     this.getSteps();
+    this.makeGraph();
   }
 
-  getSteps() {
-    stepOptions = { ...stepOptions };
-    this.props.fetchLatestSteps(stepOptions);
-    this.setState({ steps: this.props.steps });
+  async getSteps() {
+    // stepOptions = { ...stepOptions, endDate: new Date() };
+    try {
+      await this.props.fetchLatestSteps(stepOptions);
+      this.setState({ steps: this.props.steps });
+    } catch (err) {
+      console.log("error gettting steps", err);
+    }
+  }
+  async makeGraph() {
+    let stepValues;
+    // if (this.props.steps && this.props.steps.length) {
+    //   stepValues = this.props.steps.map(step => ({
+    //     value: step.value,
+    //     startDate: new Date(step.startDate).getTime,
+    //     endDate: new Date(step.endDate).getTime
+    //   }));
+    // } else {
+    //   try {
+    //     await this.getSteps();
+    //     stepValues = this.props.steps.map(step => ({
+    //       value: step.value,
+    //       startDate: new Date(step.startDate),
+    //       endDate: new Date(step.endDate)
+    //     }));
+    //   } catch (err) {
+    //     console.log("error with steps making graph", err);
+    //   }
+    // }
+    try {
+      if (!this.props.steps || !this.props.steps.length) {
+        //await this.getSteps();
+
+        this.props.fetchLatestSteps(stepOptions);
+        stepValues = this.props.steps.map(step => ({
+          value: step.value,
+          startDate: new Date(step.startDate).getTime(),
+          endDate: new Date(step.endDate).getTime()
+        }));
+      } else {
+        stepValues = this.props.steps.map(step => ({
+          value: step.value,
+          startDate: new Date(step.startDate).getTime(),
+          endDate: new Date(step.endDate).getTime()
+        }));
+      }
+      console.log("we have steps?", stepValues);
+      for (let i = 0; i < this.props.steps.length; i++) {
+        console.log(
+          "**",
+          this.props.steps[i].endDate.slice(0, -5),
+          new Date(this.props.steps[i].endDate.slice(0, -5)),
+          new Date(this.props.steps[i].endDate).getTime()
+        );
+      }
+      let minDate = stepValues[0].endDate;
+      let maxDate = stepValues[stepValues.length - 1].endDate;
+      const y = scaleLinear()
+        .domain([0, 10000])
+        .range([0, 400]);
+      const x = scaleTime()
+        .domain([minDate, maxDate])
+        .range([0, 400]);
+      const lineGraph = line()
+        .x(function(d) {
+          return x(d.endDate);
+        })
+        .y(function(d) {
+          return y(d.value);
+        });
+      const lineShape = lineGraph(stepValues);
+      console.log("shape of my line", lineShape);
+      if (stepValues && stepValues.length) {
+        this.setState({ lineShape: lineShape });
+      }
+      return lineShape;
+    } catch (err) {
+      console.log("error with steps making graph", err);
+    }
+    // console.log("step values", stepValues);
   }
 
   render() {
+    // console.log("DO I HAVE PROPS", this.props);
+    this.props.steps && this.props.steps.length && !this.state.lineShape.length
+      ? this.makeGraph()
+      : null;
     const noData = (
       <Text>There does not seem to be data for your step count.</Text>
     );
-
     const stepData = (
       <View style={styles.container}>
         <Text style={styles.heading}>Your weekly step count</Text>
         <Surface width={400} height={500}>
           <Group x={0} y={0}>
-            <Shape d={dataShape} stroke="#000" strokeWidth={1} />
+            <Shape d={this.makeGraph} stroke="#000" strokeWidth={1} />
           </Group>
         </Surface>
       </View>
     );
 
-    return this.state.steps.length ? stepData : noData;
+    return this.props.steps && this.props.steps.length ? stepData : noData;
   }
 }
 
