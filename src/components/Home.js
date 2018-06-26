@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
 import firebase from "react-native-firebase";
+import { connect } from 'react-redux'
+import { signOutUser } from '../store/firebase'
 
 let options = {
   permissions: {
@@ -20,7 +22,7 @@ let options = {
   }
 };
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,14 +30,11 @@ export default class Home extends React.Component {
     };
     this.handleLogout = this.handleLogout.bind(this);
   }
-  handleLogout = async () => {
-    try {
-      await firebase.auth().signOut();
-      this.props.navigation.navigate("LoginScreen");
-    } catch (err) {
-      console.log("cannot log out,", err);
-    }
-  };
+
+  handleLogout() {
+    const { navigate } = this.props.navigation
+    this.props.signOutUser(navigate)
+  }
 
   render() {
     AppleHealthKit.isAvailable((err, available) => {
@@ -61,6 +60,16 @@ export default class Home extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+        <Button
+          title="Logout"
+          raised
+          style={styles.buttons}
+          buttonStyle={{width: '25%', alignSelf: 'flex-end'}}
+          borderRadius={10}
+          fontSize={15}
+          backgroundColor="#80CBC4"
+          onPress={() => this.handleLogout()}
+        />
         <Button
           title="Dashboard"
           raised
@@ -99,7 +108,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00897B"
-          onPress={() => this.handleLogout()}
+          onPress={() => navigate("")}
         />
         <Button
           title="Mood Maps"
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0F2F1",
     // alignItems: 'center',
     justifyContent: "space-between",
-    paddingTop: "10%",
+    paddingTop: "5%",
     paddingBottom: "10%"
   },
   buttons: {
@@ -131,3 +140,12 @@ const styles = StyleSheet.create({
     // flex: 1
   }
 });
+
+
+const mapDispatch = dispatch => {
+  return {
+    signOutUser: (navigate) => dispatch(signOutUser(navigate))
+  }
+}
+
+export default connect(null, mapDispatch)(Home)
