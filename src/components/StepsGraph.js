@@ -80,7 +80,7 @@ class StepsGraph extends React.Component {
     this.getSteps = this.getSteps.bind(this);
   }
   componentDidMount() {
-    if (!this.props.stepSamples.length) {
+    if (!this.props.steps.length) {
       this.props.fetchLatestSteps(stepOptions);
     }
     this.getSteps();
