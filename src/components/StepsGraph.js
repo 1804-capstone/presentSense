@@ -65,6 +65,8 @@ class StepsGraph extends React.Component {
     this.makeGraph = this.makeGraph.bind(this);
     this.newStepOptions = this.newStepOptions.bind(this);
   }
+  //options to help us set up the d3/ART surface
+
   componentDidMount() {
     if (!this.props.steps.length) {
       this.newStepOptions();
