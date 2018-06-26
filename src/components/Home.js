@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
+import firebase from "react-native-firebase";
 
 let options = {
   permissions: {
@@ -25,7 +26,16 @@ export default class Home extends React.Component {
     this.state = {
       available: false
     };
+    this.handleLogout = this.handleLogout.bind(this);
   }
+  handleLogout = async () => {
+    try {
+      await firebase.auth().signOut();
+      this.props.navigation.navigate("LoginScreen");
+    } catch (err) {
+      console.log("cannot log out,", err);
+    }
+  };
 
   render() {
     AppleHealthKit.isAvailable((err, available) => {
@@ -89,7 +99,7 @@ export default class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00897B"
-          onPress={() => navigate("StressRelief")}
+          onPress={() => this.handleLogout()}
         />
         <Button
           title="Mood Maps"

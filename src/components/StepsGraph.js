@@ -2,14 +2,22 @@ import React from "react";
 import { View, Text, ART, StyleSheet } from "react-native";
 const { Surface, Group, Shape } = ART;
 import { scaleLinear, scaleTime } from "d3-scale";
+import { connect } from "react-redux";
 import { line } from "d3-shape";
 import * as d3Array from "d3-array";
 import * as d3 from "d3";
+import { fetchLatestSteps } from "../store/steps";
+import AppleHealthKit from "rn-apple-healthkit";
 
 // const d3 = {
 //   scale,
 //   shape
 // };
+
+let stepOptions = {
+  startDate: new Date(2018, 5, 1).toISOString(), // required
+  endDate: new Date(2018, 5, 8).toISOString() // optional; default now
+};
 
 const data = [
   {
@@ -63,10 +71,33 @@ const dataLine = line()
 
 const dataShape = dataLine(data);
 
-export default class LineGraph extends React.Component {
+class StepsGraph extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      steps: []
+    };
+    this.getSteps = this.getSteps.bind(this);
+  }
+  componentDidMount() {
+    if (!this.props.steps.length) {
+      this.props.fetchLatestSteps(stepOptions);
+    }
+    this.getSteps();
+  }
+
+  getSteps() {
+    stepOptions = { ...stepOptions };
+    this.props.fetchLatestSteps(stepOptions);
+    this.setState({ steps: this.props.steps });
+  }
+
   render() {
-    console.log("HERE IS THE DATA LINE!!!!!!!!", dataLine);
-    return (
+    const noData = (
+      <Text>There does not seem to be data for your step count.</Text>
+    );
+
+    const stepData = (
       <View style={styles.container}>
         <Text style={styles.heading}>Your weekly step count</Text>
         <Surface width={400} height={500}>
@@ -76,8 +107,27 @@ export default class LineGraph extends React.Component {
         </Surface>
       </View>
     );
+
+    return this.state.steps.length ? stepData : noData;
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    steps: state.steps
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchLatestSteps: options => dispatch(fetchLatestSteps(options))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StepsGraph);
 
 const styles = StyleSheet.create({
   container: {
