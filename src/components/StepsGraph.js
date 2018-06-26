@@ -80,7 +80,7 @@ class StepsGraph extends React.Component {
     this.getSteps = this.getSteps.bind(this);
   }
   componentDidMount() {
-    if (!this.props.steps.length) {
+    if (!this.props.stepSamples.length) {
       this.props.fetchLatestSteps(stepOptions);
     }
     this.getSteps();
@@ -93,7 +93,11 @@ class StepsGraph extends React.Component {
   }
 
   render() {
-    return (
+    const noData = (
+      <Text>There does not seem to be data for your step count.</Text>
+    );
+
+    const stepData = (
       <View style={styles.container}>
         <Text style={styles.heading}>Your weekly step count</Text>
         <Surface width={400} height={500}>
@@ -103,6 +107,8 @@ class StepsGraph extends React.Component {
         </Surface>
       </View>
     );
+
+    return this.state.steps.length ? stepData : noData;
   }
 }
 
