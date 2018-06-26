@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ART, StyleSheet } from "react-native";
+import { View, Text, ART, StyleSheet, Dimensions } from "react-native";
 const { Surface, Group, Shape } = ART;
 import { scaleLinear, scaleTime } from "d3-scale";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ import AppleHealthKit from "rn-apple-healthkit";
 
 let stepOptions = {
   startDate: new Date(2018, 5, 1).toISOString(), // required
-  endDate: new Date(2018, 5, 8).toISOString() // optional; default now
+  endDate: new Date(2018, 5, 7).toISOString() // optional; default now
 };
 
 const data = [
@@ -54,23 +54,6 @@ const data = [
   }
 ];
 
-// const y = scaleLinear()
-//   .domain([0, 10000])
-//   .range([0, 400]);
-// const x = scaleTime()
-//   .domain([new Date(2018, 4, 1), new Date(2018, 4, 8)])
-//   .range([0, 400]);
-
-// const dataLine = line()
-//   .x(function(d) {
-//     return x(d.date);
-//   })
-//   .y(function(d) {
-//     return y(d.value);
-//   });
-
-//const dataShape = dataLine(data);
-
 class StepsGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -100,58 +83,37 @@ class StepsGraph extends React.Component {
   }
   async makeGraph() {
     let stepValues;
-    // if (this.props.steps && this.props.steps.length) {
-    //   stepValues = this.props.steps.map(step => ({
-    //     value: step.value,
-    //     startDate: new Date(step.startDate).getTime,
-    //     endDate: new Date(step.endDate).getTime
-    //   }));
-    // } else {
-    //   try {
-    //     await this.getSteps();
-    //     stepValues = this.props.steps.map(step => ({
-    //       value: step.value,
-    //       startDate: new Date(step.startDate),
-    //       endDate: new Date(step.endDate)
-    //     }));
-    //   } catch (err) {
-    //     console.log("error with steps making graph", err);
-    //   }
-    // }
     try {
       if (!this.props.steps || !this.props.steps.length) {
-        //await this.getSteps();
-
         this.props.fetchLatestSteps(stepOptions);
         stepValues = this.props.steps.map(step => ({
           value: step.value,
-          startDate: new Date(step.startDate).getTime(),
-          endDate: new Date(step.endDate).getTime()
+          startDate: new Date(step.startDate.slice(0, -5)),
+          endDate: new Date(step.endDate.slice(0, -5))
         }));
+        //reverse the array so that data comes in from oldest to newest
+        stepValues.reverse();
       } else {
         stepValues = this.props.steps.map(step => ({
           value: step.value,
-          startDate: new Date(step.startDate).getTime(),
-          endDate: new Date(step.endDate).getTime()
+          startDate: new Date(step.startDate.slice(0, -5)),
+          endDate: new Date(step.endDate.slice(0, -5))
         }));
+        //reverse the array so that data comes in from oldest to newest
+        stepValues.reverse();
       }
-      console.log("we have steps?", stepValues);
-      for (let i = 0; i < this.props.steps.length; i++) {
-        console.log(
-          "**",
-          this.props.steps[i].endDate.slice(0, -5),
-          new Date(this.props.steps[i].endDate.slice(0, -5)),
-          new Date(this.props.steps[i].endDate).getTime()
-        );
-      }
+      //calculate the correct date domain based on the data we have queried from healthkit
       let minDate = stepValues[0].endDate;
       let maxDate = stepValues[stepValues.length - 1].endDate;
+      //what are our device dimensions?
+      const { height, width } = Dimensions.get("window");
       const y = scaleLinear()
         .domain([0, 10000])
-        .range([0, 400]);
+        .range([0, height * 0.5]);
       const x = scaleTime()
         .domain([minDate, maxDate])
-        .range([0, 400]);
+        .range([0, width]);
+      //set up a the linegraph
       const lineGraph = line()
         .x(function(d) {
           return x(d.endDate);
@@ -160,7 +122,7 @@ class StepsGraph extends React.Component {
           return y(d.value);
         });
       const lineShape = lineGraph(stepValues);
-      console.log("shape of my line", lineShape);
+      //keep our linegraph in local state?
       if (stepValues && stepValues.length) {
         this.setState({ lineShape: lineShape });
       }
@@ -182,9 +144,12 @@ class StepsGraph extends React.Component {
     const stepData = (
       <View style={styles.container}>
         <Text style={styles.heading}>Your weekly step count</Text>
-        <Surface width={400} height={500}>
+        <Surface
+          width={Dimensions.get("window").width}
+          height={Dimensions.get("window").height * 0.5}
+        >
           <Group x={0} y={0}>
-            <Shape d={this.makeGraph} stroke="#000" strokeWidth={1} />
+            <Shape d={this.state.lineShape} stroke="#000" strokeWidth={1} />
           </Group>
         </Surface>
       </View>
