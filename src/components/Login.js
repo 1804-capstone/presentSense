@@ -33,7 +33,7 @@ class Login extends React.Component {
         </View>
         {/* {!this.state.user &&   */}
         <View style={{ marginTop: 200 }}>
-          <LoginForm />
+          <LoginForm navigation={this.props.navigation}/>
         </View>
         {/* } */}
         {/* <View style={{ flex: 1, backgroundColor:  }}>

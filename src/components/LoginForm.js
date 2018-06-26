@@ -2,44 +2,37 @@ import React from "react";
 import firebase from "react-native-firebase";
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { Button } from "react-native-elements";
+import { connect } from 'react-redux'
+import { signUpUser, signIn } from '../store/firebase'
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: "",
-      errorMessage: null
+      password: ""
     };
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this)
   }
-  handleLogin = async () => {
+
+  handleLogin() {
     const { email, password } = this.state;
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      this.props.navigation.navigate("HomeScreen");
-    } catch (err) {
-      this.setState({ errorMessage: err.message });
-      console.log(err);
-    }
-  };
-  handleSignup = async () => {
-    try {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.state.email, this.state.password);
-      this.props.navigation.navigate("HomeScreen");
-    } catch (err) {
-      console.log(err);
-      this.setState({ errorMessage: err.message });
-    }
-  };
+    const { navigate } = this.props.navigation
+    this.props.signIn(email, password, navigate)
+  }
+
+  handleSignup() {
+    const { navigate } = this.props.navigation
+    this.props.signUpUser(this.state.email, this.state.password, navigate)
+  }
+
   render() {
     return (
       <View style={{ backgroundColor: "#E0F2F1" }}>
         <Text>Login!</Text>
-        {this.state.errorMessage && (
-          <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+        {this.props.errorMessage && (
+          <Text style={{ color: "red" }}>{this.props.errorMessage}</Text>
         )}
         <TextInput
           placeholder="Email"
@@ -76,3 +69,18 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+const mapState = state => {
+  return {
+    errorMessage: state.firestoreStore.errorMessage
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    signUpUser: (email, password, navigate) => dispatch(signUpUser(email, password, navigate)),
+    signIn: (email, password, navigate) => dispatch(signIn(email, password, navigate))
+  }
+}
+
+export default connect(mapState, mapDispatch)(LoginForm)
