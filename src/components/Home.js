@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
 import firebase from "react-native-firebase";
-import { connect } from 'react-redux'
-import { signOutUser } from '../store/firebase'
+import { connect } from "react-redux";
+import { signOutUser } from "../store/firebase";
 
 let options = {
   permissions: {
@@ -32,8 +32,8 @@ class Home extends React.Component {
   }
 
   handleLogout() {
-    const { navigate } = this.props.navigation
-    this.props.signOutUser(navigate)
+    const { navigate } = this.props.navigation;
+    this.props.signOutUser(navigate);
   }
 
   render() {
@@ -64,7 +64,7 @@ class Home extends React.Component {
           title="Logout"
           raised
           style={styles.buttons}
-          buttonStyle={{width: '25%', alignSelf: 'flex-end'}}
+          buttonStyle={{ width: "25%", alignSelf: "flex-end" }}
           borderRadius={10}
           fontSize={15}
           backgroundColor="#80CBC4"
@@ -88,7 +88,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#26A69A"
-          onPress={() => navigate("Dashboard")}
+          onPress={() => navigate("Preferences")}
         />
         <Button
           title="My Entries"
@@ -141,11 +141,13 @@ const styles = StyleSheet.create({
   }
 });
 
-
 const mapDispatch = dispatch => {
   return {
-    signOutUser: (navigate) => dispatch(signOutUser(navigate))
-  }
-}
+    signOutUser: navigate => dispatch(signOutUser(navigate))
+  };
+};
 
-export default connect(null, mapDispatch)(Home)
+export default connect(
+  null,
+  mapDispatch
+)(Home);
