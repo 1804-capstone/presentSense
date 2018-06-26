@@ -5,9 +5,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 //import individual reducers for data sources
 import heartRate from "./heartrate";
+import steps from "./steps";
 
 const reducer = combineReducers({
-  heartRate
+  heartRate,
+  steps
 });
 
 const middleware = composeWithDevTools(
