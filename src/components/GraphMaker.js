@@ -3,7 +3,7 @@ import { View, Text, ART, StyleSheet, Dimensions } from "react-native";
 const { Surface, Group, Shape } = ART;
 import { scaleLinear, scaleTime } from "d3-scale";
 import { connect } from "react-redux";
-import { line } from "d3-shape";
+import { line, rec } from "d3-shape";
 import * as d3Array from "d3-array";
 import { axisBottom } from "d3-axis";
 import * as d3 from "d3";
@@ -28,7 +28,8 @@ class Graphmaker extends React.Component {
     this.state = {
       steps: [],
       heartRate: [],
-      xAxis: 0
+      xAxis: 0,
+      xAxisLine: ""
     };
     this.getSteps = this.getSteps.bind(this);
     this.getHeartRate = this.getHeartRate.bind(this);
@@ -57,17 +58,29 @@ class Graphmaker extends React.Component {
     const width = Dimensions.get("window").width;
     const xAxis = end.diff(start, "days");
     this.setState({ xAxis: xAxis });
+    // const x = scaleTime()
+    //   .domain([
+    //     new Date(queryOptions.startDate),
+    //     new Date(queryOptions.endDate)
+    //   ])
+    //   .range([0, width * 0.8]);
     const x = scaleTime()
-      .domain([
-        new Date(queryOptions.startDate),
-        new Date(queryOptions.endDate)
-      ])
+      .domain([0, 1])
       .range([0, width * 0.8]);
-    const xAxisLine = axisBottom(x).ticks(26);
-    // const arr = new Array(xAxis);
-    // const indexArr = arr.map(elem => arr.indexOf(elem));
-    // xAxisLine(indexArr);
-    // console.log("here is my x axis points", xAxisLine(indexArr));
+    // const xAxisLine = axisBottom(x).ticks(26);
+    console.log("what is X", x);
+    let arr = [];
+    for (let i = 0; i < xAxis; i++) {
+      arr.push(i);
+    }
+    let xAxisLine = line()
+      .x(function(d) {
+        return x(d);
+      })
+      .y(() => 0);
+    let myLine = xAxisLine(arr);
+    this.setState({ xAxisLine: myLine });
+    console.log("what is my line", myLine);
   }
 
   async getSteps() {
@@ -104,11 +117,18 @@ class Graphmaker extends React.Component {
         </View>
         <View style={styles.xAxis}>
           <Text>{this.state.xAxis.toString()}</Text>
-          {/* <Surface>
-            <Group x={0} y={0}>
-              <Shape d={}
+          <Surface
+            width={Dimensions.get("window").width * 0.8}
+            height={Dimensions.get("window").height * 0.02}
+          >
+            <Group x={0} y={5}>
+              <Shape
+                d={this.state.xAxisLine}
+                stroke={"#2ca02c"}
+                strokeWidth={10}
+              />
             </Group>
-          </Surface> */}
+          </Surface>
         </View>
       </View>
     );
