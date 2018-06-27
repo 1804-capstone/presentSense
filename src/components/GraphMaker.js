@@ -67,7 +67,7 @@ class Graphmaker extends React.Component {
       </View>
     );
     const noData = <Text>nope :(</Text>;
-    return this.props.heartRateSamples.length && this.props.stepSamples.length
+    return this.props.stepSamples.length && this.props.heartRateSamples.length
       ? graphContent
       : noData;
   }

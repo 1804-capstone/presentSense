@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { line } from "d3-shape";
 import * as d3Array from "d3-array";
 import * as d3 from "d3";
-import { fetchLatestSteps } from "../store/steps";
 import AppleHealthKit from "rn-apple-healthkit";
 
 // const d3 = {
@@ -21,36 +20,36 @@ let stepOptions = {
 
 const data = [
   {
-    value: 8844,
-    date: new Date(2018, 6, 11)
+    value: 6000,
+    endDate: new Date(2018, 6, 11)
   },
   {
-    value: 31334.089178032547,
-    date: new Date(2018, 6, 10)
+    value: 6000,
+    endDate: new Date(2018, 6, 10)
   },
   {
-    value: 7200.910821967459,
-    date: new Date(2018, 6, 9)
+    value: 7000,
+    endDate: new Date(2018, 6, 9)
   },
   {
-    value: 8306.47278558407,
-    date: new Date(2018, 6, 8)
+    value: 10000,
+    endDate: new Date(2018, 6, 8)
   },
   {
-    value: 13022.527214415924,
-    date: new Date(2018, 6, 7)
+    value: 11000,
+    endDate: new Date(2018, 6, 7)
   },
   {
-    value: 7505,
-    date: new Date(2018, 6, 6)
+    value: 9000,
+    endDate: new Date(2018, 6, 6)
   },
   {
-    value: 7959,
-    date: new Date(2018, 6, 5)
+    value: 3000,
+    endDate: new Date(2018, 6, 5)
   },
   {
-    value: 6808.313621096995,
-    date: new Date(2018, 6, 4)
+    value: 8000,
+    endDate: new Date(2018, 6, 4)
   }
 ];
 
@@ -95,19 +94,36 @@ export default class HealthGraph extends React.Component {
       let minDate = new Date(this.props.startDate);
       let maxDate = new Date(this.props.endDate);
       const { height, width } = Dimensions.get("window");
-      const y = scaleLinear()
+      const yStep = scaleLinear()
         .domain([0, 10000])
         .range([0, height * 0.5]);
       const x = scaleTime()
         .domain([minDate, maxDate])
         .range([0, width]);
-      const lineGraph = line()
+      const stepLineGraph = line()
         .x(function(d) {
           return x(d.endDate);
         })
         .y(function(d) {
-          return y(d.value);
+          return yStep(d.value);
         });
+
+      const yHeart = scaleLinear()
+        .domain([0, 300])
+        .range([0, height * 0.5]);
+      const heartLineGraph = line()
+        .defined(function(d) {
+          return d.value;
+        })
+        .x(function(d) {
+          return x(d.endDate);
+        })
+        .y(function(d) {
+          return yHeart(d.value);
+        });
+
+      // const heartLineShape = lineGraph(data);
+      // this.setState({ heartLineShape: heartLineShape });
 
       let stepValues;
       if (this.props.data.steps && this.props.data.steps.length) {
@@ -125,19 +141,37 @@ export default class HealthGraph extends React.Component {
         }));
         stepValues.reverse();
       }
-      const stepLineShape = lineGraph(stepValues);
+      const stepLineShape = stepLineGraph(stepValues);
       if (stepValues && stepValues.length) {
         this.setState({ stepLineShape: stepLineShape });
       }
+      let heartValues;
+      if (this.props.data.heartRate && this.props.data.heartRate.length) {
+        heartValues = this.props.data.heartRate.map(rate => ({
+          value: rate.value,
+          startDate: new Date(rate.startDate.slice(0, -5)),
+          endDate: new Date(rate.endDate.slice(0, -5))
+        }));
+        heartValues.reverse();
+      }
+      const heartLineShape = heartLineGraph(heartValues);
+      if (heartValues && heartValues.length) {
+        this.setState({ heartLineShape: heartLineShape });
+      }
     } catch (err) {
-      console.log("error with steps making graph", err);
+      console.log("error making graph", err);
     }
   }
 
   render() {
+    console.log("HERE IS MY STATE", this.state);
+
     this.props.data.steps &&
     this.props.data.steps.length &&
-    !this.state.stepLineShape.length
+    !this.state.stepLineShape.length &&
+    this.props.data.heartRate &&
+    this.props.data.heartRate.length &&
+    !this.state.heartLineShape.length
       ? this.makeGraph()
       : null;
     const noData = (
@@ -149,12 +183,15 @@ export default class HealthGraph extends React.Component {
         height={Dimensions.get("window").height * 0.5}
       >
         <Group x={0} y={0}>
-          <Shape d={this.state.stepLineShape} stroke="#000" strokeWidth={3} />
+          <Shape d={this.state.stepLineShape} stroke="blue" strokeWidth={3} />
+          <Shape d={this.state.heartLineShape} stroke="red" strokeWidth={1} />
         </Group>
       </Surface>
     );
 
-    return this.props.data.steps && this.props.data.steps.length
+    return this.props.data.steps &&
+      this.props.data.steps.length &&
+      this.state.heartLineShape.length
       ? stepData
       : noData;
   }
