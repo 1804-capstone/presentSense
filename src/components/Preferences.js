@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput, Switch } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
+import { updateUserPrefs } from "../store/firebase";
 
-export default class Preferences extends React.Component {
+class Preferences extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,16 +17,24 @@ export default class Preferences extends React.Component {
       location: true
       //accessibility?
     };
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave() {
+    const { navigate } = this.props.navigation;
+    this.props.updateUserPrefs(this.props.userDocId, this.state, navigate);
   }
 
   render() {
+    console.log("USERDOCID???", this.props.userDocId);
     const { navigate } = this.props.navigation;
+    console.log("CAN WE NAV?", navigate);
     return (
       <View style={styles.container}>
         <Text>Name: </Text>
         <TextInput
           style={{ height: 20, borderColor: "gray", borderWidth: 1 }}
-          value={this.state.name}
+          value={this.props.preferences.name}
           onChangeText={name => this.setState({ name })}
         />
         <Text>Tracked Metrics</Text>
@@ -63,7 +72,7 @@ export default class Preferences extends React.Component {
           value={this.state.location}
           onValueChange={value => this.setState({ location: value })}
         />
-        <Button title="Save Changes" onPress={() => navigate("HomeScreen")} />
+        <Button title="Save Changes" onPress={this.handleSave} />
       </View>
     );
   }
@@ -84,3 +93,22 @@ const styles = StyleSheet.create({
     // flex: 1
   }
 });
+
+const mapDispatch = dispatch => {
+  return {
+    updateUserPrefs: (docId, preferences, navigate) =>
+      dispatch(updateUserPrefs(docId, preferences, navigate))
+  };
+};
+
+const mapState = state => {
+  return {
+    userDocId: state.firestoreStore.userDocId,
+    preferences: state.firestoreStore.preferences
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Preferences);

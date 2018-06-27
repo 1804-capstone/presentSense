@@ -58,6 +58,8 @@ class Home extends React.Component {
       // now safe to read and write Healthkit data...
     });
     const { navigate } = this.props.navigation;
+
+    console.log("USERDOC!!!!!", this.props.userDocId);
     return (
       <View style={styles.container}>
         <Button
@@ -147,7 +149,13 @@ const mapDispatch = dispatch => {
   };
 };
 
+const mapState = state => {
+  return {
+    userDocId: state.firestoreStore.userDocId
+  };
+};
+
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(Home);
