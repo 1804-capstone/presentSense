@@ -55,15 +55,29 @@ class Graphmaker extends React.Component {
   }
   render() {
     const graphContent = (
-      <View>
-        <StepsGraph
-          startDate={queryOptions.startDate}
-          endDate={queryOptions.endDate}
-          data={{
-            steps: this.props.stepSamples,
-            heartRate: this.props.heartRateSamples
-          }}
-        />
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <View>
+            <Text>Y</Text>
+          </View>
+
+          <View style={styles.graph}>
+            <StepsGraph
+              startDate={queryOptions.startDate}
+              endDate={queryOptions.endDate}
+              data={{
+                steps: this.props.stepSamples,
+                heartRate: this.props.heartRateSamples
+              }}
+            />
+          </View>
+          <View>
+            <Text>Y</Text>
+          </View>
+        </View>
+        <View style={styles.xAxis}>
+          <Text>THIS IS THE X AXIS!!!</Text>
+        </View>
       </View>
     );
     const noData = <Text>nope :(</Text>;
@@ -85,6 +99,29 @@ const mapStateToProps = state => {
     stepSamples: state.steps
   };
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    backgroundColor: "pink"
+  },
+  subContainer: {
+    flex: 0.6,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "red"
+  },
+  graph: {
+    backgroundColor: "green"
+  },
+  xAxis: {
+    backgroundColor: "blue"
+  }
+});
 
 export default connect(
   mapStateToProps,

@@ -99,7 +99,7 @@ export default class HealthGraph extends React.Component {
         .range([0, height * 0.5]);
       const x = scaleTime()
         .domain([minDate, maxDate])
-        .range([0, width]);
+        .range([0, width * 0.8]);
       const stepLineGraph = line()
         .x(function(d) {
           return x(d.endDate);
@@ -179,7 +179,7 @@ export default class HealthGraph extends React.Component {
     );
     const stepData = (
       <Surface
-        width={Dimensions.get("window").width}
+        width={Dimensions.get("window").width * 0.8}
         height={Dimensions.get("window").height * 0.5}
       >
         <Group x={0} y={0}>
