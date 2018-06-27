@@ -5,8 +5,10 @@ import { scaleLinear, scaleTime } from "d3-scale";
 import { connect } from "react-redux";
 import { line } from "d3-shape";
 import * as d3Array from "d3-array";
+import { axisBottom } from "d3-axis";
 import * as d3 from "d3";
 import StepsGraph from "./StepsGraph";
+import moment from "moment";
 
 //thunks we're gonna need
 import {
@@ -25,10 +27,12 @@ class Graphmaker extends React.Component {
     //arrays for all the types of data we are expecting
     this.state = {
       steps: [],
-      heartRate: []
+      heartRate: [],
+      xAxis: 0
     };
     this.getSteps = this.getSteps.bind(this);
     this.getHeartRate = this.getHeartRate.bind(this);
+    this.getXAxis = this.getXAxis.bind(this);
   }
   componentDidMount() {
     if (!this.props.heartRateSamples || !this.props.heartRateSamples.length) {
@@ -39,10 +43,33 @@ class Graphmaker extends React.Component {
       this.props.fetchStepsOverTime(queryOptions);
       this.setState({ steps: this.props.stepSamples });
     }
+    if (this.state.xAxis === 0) {
+      this.getXAxis();
+    }
   }
   newQueryOptions() {
     queryOptions = { ...queryOptions, endDate: new Date().toISOString() };
   }
+
+  getXAxis() {
+    let start = moment(queryOptions.startDate);
+    let end = moment(queryOptions.endDate);
+    const width = Dimensions.get("window").width;
+    const xAxis = end.diff(start, "days");
+    this.setState({ xAxis: xAxis });
+    const x = scaleTime()
+      .domain([
+        new Date(queryOptions.startDate),
+        new Date(queryOptions.endDate)
+      ])
+      .range([0, width * 0.8]);
+    const xAxisLine = axisBottom(x).ticks(26);
+    // const arr = new Array(xAxis);
+    // const indexArr = arr.map(elem => arr.indexOf(elem));
+    // xAxisLine(indexArr);
+    // console.log("here is my x axis points", xAxisLine(indexArr));
+  }
+
   async getSteps() {
     try {
     } catch (err) {
@@ -76,7 +103,12 @@ class Graphmaker extends React.Component {
           </View>
         </View>
         <View style={styles.xAxis}>
-          <Text>THIS IS THE X AXIS!!!</Text>
+          <Text>{this.state.xAxis.toString()}</Text>
+          {/* <Surface>
+            <Group x={0} y={0}>
+              <Shape d={}
+            </Group>
+          </Surface> */}
         </View>
       </View>
     );
