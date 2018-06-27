@@ -7,14 +7,15 @@ const SIGNUP = "SIGNUP";
 const ERROR = "ERROR";
 const SIGNOUT = "SIGNOUT";
 const UPDATE_PREFS = "UPDATE_PREFS";
+const FETCH_USER = "FETCH_USER"
 
 /** ACTION CREATORS **/
 const login = user => ({ type: LOGIN, user });
-//does this signup take user?
 const signUp = user => ({ type: SIGNUP, user });
 const signOut = () => ({ type: SIGNOUT });
 const errorAction = errMessage => ({ type: ERROR, errMessage });
-const updatePrefs = preferences => ({ type: UPDATE_PREFS, preferences });
+const updatePrefs = (preferences, id) => ({ type: UPDATE_PREFS, preferences, id });
+const fetchUser = user => ({type: FETCH_USER, user})
 
 /** THUNK CREATORS **/
 
@@ -22,9 +23,16 @@ export const signIn = (email, password, navigate) => {
   return async dispatch => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      //this user obj passed into login may be changed
-      //once we know how it comes back from the db
-      dispatch(login({ email, password }));
+      db.collection('users')
+        .where("email", "==", email)
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                let { id } = doc
+                let data = doc.data()
+                // console.log('HI', doc.id, " => ", doc.data())
+                dispatch(login({ data, password, id}))
+            })})
       navigate("HomeScreen");
     } catch (err) {
       console.log("Error signing in: ", err.message);
@@ -32,6 +40,32 @@ export const signIn = (email, password, navigate) => {
     }
   };
 };
+
+export const fetchUserInfo = navigate => {
+  return async dispatch => {
+    try {
+      await firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log("LOGGED IN: ", user)
+          db.collection('users')
+            .where("email", "==", user.email)
+            .get()
+            .then(function(querySnapshot) {
+              querySnapshot.forEach(function(doc) {
+                let { id } = doc
+                let data = doc.data()
+                dispatch(fetchUser({ data, id}))
+            })})
+        } else {
+          navigate("LoginScreen")
+        }
+      });
+    } catch (err) {
+      console.log("Error fetching user info: ", err.message);
+      dispatch(errorAction(err.message));
+    }
+  }
+}
 
 export const signUpUser = (email, password, navigate) => {
   return async dispatch => {
@@ -85,12 +119,12 @@ export const signOutUser = navigate => {
 export const updateUserPrefs = (docId, preferences, navigate) => {
   return async dispatch => {
     try {
-      console.log("NAVNAV??", navigate);
+      console.log("GOT THESE things?", docId, preferences, navigate)
       await db
         .collection("users")
         .doc(docId)
         .update(preferences);
-      dispatch(updatePrefs(preferences));
+      dispatch(updatePrefs(preferences, docId));
       navigate("HomeScreen");
     } catch (err) {
       console.log("Error updating preferences: ", err.message);
@@ -102,8 +136,8 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
 /** INITIAL STATE **/
 //ON PAUSE
 const initialState = {
-  name: "",
-  email: "",
+  // name: "",
+  // email: "",
   password: "",
   errorMessage: null,
   userDocId: "",
@@ -123,15 +157,23 @@ export default (firestoreStore = (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        email: action.user.email,
-        password: action.user.password
+        email: action.user.data.email,
+        password: action.user.password,
+        preferences: action.user.data,
+        userDocId: action.user.id
       };
+    case FETCH_USER:
+      return {
+        ...state,
+        preferences: action.user.data,
+        userDocId: action.user.id
+      }
     case SIGNOUT:
       return state;
     case ERROR:
       return { ...state, errorMessage: action.errMessage };
     case UPDATE_PREFS:
-      return { ...state, preferences: action.preferences };
+      return { ...state, preferences: action.preferences, userDocId: action.id };
     default:
       return state;
   }

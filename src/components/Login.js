@@ -46,17 +46,5 @@ class Login extends React.Component {
     );
   }
 }
-// const dumbLogin = props => {
-//   return (
-//     <View style={{ flex: 1, backgroundColor: "steelblue" }}>
-//       <Image
-//         source={require("../images/confusedsmiley.png")}
-//         // style={{ width: 350, height: 350 }}
-//       />
-//       <Text>Hi</Text>
-//       <Text>Hey</Text>
-//     </View>
-//   );
-// };
 
 export default Login;

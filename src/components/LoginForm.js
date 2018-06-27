@@ -20,11 +20,13 @@ class LoginForm extends React.Component {
     const { email, password } = this.state;
     const { navigate } = this.props.navigation
     this.props.signIn(email, password, navigate)
+    this.setState({email: "", password: ""})
   }
 
   handleSignup() {
     const { navigate } = this.props.navigation
     this.props.signUpUser(this.state.email, this.state.password, navigate)
+    this.setState({email: "", password: ""})
   }
 
   render() {
