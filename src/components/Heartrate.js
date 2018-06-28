@@ -13,7 +13,7 @@ import {
 //starting options for heart rate gatherer
 let heartOptions = {
   unit: "bpm", // optional; default 'bpm'
-  startDate: new Date(2017, 6, 20).toISOString(), // required
+  startDate: new Date(2017, 5, 20).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10 // optional; default no limit
@@ -57,7 +57,7 @@ class Heartrate extends React.Component {
       context: gl
     });
     renderer.setSize(width, height);
-    renderer.setClearColor(0x000000, 1);
+    renderer.setClearColor(0xffffff, 1);
     let camera;
     let scene;
     let cube;
@@ -88,8 +88,11 @@ class Heartrate extends React.Component {
       cube = new THREE.Mesh(geometry, material);
       cube.position.y = 150;
 
-      let light = new THREE.AmbientLight(0x404040); // soft white light
+      let light = new THREE.AmbientLight(0x404040, 3.7); // soft white light
       scene.add(light);
+      // let pointLight = new THREE.PointLight(0xfffef7, 10, 100);
+      // pointLight.position.set(0, 150, 300);
+      // scene.add(pointLight);
 
       //meshyline
       // lineGeometry = new THREE.Geometry();
@@ -119,8 +122,14 @@ class Heartrate extends React.Component {
           150 + startingData * Math.cos(angle2 * i),
           0
         );
+        let v2 = new THREE.Vector3(
+          0.2 * startingData * Math.sin(angle2 * i + angle2 / 2),
+          150 + 0.2 * startingData * Math.cos(angle2 * i + angle2 / 2),
+          0
+        );
         heartGeometry.vertices.push(v);
-        heartGeometry.vertices.push(new THREE.Vector3(0, 150, 0));
+        heartGeometry.vertices.push(v2);
+        //heartGeometry.vertices.push(new THREE.Vector3(0, 150, 0));
         if (i === num - 1) {
           heartGeometry.vertices.push(
             new THREE.Vector3(
@@ -134,16 +143,18 @@ class Heartrate extends React.Component {
       let color;
       for (let i = 0; i < heartGeometry.vertices.length - 1; i += 2) {
         let face = new THREE.Face3(i, i + 1, i + 2);
+        // if()
+        // let innerFace = new THREE.Face3(i+1, i+2, i+3);
         for (let j = 0; j < 3; j++) {
-          color = new THREE.Color(0xffcc00);
-          color.setHSL(10 * i, 255 - 10 * i, 255 - 30 * j);
+          color = new THREE.Color(0xffffff);
+          color.setHSL(255, 255, 255);
           face.vertexColors[j] = color;
         }
         heartGeometry.faces.push(face);
       }
 
       heartMaterial = new THREE.MeshPhongMaterial({
-        color: 0x00ffcc,
+        color: 0xffffff,
         flatShading: true,
         vertexColors: THREE.VertexColors,
         shininess: 0
@@ -225,6 +236,7 @@ class Heartrate extends React.Component {
         heartGeometry.vertices[0].z
       );
       heartGeometry.verticesNeedUpdate = true;
+      heartGeometry.colorsNeedUpdate = true;
       //updating colors
       let faceIndices = ["a", "b", "c"];
       let vertexIdx;
@@ -243,19 +255,44 @@ class Heartrate extends React.Component {
           data = 100 + 40 * Math.sin(clock.getElapsedTime() - 10 * i);
         }
         let face = heartGeometry.faces[i];
-        console.log("data values", data);
+        //console.log("data values", data);
+        //console.log("vertex colors", heartGeometry.faces[i].vertexColors);
         for (let j = 0; j < 3; j++) {
-          vertexIdx = face[faceIndices[j]];
-          p = heartGeometry.vertices[vertexIdx];
-          color = new THREE.Color(0xffffff);
-          color.setHSL(p.y, p.x, data);
-          //heartGeometry.faces[i].vertexColors[j].set(color);
-          face.vertexColors[j].r = 1 / (i + 1);
-          face.vertexColors[j].g = 1 / (j + 1);
-          face.vertexColors[j].b = 1 / (2 * j + 1);
+          // vertexIdx = face[faceIndices[j]];
+          // p = heartGeometry.vertices[vertexIdx];
+          // color = new THREE.Color(0xffffff);
+          // color.setHSL(p.y, p.x, data);
+          // //heartGeometry.faces[i].vertexColors[j].set(color);
+          if (j === 1) {
+            face.vertexColors[j].r = 1;
+            face.vertexColors[j].g = 1;
+            face.vertexColors[j].b = 1;
+          } else {
+            face.vertexColors[j].r =
+              0.7 +
+              0.3 *
+                Math.sin(
+                  clock.getElapsedTime() +
+                    i +
+                    2 * this.props.hrSamples[i].value +
+                    3 * i
+                );
+            face.vertexColors[j].g =
+              0.7 +
+              0.3 *
+                Math.sin(
+                  clock.getElapsedTime() - this.props.hrSamples[i].value - 8 * i
+                );
+            face.vertexColors[j].b =
+              0.7 +
+              0.3 *
+                Math.sin(
+                  clock.getElapsedTime() + this.props.hrSamples[i].value - i
+                );
+          }
         }
       }
-      console.log(heartGeometry.faces[0].vertexColors);
+      //console.log(heartGeometry.faces[0].vertexColors);
       heartGeometry.colorsNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
