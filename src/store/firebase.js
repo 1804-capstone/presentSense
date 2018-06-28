@@ -23,17 +23,30 @@ export const signIn = (email, password, navigate) => {
   return async dispatch => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      db.collection('users')
-        .where("email", "==", email)
-        .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                let { id } = doc
-                let data = doc.data()
-                // console.log('HI', doc.id, " => ", doc.data())
-                dispatch(login({ data, password, id}))
-            })})
+
+      await firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // console.log("LOGGED IN: ", user.uid)
+          const { uid } = user
+          db.collection("users").doc(uid).get().then( doc => {
+            let { id } = doc
+            let data = doc.data()
+            dispatch(login({ data, password, id }))
+          })
+
+
+      // db.collection('users')
+      //   .where("email", "==", email)
+      //   .get()
+      //   .then(function(querySnapshot) {
+      //       querySnapshot.forEach(function(doc) {
+      //           let { id } = doc
+      //           let data = doc.data()
+      //           // console.log('HI', doc.id, " => ", doc.data())
+      //           dispatch(login({ data, password, id}))
+      //       })})
       navigate("HomeScreen");
+        }})
     } catch (err) {
       console.log("Error signing in: ", err.message);
       dispatch(errorAction(err.message));
@@ -46,16 +59,22 @@ export const fetchUserInfo = navigate => {
     try {
       await firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          console.log("LOGGED IN: ", user)
-          db.collection('users')
-            .where("email", "==", user.email)
-            .get()
-            .then(function(querySnapshot) {
-              querySnapshot.forEach(function(doc) {
-                let { id } = doc
-                let data = doc.data()
-                dispatch(fetchUser({ data, id}))
-            })})
+          console.log("LOGGED IN: ", user.uid)
+          const { uid } = user
+          db.collection("users").doc(uid).get().then( doc => {
+            let { id } = doc
+            let data = doc.data()
+            dispatch(fetchUser({ data, id }))
+          })
+          // db.collection('users')
+          //   .where("email", "==", user.email)
+          //   .get()
+          //   .then(function(querySnapshot) {
+          //     querySnapshot.forEach(function(doc) {
+          //       let { id } = doc
+          //       let data = doc.data()
+          //       dispatch(fetchUser({ data, id}))
+          //   })})
         } else {
           navigate("LoginScreen")
         }
@@ -71,8 +90,10 @@ export const signUpUser = (email, password, navigate) => {
   return async dispatch => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
-      db.collection("users")
-        .add({
+
+      var user = firebase.auth().currentUser
+      console.log("IN SIGN UP, USER UID", user.uid)
+      db.collection("users").doc(user.uid).set({
           email: email,
           name: "",
           heartRate: true,
@@ -81,20 +102,41 @@ export const signUpUser = (email, password, navigate) => {
           mood: true,
           share: true,
           location: true
-        })
-        .then(function(docRef) {
-          console.log("DOCREFFFFFF!!!!!!", docRef.id);
-          docRef.collection("moodLog").add({
+      })
+      db.collection("users").doc(user.uid).collection("moodLog").add({
             accomplishment: "",
             advice: "",
             journalEntry: "",
             mood: 0,
             outerInfluences: 0,
             struggle: ""
-          });
-          let { id } = docRef;
+      })
+
+      // db.collection("users")
+      //   .add({
+      //     email: email,
+      //     name: "",
+      //     heartRate: true,
+      //     steps: true,
+      //     sleep: true,
+      //     mood: true,
+      //     share: true,
+      //     location: true
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("DOCREFFFFFF!!!!!!", docRef.id);
+      //     docRef.collection("moodLog").add({
+      //       accomplishment: "",
+      //       advice: "",
+      //       journalEntry: "",
+      //       mood: 0,
+      //       outerInfluences: 0,
+      //       struggle: ""
+      //     });
+      //     let { id } = docRef;
+      const id = user.uid
           dispatch(signUp({ email, password, id }));
-        });
+        // });
       navigate("Preferences");
     } catch (err) {
       console.log("Error signing up user: ", err.message);
@@ -120,6 +162,8 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
   return async dispatch => {
     try {
       console.log("GOT THESE things?", docId, preferences, navigate)
+      //the following could be refactored to get docId from currentUser if we
+      //no longer keep docId on store/state
       await db
         .collection("users")
         .doc(docId)
