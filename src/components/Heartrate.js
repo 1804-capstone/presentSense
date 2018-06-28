@@ -163,6 +163,7 @@ class Heartrate extends React.Component {
       // );
       heartMaterial = new THREE.MeshPhongMaterial({
         color: 0xffffff,
+        side: THREE.DoubleSide,
         flatShading: true,
         vertexColors: THREE.VertexColors,
         shininess: 0
@@ -204,12 +205,11 @@ class Heartrate extends React.Component {
       for (let i = 0; i < num; i++) {
         if (this.props.hrSamples && this.props.hrSamples.length) {
           data =
-            0.2 * this.props.hrSamples[i].value +
-            30 +
-            30 *
+            this.props.hrSamples[i].value +
+            50 +
+            150 *
               Math.cos(
-                0.5 * clock.getElapsedTime() +
-                  this.props.hrSamples[i].value * 20
+                2 * clock.getElapsedTime() + this.props.hrSamples[i].value * 20
               );
         } else {
           data = 100 + 40 * Math.sin(clock.getElapsedTime());
