@@ -31,42 +31,45 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <View style={{ backgroundColor: "#E0F2F1" }}>
-        <Text>Login!</Text>
+      <View>
         {this.props.errorMessage && (
           <Text style={{ color: "red" }}>{this.props.errorMessage}</Text>
         )}
         <TextInput
+          style={styles.txt}
           placeholder="Email"
           autoCapitalize="none"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
         <TextInput
+          style={styles.txt}
           secureTextEntry
           autoCapitalize="none"
           placeholder="Password"
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button
-          title="Login"
-          raised
-          borderRadius={10}
-          large={false}
-          fontSize={24}
-          backgroundColor="#00796B"
-          onPress={this.handleLogin}
-        />
-        <Button
-          title="Sign Up"
-          raised
-          borderRadius={10}
-          large={false}
-          fontSize={24}
-          backgroundColor="#00796B"
-          onPress={this.handleSignup}
-        />
+        <View style={styles.btnContainer}>
+          <Button
+            title="Login"
+            raised
+            borderRadius={10}
+            fontSize={24}
+            style={styles.btn}
+            backgroundColor="#00796B"
+            onPress={this.handleLogin}
+          />
+          <Button
+            title="Sign Up"
+            raised
+            borderRadius={10}
+            fontSize={24}
+            style={styles.btn}
+            backgroundColor="#00796B"
+            onPress={this.handleSignup}
+          />
+        </View>
       </View>
     );
   }
@@ -86,3 +89,21 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(LoginForm)
+
+const styles = StyleSheet.create({
+  txt: {
+    padding: 10,
+    margin: 10,
+    fontSize: 25,
+    borderBottomWidth: 1,
+  },
+  btnContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  btn: {
+    width: 150,
+    margin: 10,
+    marginTop: 30,
+  }
+})

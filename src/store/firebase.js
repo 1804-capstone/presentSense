@@ -23,7 +23,6 @@ export const signIn = (email, password, navigate) => {
   return async dispatch => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-
       await firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // console.log("LOGGED IN: ", user.uid)
@@ -33,18 +32,6 @@ export const signIn = (email, password, navigate) => {
             let data = doc.data()
             dispatch(login({ data, password, id }))
           })
-
-
-      // db.collection('users')
-      //   .where("email", "==", email)
-      //   .get()
-      //   .then(function(querySnapshot) {
-      //       querySnapshot.forEach(function(doc) {
-      //           let { id } = doc
-      //           let data = doc.data()
-      //           // console.log('HI', doc.id, " => ", doc.data())
-      //           dispatch(login({ data, password, id}))
-      //       })})
       navigate("HomeScreen");
         }})
     } catch (err) {
@@ -66,15 +53,6 @@ export const fetchUserInfo = navigate => {
             let data = doc.data()
             dispatch(fetchUser({ data, id }))
           })
-          // db.collection('users')
-          //   .where("email", "==", user.email)
-          //   .get()
-          //   .then(function(querySnapshot) {
-          //     querySnapshot.forEach(function(doc) {
-          //       let { id } = doc
-          //       let data = doc.data()
-          //       dispatch(fetchUser({ data, id}))
-          //   })})
         } else {
           navigate("LoginScreen")
         }
@@ -90,9 +68,8 @@ export const signUpUser = (email, password, navigate) => {
   return async dispatch => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-      var user = firebase.auth().currentUser
-      console.log("IN SIGN UP, USER UID", user.uid)
+      const user = firebase.auth().currentUser
+      // console.log("IN SIGN UP, USER UID", user.uid)
       db.collection("users").doc(user.uid).set({
           email: email,
           name: "",
@@ -111,32 +88,8 @@ export const signUpUser = (email, password, navigate) => {
             outerInfluences: 0,
             struggle: ""
       })
-
-      // db.collection("users")
-      //   .add({
-      //     email: email,
-      //     name: "",
-      //     heartRate: true,
-      //     steps: true,
-      //     sleep: true,
-      //     mood: true,
-      //     share: true,
-      //     location: true
-      //   })
-      //   .then(function(docRef) {
-      //     console.log("DOCREFFFFFF!!!!!!", docRef.id);
-      //     docRef.collection("moodLog").add({
-      //       accomplishment: "",
-      //       advice: "",
-      //       journalEntry: "",
-      //       mood: 0,
-      //       outerInfluences: 0,
-      //       struggle: ""
-      //     });
-      //     let { id } = docRef;
       const id = user.uid
-          dispatch(signUp({ email, password, id }));
-        // });
+      dispatch(signUp({ email, password, id }));
       navigate("Preferences");
     } catch (err) {
       console.log("Error signing up user: ", err.message);
@@ -161,14 +114,10 @@ export const signOutUser = navigate => {
 export const updateUserPrefs = (docId, preferences, navigate) => {
   return async dispatch => {
     try {
-      console.log("GOT THESE things?", docId, preferences, navigate)
-      //the following could be refactored to get docId from currentUser if we
-      //no longer keep docId on store/state
-      await db
-        .collection("users")
-        .doc(docId)
-        .update(preferences);
-      dispatch(updatePrefs(preferences, docId));
+      const user = firebase.auth().currentUser
+      const id = user.uid
+      await db.collection("users").doc(id).update(preferences);
+      dispatch(updatePrefs(preferences, id));
       navigate("HomeScreen");
     } catch (err) {
       console.log("Error updating preferences: ", err.message);
@@ -178,10 +127,7 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
 };
 
 /** INITIAL STATE **/
-//ON PAUSE
 const initialState = {
-  // name: "",
-  // email: "",
   password: "",
   errorMessage: null,
   userDocId: "",

@@ -25,7 +25,7 @@ class FadeInView extends React.Component {
         ]),
       Animated.sequence([
         Animated.timing(this.state.fadeAnim, {
-          toValue: .9,
+          toValue: .8,
           duration: 5000,
         }
       ), Animated.timing(this.state.fadeAnim, {
@@ -76,7 +76,7 @@ export default class AnimBlob extends React.Component {
 const styles = StyleSheet.create({
   imgTitleCont: {
     width: '100%',
-    height: 205,
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     flex: 0,
@@ -84,22 +84,19 @@ const styles = StyleSheet.create({
   },
   img: {
     width: '100%',
-    height: 400,
-    // opacity: 0.7,
-    // borderWidth: 2,
+    height: '100%',
+    marginTop: '10%',
     alignItems: 'center'
   },
   title: {
-    textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: -4, height: 4},
-    textShadowRadius: 7,
+    textShadowColor: 'rgba(0, 0, 0, .8)',
+    textShadowOffset: {width: -4, height: 6},
+    textShadowRadius: 14,
     fontSize: 50,
     color: 'white',
     fontWeight: 'bold',
     width: '90%',
-    height: 150,
-    paddingTop: 90,
-    // borderWidth: 2,
+    height: '95%',
     position: 'absolute',
     textAlign: 'center'
   }
