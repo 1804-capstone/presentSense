@@ -13,7 +13,7 @@ import {
 //starting options for heart rate gatherer
 let heartOptions = {
   unit: "bpm", // optional; default 'bpm'
-  startDate: new Date(2017, 5, 20).toISOString(), // required
+  startDate: new Date(2017, 4, 20).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10 // optional; default no limit
@@ -90,28 +90,7 @@ class Heartrate extends React.Component {
 
       let light = new THREE.AmbientLight(0x404040, 3.7); // soft white light
       scene.add(light);
-      // let pointLight = new THREE.PointLight(0xfffef7, 10, 100);
-      // pointLight.position.set(0, 150, 300);
-      // scene.add(pointLight);
 
-      //meshyline
-      // lineGeometry = new THREE.Geometry();
-      // let numPoints = heartOptions.limit * 30;
-      // let angle = (2 * Math.PI) / numPoints;
-      // let startingData = 100;
-      // for (let i = 0; i < numPoints; i++) {
-      //   let v = new THREE.Vector3(
-      //     startingData * Math.sin(angle * i),
-      //     150 + startingData * Math.cos(angle * i),
-      //     0
-      //   );
-      //   lineGeometry.vertices.push(v);
-      // }
-      // line = new MeshLine();
-      // line.setGeometry(lineGeometry);
-      // let lineMaterial = new MeshLineMaterial({ lineWidth: 30 });
-      // let LineMesh = new THREE.Mesh(line.geometry, lineMaterial);
-      // scene.add(LineMesh);
       let startingData = 100;
       heartGeometry = new THREE.Geometry();
       let num = heartOptions.limit;
@@ -138,21 +117,50 @@ class Heartrate extends React.Component {
               0
             )
           );
+          heartGeometry.vertices.push(
+            new THREE.Vector3(
+              0.2 * startingData * Math.sin(angle2 * 0 + angle2 / 2),
+              150 + 0.2 * startingData * Math.cos(angle2 * 0 + angle2 / 2),
+              0
+            )
+          );
         }
       }
       let color;
       for (let i = 0; i < heartGeometry.vertices.length - 1; i += 2) {
-        let face = new THREE.Face3(i, i + 1, i + 2);
-        // if()
-        // let innerFace = new THREE.Face3(i+1, i+2, i+3);
-        for (let j = 0; j < 3; j++) {
-          color = new THREE.Color(0xffffff);
-          color.setHSL(255, 255, 255);
-          face.vertexColors[j] = color;
+        if (i < heartGeometry.vertices.length - 2) {
+          let face = new THREE.Face3(i, i + 1, i + 2);
+          // if()
+          for (let j = 0; j < 3; j++) {
+            color = new THREE.Color(0xffffff);
+            color.setHSL(255, 255, 255);
+            face.vertexColors[j] = color;
+          }
+          heartGeometry.faces.push(face);
         }
-        heartGeometry.faces.push(face);
+        if (i < heartGeometry.vertices.length - 3) {
+          let innerFace = new THREE.Face3(i + 2, i + 1, i + 3);
+          for (let j = 0; j < 3; j++) {
+            color = new THREE.Color(0x000000);
+            color.setHSL(0, 0, 0);
+            innerFace.vertexColors[j] = color;
+          }
+          heartGeometry.faces.push(innerFace);
+          //console.log("inner?", innerFace);
+        }
       }
-
+      let innerFace = new THREE.Face3(1, 2, 3);
+      for (let j = 0; j < 3; j++) {
+        color = new THREE.Color(0xffffff);
+        color.setHSL(255, 255, 255);
+        innerFace.vertexColors[j] = color;
+      }
+      heartGeometry.faces.push(innerFace);
+      // console.log(
+      //   "faces",
+      //   heartGeometry.faces.length,
+      //   heartGeometry.vertices.length
+      // );
       heartMaterial = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         flatShading: true,
@@ -169,53 +177,16 @@ class Heartrate extends React.Component {
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
-
-      // lineGeometry.verticesNeedUpdate = true;
-
-      // let numPoints = heartOptions.limit * 30;
-      // let angle = (2 * Math.PI) / numPoints;
-      // let startingData;
-      // let smoothedData;
-      // let targetLength = numPoints;
-      // if (this.props.hrSamples && this.props.hrSamples.length) {
-      //   //set last data to same as first so we have a smooth circle
-      //   this.props.hrSamples[
-      //     this.props.hrSamples.length - 1
-      //   ] = this.props.hrSamples[0];
-      //   let data = this.props.hrSamples.map(sample => sample.value);
-      //   smoothedData = this.interpolateArray(data, targetLength);
-      //   // console.log(smoothedData);
-      // } else {
-      //   smoothedData = new Array(targetLength).fill(100);
-      // }
-      // for (let i = 0; i < numPoints; i++) {
-      //   if (this.props.hrSamples && this.props.hrSamples.length) {
-      //     startingData =
-      //       smoothedData[i] +
-      //       50 +
-      //       50 * Math.sin(2 * clock.getElapsedTime() - smoothedData[i] * 0.1);
-      //   } else {
-      //     startingData = 100 + 40 * Math.sin(clock.getElapsedTime());
-      //   }
-      //   let v = new THREE.Vector3(
-      //     startingData * Math.sin(angle * i),
-      //     150 + startingData * Math.cos(angle * i),
-      //     0
-      //   );
-      //   lineGeometry.vertices[i] = v;
-      // }
-      // line.setGeometry(lineGeometry);
-      // lineGeometry.verticesNeedUpdate = true;
-
       //heartgeometry stuff
       let num = heartOptions.limit;
       let angle2 = (2 * Math.PI) / num;
       let data;
+      //handle animation of the outer vertices
       for (let i = 0; i < num; i++) {
         if (this.props.hrSamples && this.props.hrSamples.length) {
           data =
             this.props.hrSamples[i].value +
-            50 +
+            80 +
             50 *
               Math.sin(
                 2 * clock.getElapsedTime() - this.props.hrSamples[i].value * 20
@@ -229,12 +200,38 @@ class Heartrate extends React.Component {
           0
         );
       }
-      //set last vert to same position as first one to maintain continuous shape
+      //handle animation of the inner vertices
+      for (let i = 0; i < num; i++) {
+        if (this.props.hrSamples && this.props.hrSamples.length) {
+          data =
+            0.2 * this.props.hrSamples[i].value +
+            30 +
+            30 *
+              Math.cos(
+                0.5 * clock.getElapsedTime() +
+                  this.props.hrSamples[i].value * 20
+              );
+        } else {
+          data = 100 + 40 * Math.sin(clock.getElapsedTime());
+        }
+        heartGeometry.vertices[i * 2 + 1].set(
+          data * Math.sin(angle2 * i),
+          150 + data * Math.cos(angle2 * i),
+          0
+        );
+      }
+      //set last vert (both inner and outer) to same position as first one to maintain continuous shape
       heartGeometry.vertices[20].set(
         heartGeometry.vertices[0].x,
         heartGeometry.vertices[0].y,
         heartGeometry.vertices[0].z
       );
+      heartGeometry.vertices[21].set(
+        heartGeometry.vertices[1].x,
+        heartGeometry.vertices[1].y,
+        heartGeometry.vertices[1].z
+      );
+
       heartGeometry.verticesNeedUpdate = true;
       heartGeometry.colorsNeedUpdate = true;
       //updating colors
@@ -244,19 +241,25 @@ class Heartrate extends React.Component {
       let p;
       for (let i = 0; i < heartGeometry.faces.length; i++) {
         if (this.props.hrSamples && this.props.hrSamples.length) {
+          let constrainedIndex = i % this.props.hrSamples.length;
+          // console.log(
+          //   "my length",
+          //   heartGeometry.faces.length,
+          //   heartGeometry.vertices.length
+          // );
           data =
-            this.props.hrSamples[i].value +
+            this.props.hrSamples[constrainedIndex].value +
             50 +
             50 *
               Math.sin(
-                2 * clock.getElapsedTime() - this.props.hrSamples[i].value * 20
+                2 * clock.getElapsedTime() -
+                  this.props.hrSamples[constrainedIndex].value * 20
               );
         } else {
           data = 100 + 40 * Math.sin(clock.getElapsedTime() - 10 * i);
         }
         let face = heartGeometry.faces[i];
-        //console.log("data values", data);
-        //console.log("vertex colors", heartGeometry.faces[i].vertexColors);
+
         for (let j = 0; j < 3; j++) {
           if (j === 1) {
             face.vertexColors[j].r = 1;
@@ -264,23 +267,11 @@ class Heartrate extends React.Component {
             face.vertexColors[j].b = 1;
           } else {
             face.vertexColors[j].r =
-              0.5 +
-              0.1 *
-                Math.sin(
-                  clock.getElapsedTime() + 2 * this.props.hrSamples[i].value
-                );
+              0.5 + 0.1 * Math.sin(clock.getElapsedTime() + 0.02 * data);
             face.vertexColors[j].g =
-              0.6 +
-              0.1 *
-                Math.sin(
-                  clock.getElapsedTime() - 2 * this.props.hrSamples[i].value
-                );
+              0.6 + 0.1 * Math.sin(clock.getElapsedTime() - 0.02 * data);
             face.vertexColors[j].b =
-              0.8 +
-              0.3 *
-                Math.sin(
-                  clock.getElapsedTime() + this.props.hrSamples[i].value
-                );
+              0.8 + 0.3 * Math.sin(clock.getElapsedTime() + 0.01 * data);
           }
         }
       }
@@ -318,6 +309,7 @@ class Heartrate extends React.Component {
     this.props.fetchHeartRateOverTime(heartOptions);
   }
   render() {
+    console.log("**? ", this.props.hrSamples.length);
     return (
       <View style={styles.container}>
         <WebGLView
