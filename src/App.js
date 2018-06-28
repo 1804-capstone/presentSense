@@ -14,7 +14,9 @@ import {
   StepsGraph,
   Signup,
   Preferences,
-  StressGame
+  StressGame,
+  StressRelief,
+  Doodler
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -38,7 +40,9 @@ const StackNavigator = createStackNavigator(
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
-    StressGame: { screen: StressGame }
+    StressGame: { screen: StressGame },
+    StressRelief: { screen: StressRelief },
+    Doodler: { screen: Doodler }
   },
 
   {

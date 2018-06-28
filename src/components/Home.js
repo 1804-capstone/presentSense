@@ -32,8 +32,8 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    const { navigate } = this.props.navigation
-    this.props.fetchUserInfo(navigate)
+    const { navigate } = this.props.navigation;
+    this.props.fetchUserInfo(navigate);
   }
 
   handleLogout() {
@@ -115,7 +115,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00897B"
-          onPress={() => navigate("StressGame")}
+          onPress={() => navigate("StressRelief")}
         />
         <Button
           title="Mood Maps"
