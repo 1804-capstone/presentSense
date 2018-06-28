@@ -7,8 +7,8 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
 const bodyDiameter = Math.trunc(Math.max(WIDTH, HEIGHT) * 0.085);
 const borderWdth = Math.trunc(bodyDiameter * 0.1);
-const colors = ["red", "orange", "yellow", "green"];
-const edgeColors = ["magenta", "darkRed", "goldenRod", "teal"];
+const colors = ["#5546fc", "#466afc", "#46bcfc", "#2dffed"];
+const edgeColors = ["#466afc", "#46bcfc", "#46e3fc", "#2dffce"];
 
 class Stream extends PureComponent {
   constructor(props) {
@@ -61,6 +61,7 @@ class Stream extends PureComponent {
                       left: style.left,
                       top: style.top,
                       backgroundColor: colors[i],
+                      borderColor: edgeColors[i],
                       width: bodyDiameter - i * 5,
                       height: bodyDiameter - i * 5,
                       zIndex: 0 - i
@@ -88,11 +89,11 @@ class Stream extends PureComponent {
 
 const styles = StyleSheet.create({
   body: {
-    borderColor: "#FFF",
+    borderColor: "#1d423d",
     borderWidth: borderWdth,
     width: bodyDiameter,
     height: bodyDiameter,
-    backgroundColor: "white",
+    backgroundColor: "#1d423d",
     position: "absolute",
     borderRadius: bodyDiameter * 2
   },
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     position: "absolute"
   },
   head: {
-    backgroundColor: "blue",
-    borderColor: "violet",
+    backgroundColor: "#8411ff",
+    borderColor: "#5546fc",
     borderWidth: borderWdth,
     width: bodyDiameter,
     height: bodyDiameter,

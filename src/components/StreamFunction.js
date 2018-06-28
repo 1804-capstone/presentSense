@@ -8,7 +8,7 @@ const distance = ([x1, y1], [x2, y2]) =>
 
 const createStream = (state, { touches }) => {
   touches.filter(t => t.type === "press").forEach(t => {
-    if (_.size(state) < 5) {
+    if (_.size(state) < 25) {
       state[++streamIds] = {
         position: [t.event.pageX, t.event.pageY],
         renderer: Stream

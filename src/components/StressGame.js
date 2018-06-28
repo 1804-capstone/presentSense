@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import {
   createStream,
@@ -15,23 +15,32 @@ export default class StressGame extends Component {
   }
   render() {
     return (
-      <GameEngine
-        systems={[
-          createStream,
-          assignFinger,
-          moveStream,
-          releaseFinger,
-          endStream
-        ]}
-        entities={{}}
-      />
+      <View style={styles.container}>
+        <Text style={styles.txt}>Tap anywhere!</Text>
+        <GameEngine
+          systems={[
+            createStream,
+            assignFinger,
+            moveStream,
+            releaseFinger,
+            endStream
+          ]}
+          entities={{}}
+        />
+      </View>
     );
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#FFF"
-//   }
-// });
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#1d423d"
+  },
+  txt: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "#E0F2F1"
+  }
+});
