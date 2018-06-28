@@ -110,7 +110,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#00897B"
-          onPress={() => navigate("")}
+          onPress={() => navigate("StressGame")}
         />
         <Button
           title="Mood Maps"
