@@ -258,41 +258,32 @@ class Heartrate extends React.Component {
         //console.log("data values", data);
         //console.log("vertex colors", heartGeometry.faces[i].vertexColors);
         for (let j = 0; j < 3; j++) {
-          // vertexIdx = face[faceIndices[j]];
-          // p = heartGeometry.vertices[vertexIdx];
-          // color = new THREE.Color(0xffffff);
-          // color.setHSL(p.y, p.x, data);
-          // //heartGeometry.faces[i].vertexColors[j].set(color);
           if (j === 1) {
             face.vertexColors[j].r = 1;
             face.vertexColors[j].g = 1;
             face.vertexColors[j].b = 1;
           } else {
             face.vertexColors[j].r =
-              0.7 +
-              0.3 *
+              0.5 +
+              0.1 *
                 Math.sin(
-                  clock.getElapsedTime() +
-                    i +
-                    2 * this.props.hrSamples[i].value +
-                    3 * i
+                  clock.getElapsedTime() + 2 * this.props.hrSamples[i].value
                 );
             face.vertexColors[j].g =
-              0.7 +
-              0.3 *
+              0.6 +
+              0.1 *
                 Math.sin(
-                  clock.getElapsedTime() - this.props.hrSamples[i].value - 8 * i
+                  clock.getElapsedTime() - 2 * this.props.hrSamples[i].value
                 );
             face.vertexColors[j].b =
-              0.7 +
+              0.8 +
               0.3 *
                 Math.sin(
-                  clock.getElapsedTime() + this.props.hrSamples[i].value - i
+                  clock.getElapsedTime() + this.props.hrSamples[i].value
                 );
           }
         }
       }
-      //console.log(heartGeometry.faces[0].vertexColors);
       heartGeometry.colorsNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
