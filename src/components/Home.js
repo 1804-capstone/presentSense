@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
 import firebase from "react-native-firebase";
-import { connect } from 'react-redux'
-import { signOutUser } from '../store/firebase'
+import { connect } from "react-redux";
+import { signOutUser, fetchUserInfo } from "../store/firebase";
 
 let options = {
   permissions: {
@@ -31,9 +31,14 @@ class Home extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout() {
+  componentDidMount() {
     const { navigate } = this.props.navigation
-    this.props.signOutUser(navigate)
+    this.props.fetchUserInfo(navigate)
+  }
+
+  handleLogout() {
+    const { navigate } = this.props.navigation;
+    this.props.signOutUser(navigate);
   }
 
   render() {
@@ -58,13 +63,15 @@ class Home extends React.Component {
       // now safe to read and write Healthkit data...
     });
     const { navigate } = this.props.navigation;
+
+    console.log("USERDOC!!!!!", this.props.userDocId);
     return (
       <View style={styles.container}>
         <Button
           title="Logout"
           raised
           style={styles.buttons}
-          buttonStyle={{width: '25%', alignSelf: 'flex-end'}}
+          buttonStyle={{ width: "25%", alignSelf: "flex-end" }}
           borderRadius={10}
           fontSize={15}
           backgroundColor="#80CBC4"
@@ -88,7 +95,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#26A69A"
-          onPress={() => navigate("Dashboard")}
+          onPress={() => navigate("Preferences")}
         />
         <Button
           title="My Entries"
@@ -141,11 +148,20 @@ const styles = StyleSheet.create({
   }
 });
 
-
 const mapDispatch = dispatch => {
   return {
-    signOutUser: (navigate) => dispatch(signOutUser(navigate))
-  }
-}
+    signOutUser: navigate => dispatch(signOutUser(navigate)),
+    fetchUserInfo: navigate => dispatch(fetchUserInfo(navigate))
+  };
+};
 
-export default connect(null, mapDispatch)(Home)
+const mapState = state => {
+  return {
+    userDocId: state.firestoreStore.userDocId
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Home);
