@@ -13,7 +13,8 @@ import {
   Heartrate,
   StepsGraph,
   Signup,
-  Preferences
+  Preferences,
+  MyEntries
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -36,7 +37,8 @@ const StackNavigator = createStackNavigator(
     AccomplishForm: { screen: AccomplishForm },
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
-    Preferences: { screen: Preferences }
+    Preferences: { screen: Preferences },
+    MyEntries: { screen: MyEntries }
   },
 
   {
@@ -50,20 +52,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StackNavigator />
       </Provider>
-      // <View style={styles.container}>
-      //   <Text>Hello</Text>
-      //   <Text>Hey</Text>
-      //   <Text>Shake your money maker</Text>
-      // </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
