@@ -14,7 +14,8 @@ import {
   StepsGraph,
   Signup,
   Preferences,
-  MyEntries
+  MyEntries,
+  NewEntry
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -38,7 +39,8 @@ const StackNavigator = createStackNavigator(
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
-    MyEntries: { screen: MyEntries }
+    MyEntries: { screen: MyEntries },
+    NewEntry: {screen: NewEntry}
   },
 
   {
