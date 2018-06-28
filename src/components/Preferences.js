@@ -8,13 +8,13 @@ class Preferences extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      heartRate: true,
-      steps: true,
-      sleep: true,
-      mood: true,
-      share: true,
-      location: true
+      name: this.props.preferences.name,
+      heartRate: this.props.preferences.heartRate,
+      steps: this.props.preferences.steps,
+      sleep: this.props.preferences.sleep,
+      mood: this.props.preferences.mood,
+      share: this.props.preferences.share,
+      location: this.props.preferences.location
       //accessibility?
     };
     this.handleSave = this.handleSave.bind(this);
@@ -34,7 +34,7 @@ class Preferences extends React.Component {
         <Text>Name: </Text>
         <TextInput
           style={{ height: 20, borderColor: "gray", borderWidth: 1 }}
-          value={this.props.preferences.name}
+          value={this.state.name}
           onChangeText={name => this.setState({ name })}
         />
         <Text>Tracked Metrics</Text>

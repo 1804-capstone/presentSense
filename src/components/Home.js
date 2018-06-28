@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
 import firebase from "react-native-firebase";
 import { connect } from "react-redux";
-import { signOutUser } from "../store/firebase";
+import { signOutUser, fetchUserInfo } from "../store/firebase";
 
 let options = {
   permissions: {
@@ -29,6 +29,11 @@ class Home extends React.Component {
       available: false
     };
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  componentDidMount() {
+    const { navigate } = this.props.navigation
+    this.props.fetchUserInfo(navigate)
   }
 
   handleLogout() {
@@ -145,7 +150,8 @@ const styles = StyleSheet.create({
 
 const mapDispatch = dispatch => {
   return {
-    signOutUser: navigate => dispatch(signOutUser(navigate))
+    signOutUser: navigate => dispatch(signOutUser(navigate)),
+    fetchUserInfo: navigate => dispatch(fetchUserInfo(navigate))
   };
 };
 
