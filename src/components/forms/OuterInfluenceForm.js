@@ -19,19 +19,20 @@ export default class OuterInfluenceForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      outerInfluences: [
-        { label: "interpersonal relationships", value: 0 },
-        { label: "family conflicts/resolutions", value: 1 },
-        { label: "work struggles and opportunities", value: 2 },
-        { label: "healthy living", value: 3 },
-        { label: "personal goals", value: 4 },
-        { label: "romantic partners", value: 5 }
-      ],
       value: 0,
       valueIndex: 0
     };
   }
   render() {
+    const { handleEntry } = this.props
+    const outerInfluences = [
+      { label: "interpersonal relationships", value: 0 },
+      { label: "family conflicts/resolutions", value: 1 },
+      { label: "work struggles and opportunities", value: 2 },
+      { label: "healthy living", value: 3 },
+      { label: "personal goals", value: 4 },
+      { label: "romantic partners", value: 5 }
+      ]
     return (
       <View>
         <ScrollView>
@@ -40,12 +41,14 @@ export default class OuterInfluenceForm extends React.Component {
           </Text>
           <View style={styles.component}>
             <RadioForm formHorizontal={false} animation={true}>
-              {this.state.outerInfluences.map((obj, i) => {
+              {outerInfluences.map((obj, i) => {
                 let onPress = (value, index) => {
                   this.setState({
                     value: value,
                     valueIndex: index
                   });
+                  handleEntry('outerInfluences', value)
+                  handleEntry('outerInfluencesText', obj.label)
                 };
                 return (
                   <RadioButton labelHorizontal={false} key={i}>
@@ -60,8 +63,6 @@ export default class OuterInfluenceForm extends React.Component {
                         this.state.valueIndex === i ? "#00796B" : "#000"
                       }
                       buttonSize={30}
-                      buttonStyle={{}}
-                      buttonWrapStyle={{ marginLeft: 10 }}
                     />
                     <RadioButtonLabel
                       obj={obj}
@@ -75,16 +76,9 @@ export default class OuterInfluenceForm extends React.Component {
               })}
             </RadioForm>
             <Text>
-              selected:{" "}
-              {this.state.outerInfluences[this.state.valueIndex].label}
+              selected: {outerInfluences[this.state.valueIndex].label}
             </Text>
           </View>
-          {/* <View>
-            <Button
-              title="Next"
-              onPress={() => this.props.navigation.navigate("AccomplishForm")}
-            />
-          </View> */}
         </ScrollView>
       </View>
     );

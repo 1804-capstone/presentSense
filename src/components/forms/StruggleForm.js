@@ -14,22 +14,28 @@ export default class StruggleForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ""
+      struggleContent: "",
+      adviceContent: ""
     };
   }
 
   render() {
+    const { handleEntry } = this.props
     return (
       <ScrollView>
         <Text style={styles.welcome}>
           What's something you're currently struggling with?{" "}
         </Text>
         <TextInput
+          placeholder="I'm struggling with..."
           style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
           multiline
           numberOfLines={10}
-          value={this.state.content}
-          onChangeText={content => this.setState({ content })}
+          value={this.state.struggleContent}
+          onChangeText={content => {
+            this.setState({ struggleContent: content })
+            handleEntry('struggle', content)
+          }}
         />
         <Text style={styles.welcome}>
           If your best friend was struggling with the same issue, what advice
@@ -40,45 +46,16 @@ export default class StruggleForm extends React.Component {
           style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
           multiline
           numberOfLines={10}
-          value={this.state.content}
-          onChangeText={content => this.setState({ content })}
-        />
-        {/* <TouchableHighlight
-          underlayColor="green"
-          onPress={() => {
-            this.props.addNote(this.state.content, +this.state.pageNumber);
-            this.props.navigation.navigate("TOC");
+          value={this.state.adviceContent}
+          onChangeText={content => {
+            this.setState({ adviceContent: content })
+            handleEntry('advice', content)
           }}
-        > */}
-        {/* <Text>Add Entry</Text>
-        <View>
-          <Button
-            title="Next"
-            onPress={() => this.props.navigation.navigate("JournalForm")}
-          />
-        </View> */}
-        {/* </TouchableHighlight> */}
+        />
       </ScrollView>
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {
-//     pages: state.pages
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     addNote: (content, pageNumber) => dispatch(postNote(content, pageNumber))
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AnnotationEdit);
 
 const styles = StyleSheet.create({
   container: {

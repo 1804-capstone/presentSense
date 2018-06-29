@@ -2,20 +2,21 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
+import { fetchMoodlogs } from '../store/firebase'
 
 const Screen = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height
 }
 
-export default class MyEntries extends React.Component {
+class MyEntries extends React.Component {
   constructor() {
     super()
 
   }
 
   componentDidMount() {
-    //fetch user's moodlog data
+    this.props.fetchMoodlogs()
   }
 
   render() {
@@ -33,14 +34,21 @@ export default class MyEntries extends React.Component {
           />
           <View>
             <Text>Past Entries</Text>
-            <Animated.View>
+            {/* <Animated.View>
               <Text style={styles.txt}
                 // onPress={Animated.timing(styles.txt.height, {
                 //   toValue: 100}).start()}
                 >One</Text>
               <Text style={{backgroundColor: 'powderblue'}}>One</Text>
-              <Text style={{backgroundColor: 'green'}}>One</Text>
-            </Animated.View>
+              <Text style={{backgroundColor: 'green'}}>One</Text> */}
+              {this.props.moodLogs.map( (log, ind) => {
+                return (
+                  <View key={ind}>
+                    <Text>{log.mood}</Text>
+                  </View>
+                )
+              })}
+            {/* </Animated.View> */}
           </View>
       </View>
     )
@@ -63,3 +71,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'steelblue'
   }
 })
+
+mapState = state => {
+  return {
+    moodLogs: state.firestoreStore.moodLogs || []
+  }
+}
+
+mapDispatch = dispatch => {
+  return {
+    fetchMoodlogs: () => dispatch(fetchMoodlogs())
+  }
+}
+
+export default connect(mapState, mapDispatch)(MyEntries)

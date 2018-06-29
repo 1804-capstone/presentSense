@@ -1,4 +1,5 @@
 import firebase from "react-native-firebase";
+import { NewEntry } from "../components";
 const db = firebase.firestore();
 
 /** ACTION TYPES **/
@@ -8,6 +9,7 @@ const ERROR = "ERROR";
 const SIGNOUT = "SIGNOUT";
 const UPDATE_PREFS = "UPDATE_PREFS";
 const FETCH_USER = "FETCH_USER"
+const GET_MOODLOGS = "GET_MOODLOGS"
 
 /** ACTION CREATORS **/
 const login = user => ({ type: LOGIN, user });
@@ -16,6 +18,7 @@ const signOut = () => ({ type: SIGNOUT });
 const errorAction = errMessage => ({ type: ERROR, errMessage });
 const updatePrefs = (preferences, id) => ({ type: UPDATE_PREFS, preferences, id });
 const fetchUser = user => ({type: FETCH_USER, user})
+const allMoodlogs = moodLogs => ({type: GET_MOODLOGS, moodLogs})
 
 /** THUNK CREATORS **/
 
@@ -80,14 +83,6 @@ export const signUpUser = (email, password, navigate) => {
           share: true,
           location: true
       })
-      db.collection("users").doc(user.uid).collection("moodLog").add({
-            accomplishment: "",
-            advice: "",
-            journalEntry: "",
-            mood: 0,
-            outerInfluences: 0,
-            struggle: ""
-      })
       const id = user.uid
       dispatch(signUp({ email, password, id }));
       navigate("Preferences");
@@ -126,12 +121,46 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
   };
 };
 
+export const addNewEntry = (newEntry, navigate) => {
+  return async dispatch => {
+    try {
+      const user = firebase.auth().currentUser
+      const id = user.uid
+      await db.collection('users').doc(id).collection('moodLog').add(newEntry)
+      navigate("MyEntries")
+    } catch (err) {
+      console.log('Error add new entry: ', err.message)
+    }
+  }
+}
+
+export const fetchMoodlogs = () => {
+  return async dispatch => {
+    try {
+      const user = firebase.auth().currentUser
+      const id = user.uid
+      await db.collection('users').doc(id).collection('moodLog').get()
+      .then(function(querySnapshot) {
+        let entries = []
+        let info = querySnapshot.forEach(function(doc) {
+          let newDoc = doc.data()
+          entries.push(newDoc)
+      })
+      dispatch(allMoodlogs(entries))
+    })
+    } catch (err) {
+      console.log('Error fetching moodlogs: ', err.message)
+    }
+  }
+}
+
 /** INITIAL STATE **/
 const initialState = {
   password: "",
   errorMessage: null,
   userDocId: "",
-  preferences: {}
+  preferences: {},
+  moodLogs: []
 };
 
 /** FIREBASE REDUCER **/
@@ -164,6 +193,8 @@ export default (firestoreStore = (state = initialState, action) => {
       return { ...state, errorMessage: action.errMessage };
     case UPDATE_PREFS:
       return { ...state, preferences: action.preferences, userDocId: action.id };
+    case GET_MOODLOGS:
+      return {...state, moodLogs: action.moodLogs}
     default:
       return state;
   }

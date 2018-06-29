@@ -19,6 +19,7 @@ export default class JournalForm extends React.Component {
   }
 
   render() {
+    const { handleEntry } = this.props
     return (
       <ScrollView>
         <Text style={styles.welcome}>
@@ -29,39 +30,15 @@ export default class JournalForm extends React.Component {
           multiline
           numberOfLines={20}
           value={this.state.content}
-          onChangeText={content => this.setState({ content })}
-        />
-        {/* <TouchableHighlight
-          underlayColor="green"
-          onPress={() => {
-            this.props.addNote(this.state.content, +this.state.pageNumber);
-            this.props.navigation.navigate("TOC");
-          }}
-        > */}
-        {/* <Text>Add Entry</Text> */}
-
-        {/* </TouchableHighlight> */}
+          onChangeText={content => {
+            this.setState({ content })
+            handleEntry('journalEntry', content)
+          }} />
       </ScrollView>
     );
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     pages: state.pages
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     addNote: (content, pageNumber) => dispatch(postNote(content, pageNumber))
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AnnotationEdit);
 
 const styles = StyleSheet.create({
   container: {

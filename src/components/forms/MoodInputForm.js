@@ -19,30 +19,33 @@ export default class MoodInputForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      moodInput: [
-        { label: "fantastic", value: 0 },
-        { label: "good", value: 1 },
-        { label: "ok", value: 2 },
-        { label: "not great", value: 3 },
-        { label: "awful", value: 4 }
-      ],
-      value: 0,
-      valueIndex: 0
+    value: 0,
+    valueIndex: 0
     };
-  }
+    }
   render() {
+    const { handleEntry } = this.props
+    const  moodInput = [
+      { label: "fantastic", value: 0 },
+      { label: "good", value: 1 },
+      { label: "ok", value: 2 },
+      { label: "not great", value: 3 },
+      { label: "awful", value: 4 }
+      ]
     return (
       <View>
         <ScrollView>
           <Text style={styles.welcome}>How are you feeling today?</Text>
           <View style={styles.component}>
             <RadioForm formHorizontal={false} animation={true}>
-              {this.state.moodInput.map((obj, i) => {
+              {moodInput.map((obj, i) => {
                 let onPress = (value, index) => {
                   this.setState({
                     value: value,
                     valueIndex: index
                   });
+                  handleEntry('mood', value)
+                  handleEntry('moodText', obj.label)
                 };
                 return (
                   <RadioButton labelHorizontal={false} key={i}>
@@ -57,8 +60,6 @@ export default class MoodInputForm extends React.Component {
                         this.state.valueIndex === i ? "#00796B" : "#000"
                       }
                       buttonSize={30}
-                      buttonStyle={{}}
-                      // buttonWrapStyle={{ marginLeft: 10 }}
                     />
                     <RadioButtonLabel
                       obj={obj}
@@ -72,16 +73,8 @@ export default class MoodInputForm extends React.Component {
               })}
             </RadioForm>
             <Text>
-              selected: {this.state.moodInput[this.state.valueIndex].label}
+              selected: {moodInput[this.state.valueIndex].label}
             </Text>
-          </View>
-          <View>
-            {/* <Button
-              title="Next"
-              onPress={() =>
-                this.props.navigation.navigate("OuterInfluenceForm")
-              }
-            /> */}
           </View>
         </ScrollView>
       </View>
