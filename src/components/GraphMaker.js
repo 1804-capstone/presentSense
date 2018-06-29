@@ -7,6 +7,7 @@ import { line, rec } from "d3-shape";
 import * as d3Array from "d3-array";
 import { axisBottom } from "d3-axis";
 import * as d3 from "d3";
+import { timeDay } from "d3-time";
 import StepsGraph from "./StepsGraph";
 import moment from "moment";
 
@@ -94,11 +95,25 @@ class Graphmaker extends React.Component {
     this.props.fetchHeartRateOverTime(heartOptions);
   }
   render() {
+    console.log("HERE ARE MY DATES", queryOptions.startDate);
+    let minDate = new Date(queryOptions.startDate);
+    let maxDate = new Date(queryOptions.endDate);
+    const { height, width } = Dimensions.get("window");
+    // const x = scaleTime()
+    //   .domain([minDate, maxDate])
+    //   .range([0, width * 0.8]);
+    // const ticks = x.ticks(timeDay.every(1));
+    const theStartDate = queryOptions.startDate;
+    const newStart = moment(new Date(theStartDate));
+    const now = moment(new Date());
+
+    let diff = now.diff(theStartDate, "days");
+
     const graphContent = (
       <View style={styles.container}>
         <View style={styles.subContainer}>
-          <View>
-            <Text>Y</Text>
+          <View style={styles.dateStyle}>
+            <Text>{minDate.toString().slice(4, 11)}</Text>
           </View>
 
           <View style={styles.graph}>
@@ -111,13 +126,23 @@ class Graphmaker extends React.Component {
               }}
             />
           </View>
-          <View>
-            <Text>Y</Text>
+          <View style={styles.dateStyle}>
+            <Text>{maxDate.toString().slice(4, 11)}</Text>
           </View>
         </View>
-        <View style={styles.xAxis}>
-          <Text>{this.state.xAxis.toString()}</Text>
-          <Surface
+        {/* <View style={styles.xAxis}> */}
+        {/* <View style={[styles.tickLabelX, { flex: 1, flexDirection: "row" }]}> */}
+        {/* <View style={{ backgroundColor: "yellow" }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            {ticks.map(tick => {
+              return (
+                <Text key={tick} style={{ left: x(tick) }}>
+                  '
+                </Text>
+              );
+            })}
+          </View> */}
+        {/* <Surface
             width={Dimensions.get("window").width * 0.8}
             height={Dimensions.get("window").height * 0.02}
           >
@@ -128,7 +153,15 @@ class Graphmaker extends React.Component {
                 strokeWidth={10}
               />
             </Group>
-          </Surface>
+          </Surface> */}
+        {/* </View> */}
+        <View style={{ textAlign: "center" }}>
+          <Text style={{ color: "red", fontWeight: "bold" }}>
+            Your heartrate for the past {diff + 1} days
+          </Text>
+          <Text style={{ color: "blue", fontWeight: "bold" }}>
+            Your steps for the past {diff + 1} days
+          </Text>
         </View>
       </View>
     );
@@ -159,20 +192,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "pink"
+    backgroundColor: "#E0F2F1"
   },
   subContainer: {
     flex: 0.6,
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "red"
+    alignItems: "center"
+    // backgroundColor: "red",
+    // marginTop: -5
   },
   graph: {
     backgroundColor: "green"
   },
-  xAxis: {
-    backgroundColor: "blue"
+  dateStyle: {
+    transform: [{ rotate: "90deg" }]
+    // marginTop: -5
   }
+  // xAxis: {
+  //   backgroundColor: "yellow"
+  //   // flex: 1,
+  //   // flexDirection: "column"
+  // },
+  // tickLabelX: {
+  //   position: "absolute",
+  //   bottom: 0,
+  //   fontSize: 12,
+  //   textAlign: "center"
+  // }
 });
 
 export default connect(
