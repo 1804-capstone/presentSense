@@ -75,30 +75,34 @@ export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
     if (data && data.length) {
       dataPoint =
         data[i].value * scale +
-        50 +
-        70 * Math.cos(2 * clock.getElapsedTime() + data[i].value * 20);
+        100 +
+        100 * Math.cos(2 * clock.getElapsedTime() + data[i].value * 20);
       dataPoint2 =
-        data[i].value * scale +
-        50 +
-        0 * Math.sin(1 * clock.getElapsedTime() + data[i].value * 10);
+        0.5 * data[i].value * scale +
+        0.5 *
+          data[i].value *
+          scale *
+          Math.sin(1 * clock.getElapsedTime() + data[i].value * 10);
     } else {
       dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());
-      dataPoint2 = 100 + 40 * Math.cos(clock.getElapsedTime());
+      dataPoint2 = 40 + 40 * Math.cos(clock.getElapsedTime());
     }
     //outer vertices?
     //console.log(`"what is i",${i}, ${i * 2 + 1}, ${i * 2}`);
+
     geometry.vertices[i * 2].set(
       dataPoint * Math.sin(angle * i),
       0 + dataPoint * Math.cos(angle * i),
       0
     );
+
     geometry.vertices[i * 2 + 1].set(
-      0.3 * dataPoint2 * Math.sin(angle * i),
-      0 + 0.3 * dataPoint2 * Math.cos(angle * i),
+      dataPoint2 * Math.sin(angle * i),
+      0 + dataPoint2 * Math.cos(angle * i),
       0
     );
   }
-
+  console.log("vert", geometry.vertices[0], geometry.vertices[1]);
   //set the last verts to be the same as the 0 and 1 verts
   geometry.vertices[geometry.vertices.length - 2].set(
     geometry.vertices[0].x,
@@ -110,6 +114,7 @@ export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
     geometry.vertices[1].y,
     geometry.vertices[1].z
   );
+  // geometry.verticesNeedUpdate = true;
 
   //face colors
   let colorPoint;

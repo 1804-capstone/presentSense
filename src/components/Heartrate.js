@@ -19,7 +19,6 @@ let heartOptions = {
   ascending: false, // optional; default false
   limit: 10 // optional; default no limit
 };
-const { width, height } = Dimensions.get("window");
 
 class Heartrate extends React.Component {
   constructor(props) {
@@ -100,7 +99,6 @@ class Heartrate extends React.Component {
 
       MeshAnimator(heartGeometry, heartOptions, this.props.hrSamples, clock, 2);
 
-      heartGeometry.verticesNeedUpdate = true;
       heartGeometry.colorsNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
@@ -172,8 +170,8 @@ const styles = StyleSheet.create({
     // flex: 1
   },
   webglView: {
-    width: width,
-    height: width
+    width: 350,
+    height: 350
   }
 });
 
