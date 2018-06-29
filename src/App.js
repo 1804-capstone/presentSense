@@ -13,7 +13,9 @@ import {
   Heartrate,
   StepsGraph,
   GraphMaker,
-  Signup
+  Signup,
+  Preferences,
+  StressGame
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -35,7 +37,9 @@ const StackNavigator = createStackNavigator(
     OuterInfluenceForm: { screen: OuterInfluenceForm },
     AccomplishForm: { screen: AccomplishForm },
     StruggleForm: { screen: StruggleForm },
-    JournalForm: { screen: JournalForm }
+    JournalForm: { screen: JournalForm },
+    Preferences: { screen: Preferences },
+    StressGame: { screen: StressGame }
   },
 
   {
