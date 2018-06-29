@@ -11,3 +11,4 @@ export { default as StepsGraph } from "./StepsGraph";
 export { default as Preferences } from "./Preferences";
 export { default as MyEntries } from "./MyEntries"
 export { default as NewEntry } from "./NewEntry"
+export { default as Map } from "./Map"

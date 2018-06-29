@@ -15,7 +15,8 @@ import {
   Signup,
   Preferences,
   MyEntries,
-  NewEntry
+  NewEntry,
+  Map
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -23,6 +24,7 @@ import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
 import AccomplishForm from "./components/forms/AccomplishForm";
 import StruggleForm from "./components/forms/StruggleForm";
 import JournalForm from "./components/forms/JournalForm";
+
 
 const StackNavigator = createStackNavigator(
   {
@@ -40,7 +42,8 @@ const StackNavigator = createStackNavigator(
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
     MyEntries: { screen: MyEntries },
-    NewEntry: {screen: NewEntry}
+    NewEntry: {screen: NewEntry},
+    Map: {screen: Map}
   },
 
   {

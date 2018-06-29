@@ -35,8 +35,8 @@ export default class MyEntries extends React.Component {
             <Text>Past Entries</Text>
             <Animated.View>
               <Text style={styles.txt}
-                onPress={Animated.timing(styles.txt.height, {
-                  toValue: 100}).start()}
+                // onPress={Animated.timing(styles.txt.height, {
+                //   toValue: 100}).start()}
                 >One</Text>
               <Text style={{backgroundColor: 'powderblue'}}>One</Text>
               <Text style={{backgroundColor: 'green'}}>One</Text>
