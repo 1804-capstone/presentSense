@@ -15,9 +15,12 @@ import {
   GraphMaker,
   Signup,
   Preferences,
-  StressGame,
   StressRelief,
-  Doodler
+  Doodler,
+  MyEntries,
+  NewEntry,
+  Map,
+  StressGame
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -43,7 +46,10 @@ const StackNavigator = createStackNavigator(
     Preferences: { screen: Preferences },
     StressGame: { screen: StressGame },
     StressRelief: { screen: StressRelief },
-    Doodler: { screen: Doodler }
+    Doodler: { screen: Doodler },
+    MyEntries: { screen: MyEntries },
+    NewEntry: { screen: NewEntry },
+    Map: { screen: Map }
   },
 
   {
@@ -57,20 +63,6 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StackNavigator />
       </Provider>
-      // <View style={styles.container}>
-      //   <Text>Hello</Text>
-      //   <Text>Hey</Text>
-      //   <Text>Shake your money maker</Text>
-      // </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     fontSize: 25,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   btnContainer: {
     flex: 1,

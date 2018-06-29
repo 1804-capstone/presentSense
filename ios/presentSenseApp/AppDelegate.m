@@ -12,12 +12,16 @@
 
 #import <Firebase.h>
 @import Firebase;
+@import GoogleMaps;
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
   [FIRApp configure];
   NSURL *jsCodeLocation;
+  [GMSServices provideAPIKey:@"AIzaSyDMAuWynp5a8aBQdU9jv8_8gBiPB2eJfhw"];
+
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 

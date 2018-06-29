@@ -42,6 +42,27 @@ PODS:
     - Protobuf (~> 3.1)
   - FirebaseInstanceID (3.1.1):
     - FirebaseCore (~> 5.0)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
@@ -81,6 +102,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core (~> 5.0.1)
   - Firebase/Firestore
+  - Google-Maps-iOS-Utils (from `https://github.com/pjamrozowicz/google-maps-ios-utils.git`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -93,6 +115,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseFirestore
     - FirebaseInstanceID
+    - GoogleMaps
     - GoogleToolboxForMac
     - gRPC
     - gRPC-Core
@@ -102,6 +125,15 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+
+EXTERNAL SOURCES:
+  Google-Maps-iOS-Utils:
+    :git: https://github.com/pjamrozowicz/google-maps-ios-utils.git
+
+CHECKOUT OPTIONS:
+  Google-Maps-iOS-Utils:
+    :commit: 6d26f7923dace0367ce6c3291a52f6ddd34522f3
+    :git: https://github.com/pjamrozowicz/google-maps-ios-utils.git
 
 SPEC CHECKSUMS:
   BoringSSL: cf3f1793eb6e3c445c4d150456341f149c268a35
@@ -113,6 +145,8 @@ SPEC CHECKSUMS:
   FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
   FirebaseFirestore: f686b8e83f3cf8bbc37db6e98e01029a14f01f55
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   gRPC: 81b990caa01d7c32605d300c2ffd1b5ba0ef9e49
   gRPC-Core: a56b086a8ef5ced6f6ba5be5bc0a63fca185015a
@@ -123,6 +157,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
 
-PODFILE CHECKSUM: 4c36c47469dd5c54f415c4e4ee1003b299271723
+PODFILE CHECKSUM: cdc9cde86d51e872a36c8e7fa17edae4c82644db
 
 COCOAPODS: 1.5.3

@@ -38,7 +38,7 @@ export default class JournalForm extends React.Component {
             this.props.navigation.navigate("TOC");
           }}
         > */}
-        <Text>Add Entry</Text>
+        {/* <Text>Add Entry</Text> */}
 
         {/* </TouchableHighlight> */}
       </ScrollView>
