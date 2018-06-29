@@ -15,13 +15,10 @@ import {
   GraphMaker,
   Signup,
   Preferences,
-<<<<<<< HEAD
   MyEntries,
   NewEntry,
-  Map
-=======
+  Map,
   StressGame
->>>>>>> master
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -46,13 +43,10 @@ const StackNavigator = createStackNavigator(
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
-<<<<<<< HEAD
     MyEntries: { screen: MyEntries },
     NewEntry: {screen: NewEntry},
-    Map: {screen: Map}
-=======
+    Map: {screen: Map},
     StressGame: { screen: StressGame }
->>>>>>> master
   },
 
   {
