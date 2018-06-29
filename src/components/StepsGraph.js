@@ -7,6 +7,7 @@ import { line } from "d3-shape";
 import * as d3Array from "d3-array";
 import * as d3 from "d3";
 import AppleHealthKit from "rn-apple-healthkit";
+import { timeDay } from "d3-time";
 
 // const d3 = {
 //   scale,
@@ -165,6 +166,13 @@ export default class HealthGraph extends React.Component {
 
   render() {
     console.log("HERE IS MY STATE", this.state);
+    let minDate = new Date(this.props.startDate);
+    let maxDate = new Date(this.props.endDate);
+    const { height, width } = Dimensions.get("window");
+    const x = scaleTime()
+      .domain([minDate, maxDate])
+      .range([0, width * 0.55]);
+    const ticks = x.ticks(timeDay.every(1));
 
     this.props.data.steps &&
     this.props.data.steps.length &&
@@ -178,15 +186,28 @@ export default class HealthGraph extends React.Component {
       <Text>There does not seem to be data for your step count.</Text>
     );
     const stepData = (
-      <Surface
-        width={Dimensions.get("window").width * 0.8}
-        height={Dimensions.get("window").height * 0.5}
-      >
-        <Group x={0} y={0}>
-          <Shape d={this.state.stepLineShape} stroke="blue" strokeWidth={3} />
-          <Shape d={this.state.heartLineShape} stroke="red" strokeWidth={1} />
-        </Group>
-      </Surface>
+      <View styles={{ flex: 1, flexDirection: "column" }}>
+        <Surface
+          width={Dimensions.get("window").width * 0.8}
+          height={Dimensions.get("window").height * 0.5}
+        >
+          <Group x={0} y={0}>
+            <Shape d={this.state.stepLineShape} stroke="blue" strokeWidth={3} />
+            <Shape d={this.state.heartLineShape} stroke="red" strokeWidth={1} />
+          </Group>
+        </Surface>
+        <View style={styles.ticksYContainer}>
+          <View style={[styles.tickLabelX, { flex: 1, flexDirection: "row" }]}>
+            {ticks.map(tick => {
+              return (
+                <Text key={tick} style={{ left: x(tick) }}>
+                  '
+                </Text>
+              );
+            })}
+          </View>
+        </View>
+      </View>
     );
 
     return this.props.data.steps &&
@@ -202,7 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#E0F2F1",
     // alignItems: 'center',
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     paddingTop: "10%",
     paddingBottom: "10%"
   },
@@ -212,5 +233,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     alignItems: "center"
+  },
+  tickLabelX: {
+    position: "absolute",
+    bottom: 0,
+    fontSize: 12,
+    textAlign: "center"
+  },
+  ticksYContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0
   }
 });
