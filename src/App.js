@@ -13,7 +13,8 @@ import {
   Heartrate,
   StepsGraph,
   Signup,
-  Preferences
+  Preferences,
+  StressGame
 } from "./components";
 
 import MoodInputForm from "./components/forms/MoodInputForm";
@@ -36,7 +37,8 @@ const StackNavigator = createStackNavigator(
     AccomplishForm: { screen: AccomplishForm },
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
-    Preferences: { screen: Preferences }
+    Preferences: { screen: Preferences },
+    StressGame: { screen: StressGame }
   },
 
   {

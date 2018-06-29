@@ -5,9 +5,9 @@ PODS:
   - BoringSSL/Implementation (10.0.5):
     - BoringSSL/Interface (= 10.0.5)
   - BoringSSL/Interface (10.0.5)
-  - Crashlytics (3.10.2):
-    - Fabric (~> 1.7.7)
-  - Fabric (1.7.7)
+  - Crashlytics (3.10.3):
+    - Fabric (~> 1.7.8)
+  - Fabric (1.7.8)
   - Firebase/Auth (5.0.1):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.0)
@@ -103,8 +103,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BoringSSL: cf3f1793eb6e3c445c4d150456341f149c268a35
-  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
-  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
+  Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
+  Fabric: fba4684a95df789565b0b27fc5b6e68f1755af32
   Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
   FirebaseAuth: acbeef02fe7c3a26624e309849f3fe30c84115af
