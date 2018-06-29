@@ -357,6 +357,13 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNWebGL;
 		};
+		5193244520E5847800C7B005 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 278531747F5C4723BD315E8B /* RNSketch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D03120661CD1FA5200897D5B;
+			remoteInfo = RNSketch;
+		};
 		51D11C7E20DC2F5A008B5C89 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */;
@@ -438,6 +445,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		14F18A5163124DBEBC9EBED5 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
+		278531747F5C4723BD315E8B /* RNSketch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSketch.xcodeproj; path = "../node_modules/react-native-sketch/RNSketch.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* presentSenseApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "presentSenseApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* presentSenseApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "presentSenseApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -445,6 +453,7 @@
 		31B461C98E75EB0C15C003FE /* Pods-presentSenseAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNWebGL.xcodeproj; path = "../node_modules/react-native-webgl/ios/RNWebGL.xcodeproj"; sourceTree = "<group>"; };
 		4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
+		509F80C45DDD48DB8CBFF2AA /* libRNSketch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSketch.a; sourceTree = "<group>"; };
 		513522E720DC426A003F24CC /* presentSenseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = presentSenseApp.entitlements; path = presentSenseApp/presentSenseApp.entitlements; sourceTree = "<group>"; };
 		513522E820DC426A003F24CC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		51705AEF20E53F430072DA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "presentSenseApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -785,6 +794,7 @@
 				72C3DA4586864129A4D99627 /* libRNFirebase.a */,
 				4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */,
 				F57F722020E1415F00ADB517 /* GoogleService-Info.plist */,
+				509F80C45DDD48DB8CBFF2AA /* libRNSketch.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -801,6 +811,14 @@
 			isa = PBXGroup;
 			children = (
 				40BEEB5620DFFDF9008F7B33 /* libRNWebGL.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5193244220E5847800C7B005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5193244620E5847800C7B005 /* libRNSketch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -858,6 +876,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */,
 				55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */,
+				278531747F5C4723BD315E8B /* RNSketch.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1219,6 +1238,10 @@
 					ProjectRef = 21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */;
 				},
 				{
+					ProductGroup = 5193244220E5847800C7B005 /* Products */;
+					ProjectRef = 278531747F5C4723BD315E8B /* RNSketch.xcodeproj */;
+				},
+				{
 					ProductGroup = 40BEEB2A20DFFDF8008F7B33 /* Products */;
 					ProjectRef = 40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */;
 				},
@@ -1470,6 +1493,13 @@
 			fileType = archive.ar;
 			path = libRNWebGL.a;
 			remoteRef = 40BEEB5520DFFDF9008F7B33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5193244620E5847800C7B005 /* libRNSketch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSketch.a;
+			remoteRef = 5193244520E5847800C7B005 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		51D11C7F20DC2F5A008B5C89 /* libRCTAppleHealthKit.a */ = {
@@ -1801,12 +1831,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = presentSenseAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1830,12 +1862,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = presentSenseAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1910,11 +1944,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = "presentSenseApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1947,11 +1983,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = "presentSenseApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1984,11 +2022,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = "presentSenseApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2021,11 +2061,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
+					"$(SRCROOT)/../node_modules/react-native-sketch/RNSketch",
 				);
 				INFOPLIST_FILE = "presentSenseApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

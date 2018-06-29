@@ -15,6 +15,8 @@ import {
   GraphMaker,
   Signup,
   Preferences,
+  StressRelief,
+  Doodler,
   MyEntries,
   NewEntry,
   Map,
@@ -26,7 +28,6 @@ import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
 import AccomplishForm from "./components/forms/AccomplishForm";
 import StruggleForm from "./components/forms/StruggleForm";
 import JournalForm from "./components/forms/JournalForm";
-
 
 const StackNavigator = createStackNavigator(
   {
@@ -43,10 +44,12 @@ const StackNavigator = createStackNavigator(
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
+    StressGame: { screen: StressGame },
+    StressRelief: { screen: StressRelief },
+    Doodler: { screen: Doodler },
     MyEntries: { screen: MyEntries },
-    NewEntry: {screen: NewEntry},
-    Map: {screen: Map},
-    StressGame: { screen: StressGame }
+    NewEntry: { screen: NewEntry },
+    Map: { screen: Map }
   },
 
   {
@@ -63,4 +66,3 @@ export default class App extends React.Component {
     );
   }
 }
-
