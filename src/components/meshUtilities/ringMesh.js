@@ -1,37 +1,37 @@
 import THREE from "../three";
 
 //a function that takes in data, options, and magnitude params and outputs a mesh
-export const MeshSetup = (options, material) => {
-  let startingData = 100;
-  let geometry = new THREE.geometry();
+export const GeometrySetup = (options, scale = 1, zIndex = 1) => {
+  let startingData = 100 * scale;
+  let geometry = new THREE.Geometry();
   let numPoints = options.limit || 10;
-  let angle = (2 * MATH.PI) / numPoints;
+  let angle = (2 * Math.PI) / numPoints;
   for (let i = 0; i < numPoints; i++) {
     let v = new THREE.Vector3(
       startingData * Math.sin(angle * i),
-      150 + startingData * Math.cos(angle * i),
-      0
+      0 + startingData * Math.cos(angle * i),
+      zIndex
     );
     let v2 = new THREE.Vector3(
       0.2 * startingData * Math.sin(angle * i + angle / 2),
-      150 + 0.2 * startingData * Math.cos(angle * i + angle / 2),
-      0
+      0 + 0.2 * startingData * Math.cos(angle * i + angle / 2),
+      zIndex
     );
     geometry.vertices.push(v);
     geometry.vertices.push(v2);
-    if (i === num - 1) {
+    if (i === numPoints - 1) {
       geometry.vertices.push(
         new THREE.Vector3(
           startingData * Math.sin(angle * 0),
-          150 + startingData * Math.cos(angle * 0),
-          0
+          0 + startingData * Math.cos(angle * 0),
+          zIndex
         )
       );
       geometry.vertices.push(
         new THREE.Vector3(
           0.2 * startingData * Math.sin(angle * 0 + angle / 2),
-          150 + 0.2 * startingData * Math.cos(angle * 0 + angle / 2),
-          0
+          0 + 0.2 * startingData * Math.cos(angle * 0 + angle / 2),
+          zIndex
         )
       );
     }
@@ -57,33 +57,48 @@ export const MeshSetup = (options, material) => {
       geometry.faces.push(innerFace);
     }
   }
-  material.vertexColors = THREE.vertexColors;
+
   geometry.computeFaceNormals();
   geometry.computeVertexNormals();
-  let mesh = new THREE.Mesh(geometry, material);
-  return mesh;
+  return geometry;
 };
+
 //function to animate the mesh created by MeshSetup
-export const MeshAnimator = (geometry, options, data, clock) => {
+export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
   //vert positions
+  // console.log("length *", geometry.vertices.length, geometry.faces.length);
   let numPoints = options.limit;
-  let angle = (2 * Math.PI) / num;
+  let angle = (2 * Math.PI) / numPoints;
   let dataPoint;
+  let dataPoint2;
   for (let i = 0; i < numPoints; i++) {
     if (data && data.length) {
       dataPoint =
-        data[i].value +
+        data[i].value * scale +
         50 +
-        150 * Math.cos(2 * clock.getElapsedTime() + data[i].value * 20);
+        70 * Math.cos(2 * clock.getElapsedTime() + data[i].value * 20);
+      dataPoint2 =
+        data[i].value * scale +
+        50 +
+        0 * Math.sin(1 * clock.getElapsedTime() + data[i].value * 10);
     } else {
-      data = 100 + 40 * Math.sin(clock.getElapsedTime());
+      dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());
+      dataPoint2 = 100 + 40 * Math.cos(clock.getElapsedTime());
     }
+    //outer vertices?
+    //console.log(`"what is i",${i}, ${i * 2 + 1}, ${i * 2}`);
+    geometry.vertices[i * 2].set(
+      dataPoint * Math.sin(angle * i),
+      0 + dataPoint * Math.cos(angle * i),
+      0
+    );
     geometry.vertices[i * 2 + 1].set(
-      dataPoint * math.sin(angle * i),
-      150 + dataPoint * Math.cos(angle * i),
+      0.3 * dataPoint2 * Math.sin(angle * i),
+      0 + 0.3 * dataPoint2 * Math.cos(angle * i),
       0
     );
   }
+
   //set the last verts to be the same as the 0 and 1 verts
   geometry.vertices[geometry.vertices.length - 2].set(
     geometry.vertices[0].x,
