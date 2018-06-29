@@ -39,10 +39,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* presentSenseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* presentSenseAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3FFE513EEDCB4B7CA993B2D8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AC1EC8C8B1E46679AB4FD4B /* SimpleLineIcons.ttf */; };
-		408771B320E14273005699AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 408771B220E14273005699AC /* GoogleService-Info.plist */; };
 		40BEEB5820DFFE24008F7B33 /* libRNWebGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BEEB5620DFFDF9008F7B33 /* libRNWebGL.a */; };
 		451F77C9F8674423933CB13D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D374F8371C8547BCA3EA4C08 /* Entypo.ttf */; };
 		513522E920DC426A003F24CC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513522E820DC426A003F24CC /* HealthKit.framework */; };
+		51705AF020E53F430072DA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51705AEF20E53F430072DA87 /* GoogleService-Info.plist */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		60D794FB20E03B40008A4B2F /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D794D120E03A57008A4B2F /* libART.a */; };
 		6F7115B8D0FA4E9DBD645427 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0721FF8275C435B84E71106 /* FontAwesome.ttf */; };
@@ -400,11 +400,11 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F04D16390BA4594B281C180 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		31B461C98E75EB0C15C003FE /* Pods-presentSenseAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		408771B220E14273005699AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "presentSenseApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNWebGL.xcodeproj; path = "../node_modules/react-native-webgl/ios/RNWebGL.xcodeproj"; sourceTree = "<group>"; };
 		4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
 		513522E720DC426A003F24CC /* presentSenseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = presentSenseApp.entitlements; path = presentSenseApp/presentSenseApp.entitlements; sourceTree = "<group>"; };
 		513522E820DC426A003F24CC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		51705AEF20E53F430072DA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "presentSenseApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/rn-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		601D135D20E53B4D00004F27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../node_modules/react-native-svg/README.md"; sourceTree = "<group>"; };
@@ -599,7 +599,7 @@
 			children = (
 				40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */,
 				513522E720DC426A003F24CC /* presentSenseApp.entitlements */,
-				408771B220E14273005699AC /* GoogleService-Info.plist */,
+				51705AEF20E53F430072DA87 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1309,13 +1309,13 @@
 				6F7115B8D0FA4E9DBD645427 /* FontAwesome.ttf in Resources */,
 				1AFA78CE468E43D292474AC7 /* Foundation.ttf in Resources */,
 				F57F724A20E1416000ADB517 /* GoogleService-Info.plist in Resources */,
+				51705AF020E53F430072DA87 /* GoogleService-Info.plist in Resources */,
 				150AD6D434274165BB568CC0 /* Ionicons.ttf in Resources */,
 				BDF83ED16C9D4B639F543744 /* MaterialCommunityIcons.ttf in Resources */,
 				85E91D8297984EE4916FD0BC /* MaterialIcons.ttf in Resources */,
 				DEC95FBD925548E5BE0A397F /* Octicons.ttf in Resources */,
 				3FFE513EEDCB4B7CA993B2D8 /* SimpleLineIcons.ttf in Resources */,
 				EB15A4429F674B149FA53EFF /* Zocial.ttf in Resources */,
-				408771B320E14273005699AC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,3 +9,5 @@ export { default as Heartrate } from "./Heartrate";
 export { default as AnimBlob } from "./AnimBlob";
 export { default as StepsGraph } from "./StepsGraph";
 export { default as GraphMaker } from "./GraphMaker";
+export { default as Preferences } from "./Preferences";
+export { default as StressGame } from "./StressGame";
