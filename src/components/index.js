@@ -14,3 +14,5 @@ export { default as MyEntries } from "./MyEntries"
 export { default as NewEntry } from "./NewEntry"
 export { default as Map } from "./Map"
 export { default as StressGame } from "./StressGame";
+export { default as StressRelief } from "./StressRelief";
+export { default as Doodler } from "./Doodler";
