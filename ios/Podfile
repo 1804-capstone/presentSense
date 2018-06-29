@@ -31,6 +31,7 @@ target 'presentSenseApp' do
     # Pods for testing
     # pod 'react-native-webgl', :path => '../node_modules/react-native-webgl'
 
+    # pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   end
 
