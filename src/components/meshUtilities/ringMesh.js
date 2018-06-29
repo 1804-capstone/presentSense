@@ -4,7 +4,7 @@ import THREE from "../three";
 export const GeometrySetup = (options, scale = 1, zIndex = 1) => {
   let startingData = 100 * scale;
   let geometry = new THREE.Geometry();
-  let numPoints = options.limit || 10;
+  let numPoints = options.limit;
   let angle = (2 * Math.PI) / numPoints;
   for (let i = 0; i < numPoints; i++) {
     let v = new THREE.Vector3(
@@ -64,15 +64,24 @@ export const GeometrySetup = (options, scale = 1, zIndex = 1) => {
 };
 
 //function to animate the mesh created by MeshSetup
-export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
+export const MeshAnimator = (
+  geometry,
+  options,
+  data,
+  clock,
+  scale = 1,
+  zIndex = 1
+) => {
   //vert positions
   // console.log("length *", geometry.vertices.length, geometry.faces.length);
-  let numPoints = options.limit;
+  let numPoints = options.limit || data.length;
   let angle = (2 * Math.PI) / numPoints;
   let dataPoint;
   let dataPoint2;
+  //console.log("data", data);
   for (let i = 0; i < numPoints; i++) {
     if (data && data.length) {
+      //console.log("VALLL", data[i].value);
       dataPoint =
         data[i].value * scale +
         100 +
@@ -84,6 +93,7 @@ export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
           scale *
           Math.sin(1 * clock.getElapsedTime() + data[i].value * 10);
     } else {
+      //console.log("oh no");
       dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());
       dataPoint2 = 40 + 40 * Math.cos(clock.getElapsedTime());
     }
@@ -93,16 +103,16 @@ export const MeshAnimator = (geometry, options, data, clock, scale = 1) => {
     geometry.vertices[i * 2].set(
       dataPoint * Math.sin(angle * i),
       0 + dataPoint * Math.cos(angle * i),
-      0
+      zIndex
     );
 
     geometry.vertices[i * 2 + 1].set(
       dataPoint2 * Math.sin(angle * i),
       0 + dataPoint2 * Math.cos(angle * i),
-      0
+      zIndex
     );
   }
-  console.log("vert", geometry.vertices[0], geometry.vertices[1]);
+  //console.log("vert", geometry.vertices[0], geometry.vertices[1]);
   //set the last verts to be the same as the 0 and 1 verts
   geometry.vertices[geometry.vertices.length - 2].set(
     geometry.vertices[0].x,

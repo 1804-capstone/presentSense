@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
 import THREE from "./three";
+import moment from "moment";
 //mesh utilities
 import { GeometrySetup, MeshAnimator } from "./meshUtilities/ringMesh";
 //these actions should let us talk to healthkit
@@ -11,13 +12,19 @@ import {
   fetchLatestHeartRate,
   fetchHeartRateOverTime
 } from "../store/heartrate";
+import { fetchLatestSteps } from "../store/steps";
 //starting options for heart rate gatherer
+const { width, height } = Dimensions.get("window");
 let heartOptions = {
   unit: "bpm", // optional; default 'bpm'
   startDate: new Date(2017, 4, 20).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
-  limit: 10 // optional; default no limit
+  limit: 50 // optional; default no limit
+};
+let stepOptions = {
+  startDate: new Date(2018, 5, 1).toISOString(), // required
+  endDate: new Date().toISOString()
 };
 
 class Heartrate extends React.Component {
@@ -27,6 +34,7 @@ class Heartrate extends React.Component {
       rate: 0
     };
     this.getHR = this.getHR.bind(this);
+    this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
   }
@@ -38,6 +46,13 @@ class Heartrate extends React.Component {
       this.props.fetchHeartRateOverTime(heartOptions);
     }
     this.getHR();
+    if (!this.props.stepSamples || !this.props.stepSamples.length) {
+      let maxDate = moment(stepOptions.endDate);
+      let minDate = moment(stepOptions.startDate);
+      let diff = maxDate.diff(minDate, "days");
+      stepOptions = { ...stepOptions, limit: diff };
+      this.props.fetchLatestSteps(stepOptions);
+    }
   }
   componentWillUnmount() {
     cancelAnimationFrame();
@@ -66,6 +81,10 @@ class Heartrate extends React.Component {
     let heartMesh;
     let heartMaterial;
 
+    let stepGeometry;
+    let stepMesh;
+    let stepMaterial;
+
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 0;
@@ -82,12 +101,26 @@ class Heartrate extends React.Component {
         vertexColors: THREE.VertexColors,
         shininess: 0
       });
-      heartGeometry = GeometrySetup(heartOptions);
+      heartGeometry = GeometrySetup(heartOptions, 1, 1);
       heartMaterial.vertexColors = THREE.VertexColors;
 
       heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
 
       scene.add(heartMesh);
+
+      stepMaterial = new THREE.MeshPhongMaterial({
+        color: 0xccff00,
+        side: THREE.DoubleSide,
+        flatShading: true,
+        vertexColors: THREE.VertexColors,
+        shininess: 0
+      });
+      stepGeometry = GeometrySetup(stepOptions, 1, 2);
+      stepMaterial.vertexColors = THREE.VertexColors;
+
+      stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+      scene.add(stepMesh);
     }
 
     const animate = () => {
@@ -96,10 +129,30 @@ class Heartrate extends React.Component {
 
       heartGeometry.verticesNeedUpdate = true;
       heartGeometry.colorsNeedUpdate = true;
+      MeshAnimator(
+        heartGeometry,
+        heartOptions,
+        this.props.hrSamples,
+        clock,
+        1, //scale
+        1 //z index
+      );
+      if (this.props.stepSamples && this.props.stepSamples.length) {
+        //console.log("trying to animate steps");
+        stepGeometry.verticesNeedUpdate = true;
+        stepGeometry.colorsNeedUpdate = true;
+        //console.log("step samples", this.props.stepSamples);
+        MeshAnimator(
+          stepGeometry,
+          stepOptions,
+          this.props.stepSamples,
+          clock,
+          0.1, //scale
+          0 //z index
+        );
+        stepGeometry.verticesNeedUpdate = true;
+      }
 
-      MeshAnimator(heartGeometry, heartOptions, this.props.hrSamples, clock, 2);
-
-      heartGeometry.colorsNeedUpdate = true;
       gl.flush();
       rngl.endFrame();
     };
@@ -132,8 +185,12 @@ class Heartrate extends React.Component {
     this.setState({ rate: this.props.lastHr.value || 0 });
     this.props.fetchHeartRateOverTime(heartOptions);
   }
+  getSteps() {
+    stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
+    this.props.fetchLatestSteps(stepOptions);
+  }
   render() {
-    console.log("**? ", this.props.hrSamples.length);
+    // console.log("**? ", this.props.stepSamples);
     return (
       <View style={styles.container}>
         <WebGLView
@@ -159,10 +216,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "center"
     //justifyContent: "center",
-    paddingTop: "10%",
-    paddingBottom: "10%"
+    // paddingTop: "10%",
+    // paddingBottom: "10%"
   },
   buttons: {
     // padding: '5%',
@@ -170,8 +227,8 @@ const styles = StyleSheet.create({
     // flex: 1
   },
   webglView: {
-    width: 350,
-    height: 350
+    width: width,
+    height: height
   }
 });
 
@@ -181,14 +238,16 @@ const mapDispatchToProps = dispatch => {
     fetchLatestHeartRate: heartOptions =>
       dispatch(fetchLatestHeartRate(heartOptions)),
     fetchHeartRateOverTime: heartOptions =>
-      dispatch(fetchHeartRateOverTime(heartOptions))
+      dispatch(fetchHeartRateOverTime(heartOptions)),
+    fetchLatestSteps: stepOptions => dispatch(fetchLatestSteps(stepOptions))
   };
 };
 
 const mapStateToProps = state => {
   return {
     lastHr: state.heartRate.lastHr,
-    hrSamples: state.heartRate.hrSamples
+    hrSamples: state.heartRate.hrSamples,
+    stepSamples: state.steps
   };
 };
 
