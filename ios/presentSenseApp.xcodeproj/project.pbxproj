@@ -52,11 +52,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B913EA5CB8270DEE36D53FB5 /* libPods-presentSenseAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4D9EDEEE9E9B1B6A9738F3 /* libPods-presentSenseAppTests.a */; };
 		BDF83ED16C9D4B639F543744 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0E51AA6BBD2495CA707ED5A /* MaterialCommunityIcons.ttf */; };
-<<<<<<< HEAD
-		C6A68A68099E46899A9A8C16 /* libRNSketch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 509F80C45DDD48DB8CBFF2AA /* libRNSketch.a */; };
-=======
 		C04CEF02C541C8F0A7F67F42 /* libPods-presentSenseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 728CEAC04B45BA9CDBF2C312 /* libPods-presentSenseApp.a */; };
->>>>>>> master
 		CA042E29C776466D21FC93C9 /* libPods-presentSenseApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE6F2190DEE087442DC474F /* libPods-presentSenseApp-tvOSTests.a */; };
 		D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14F18A5163124DBEBC9EBED5 /* EvilIcons.ttf */; };
 		DEC95FBD925548E5BE0A397F /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E19BB0756714EECBD9365FE /* Octicons.ttf */; };
@@ -479,11 +475,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				FC704D4B12054D3A84380A7E /* libRNFirebase.a in Frameworks */,
 				7D0C0ABC5879478A8DE75A0F /* libRCTAppleHealthKit.a in Frameworks */,
-<<<<<<< HEAD
-				C6A68A68099E46899A9A8C16 /* libRNSketch.a in Frameworks */,
-=======
 				C04CEF02C541C8F0A7F67F42 /* libPods-presentSenseApp.a in Frameworks */,
->>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
