@@ -15,6 +15,9 @@ import {
   GraphMaker,
   Signup,
   Preferences,
+  MyEntries,
+  NewEntry,
+  Map,
   StressGame
 } from "./components";
 
@@ -23,6 +26,7 @@ import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
 import AccomplishForm from "./components/forms/AccomplishForm";
 import StruggleForm from "./components/forms/StruggleForm";
 import JournalForm from "./components/forms/JournalForm";
+
 
 const StackNavigator = createStackNavigator(
   {
@@ -39,6 +43,9 @@ const StackNavigator = createStackNavigator(
     StruggleForm: { screen: StruggleForm },
     JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
+    MyEntries: { screen: MyEntries },
+    NewEntry: {screen: NewEntry},
+    Map: {screen: Map},
     StressGame: { screen: StressGame }
   },
 
@@ -53,20 +60,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StackNavigator />
       </Provider>
-      // <View style={styles.container}>
-      //   <Text>Hello</Text>
-      //   <Text>Hey</Text>
-      //   <Text>Shake your money maker</Text>
-      // </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
