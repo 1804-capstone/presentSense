@@ -73,32 +73,38 @@ export const MeshAnimator = (
   zIndex = 1
 ) => {
   //vert positions
-  // console.log("length *", geometry.vertices.length, geometry.faces.length);
+
   let numPoints = options.limit || data.length;
   let angle = (2 * Math.PI) / numPoints;
   let dataPoint;
   let dataPoint2;
-  //console.log("data", data);
+  let constrainedIndex;
   for (let i = 0; i < numPoints; i++) {
     if (data && data.length) {
-      //console.log("VALLL", data[i].value);
+      if (data.length < numPoints) {
+        constrainedIndex = i % data.length;
+      } else {
+        constrainedIndex = i;
+      }
       dataPoint =
-        data[i].value * scale +
+        data[constrainedIndex].value * scale +
         100 +
-        100 * Math.cos(2 * clock.getElapsedTime() + data[i].value * 20);
+        100 *
+          Math.cos(
+            2 * clock.getElapsedTime() + data[constrainedIndex].value * 20
+          );
       dataPoint2 =
-        0.5 * data[i].value * scale +
+        0.5 * data[constrainedIndex].value * scale +
         0.5 *
-          data[i].value *
+          data[constrainedIndex].value *
           scale *
-          Math.sin(1 * clock.getElapsedTime() + data[i].value * 10);
+          Math.sin(
+            1 * clock.getElapsedTime() + data[constrainedIndex].value * 10
+          );
     } else {
-      //console.log("oh no");
       dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());
       dataPoint2 = 40 + 40 * Math.cos(clock.getElapsedTime());
     }
-    //outer vertices?
-    //console.log(`"what is i",${i}, ${i * 2 + 1}, ${i * 2}`);
 
     geometry.vertices[i * 2].set(
       dataPoint * Math.sin(angle * i),
@@ -112,8 +118,7 @@ export const MeshAnimator = (
       zIndex
     );
   }
-  //console.log("vert", geometry.vertices[0], geometry.vertices[1]);
-  //set the last verts to be the same as the 0 and 1 verts
+
   geometry.vertices[geometry.vertices.length - 2].set(
     geometry.vertices[0].x,
     geometry.vertices[0].y,
@@ -124,9 +129,7 @@ export const MeshAnimator = (
     geometry.vertices[1].y,
     geometry.vertices[1].z
   );
-  // geometry.verticesNeedUpdate = true;
 
-  //face colors
   let colorPoint;
   for (let i = 0; i < geometry.faces.length; i++) {
     if (data && data.length) {
