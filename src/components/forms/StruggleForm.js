@@ -36,6 +36,7 @@ export default class StruggleForm extends React.Component {
           would you give?{" "}
         </Text>
         <TextInput
+          placeholder="I would tell my friend that..."
           style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
           multiline
           numberOfLines={10}
@@ -49,13 +50,13 @@ export default class StruggleForm extends React.Component {
             this.props.navigation.navigate("TOC");
           }}
         > */}
-        <Text>Add Entry</Text>
+        {/* <Text>Add Entry</Text>
         <View>
           <Button
             title="Next"
             onPress={() => this.props.navigation.navigate("JournalForm")}
           />
-        </View>
+        </View> */}
         {/* </TouchableHighlight> */}
       </ScrollView>
     );

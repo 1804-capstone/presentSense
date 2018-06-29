@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import AppleHealthKit from "rn-apple-healthkit";
-import firebase from "react-native-firebase";
 import { connect } from "react-redux";
 import { signOutUser, fetchUserInfo } from "../store/firebase";
 
@@ -70,7 +69,6 @@ class Home extends React.Component {
         <Button
           title="Logout"
           raised
-          style={styles.buttons}
           buttonStyle={{ width: "25%", alignSelf: "flex-end" }}
           borderRadius={10}
           fontSize={15}
@@ -80,7 +78,6 @@ class Home extends React.Component {
         <Button
           title="Dashboard"
           raised
-          style={styles.buttons}
           borderRadius={10}
           large={true}
           fontSize={40}
@@ -90,7 +87,6 @@ class Home extends React.Component {
         <Button
           title="Preferences"
           raised
-          style={styles.buttons}
           borderRadius={10}
           large={true}
           fontSize={40}
@@ -100,17 +96,15 @@ class Home extends React.Component {
         <Button
           title="My Entries"
           raised
-          style={styles.buttons}
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#009688"
-          onPress={() => navigate("MoodInputForm")}
+          onPress={() => navigate("MyEntries")}
         />
         <Button
           title="Stress Relief"
           raised
-          style={styles.buttons}
           borderRadius={10}
           large={true}
           fontSize={40}
@@ -120,7 +114,6 @@ class Home extends React.Component {
         <Button
           title="Mood Maps"
           raised
-          style={styles.buttons}
           borderRadius={10}
           large={true}
           fontSize={40}
@@ -140,11 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: "5%",
     paddingBottom: "10%"
-  },
-  buttons: {
-    // padding: '5%',
-    // height: 200,
-    // flex: 1
   }
 });
 

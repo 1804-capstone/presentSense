@@ -76,12 +76,12 @@ export default class MoodInputForm extends React.Component {
             </Text>
           </View>
           <View>
-            <Button
+            {/* <Button
               title="Next"
               onPress={() =>
                 this.props.navigation.navigate("OuterInfluenceForm")
               }
-            />
+            /> */}
           </View>
         </ScrollView>
       </View>
