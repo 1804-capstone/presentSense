@@ -23,11 +23,15 @@ target 'presentSenseApp' do
   pod 'Crashlytics', '~> 3.10.1'
   # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  #Google Maps
+  pod 'Google-Maps-iOS-Utils', :git => 'https://github.com/pjamrozowicz/google-maps-ios-utils.git'
+
   target 'presentSenseApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
     # pod 'react-native-webgl', :path => '../node_modules/react-native-webgl'
 
+    # pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   end
 

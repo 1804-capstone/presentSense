@@ -79,12 +79,12 @@ export default class OuterInfluenceForm extends React.Component {
               {this.state.outerInfluences[this.state.valueIndex].label}
             </Text>
           </View>
-          <View>
+          {/* <View>
             <Button
               title="Next"
               onPress={() => this.props.navigation.navigate("AccomplishForm")}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
     );
