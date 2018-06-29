@@ -104,28 +104,6 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Google-Maps-iOS-Utils (from `https://github.com/pjamrozowicz/google-maps-ios-utils.git`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - BoringSSL
-    - Crashlytics
-    - Fabric
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAuth
-    - FirebaseCore
-    - FirebaseFirestore
-    - FirebaseInstanceID
-    - GoogleMaps
-    - GoogleToolboxForMac
-    - gRPC
-    - gRPC-Core
-    - gRPC-ProtoRPC
-    - gRPC-RxLibrary
-    - GTMSessionFetcher
-    - leveldb-library
-    - nanopb
-    - Protobuf
-
 EXTERNAL SOURCES:
   Google-Maps-iOS-Utils:
     :git: https://github.com/pjamrozowicz/google-maps-ios-utils.git

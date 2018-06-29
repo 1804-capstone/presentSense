@@ -109,7 +109,7 @@ class Heartrate extends React.Component {
       scene.add(heartMesh);
 
       stepMaterial = new THREE.MeshPhongMaterial({
-        color: 0xccff00,
+        color: 0x28b7ae,
         side: THREE.DoubleSide,
         flatShading: true,
         vertexColors: THREE.VertexColors,
