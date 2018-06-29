@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Sketch from "react-native-sketch";
 import {
-  Button,
   Image,
   Modal,
   StatusBar,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import { Button } from "react-native-elements";
 
 export default class Doodler extends Component {
   state = {
@@ -57,12 +57,15 @@ export default class Doodler extends Component {
       <View style={styles.container}>
         <StatusBar barStyle={this.state.path ? "default" : "light-content"} />
         <View style={styles.colorsBar}>
-          {this.renderColorButton("#20BBFC")}
-          {this.renderColorButton("#2DFD2F")}
-          {this.renderColorButton("#FD28F9")}
-          {this.renderColorButton("#EA212E")}
-          {this.renderColorButton("#FD7E24")}
-          {this.renderColorButton("#FFFA38")}
+          {this.renderColorButton("#ec46fc")}
+          {this.renderColorButton("#aa46fc")}
+          {this.renderColorButton("#7c46fc")}
+          {this.renderColorButton("#4655fc")}
+          {this.renderColorButton("#46a4fc")}
+          {this.renderColorButton("#46effc")}
+          {this.renderColorButton("#46fcc5")}
+          {this.renderColorButton("#46fc6d")}
+          {this.renderColorButton("#bafc79")}
           {this.renderColorButton("#FFFFFF")}
         </View>
         <Sketch
@@ -77,8 +80,26 @@ export default class Doodler extends Component {
           style={styles.sketch}
         />
         <View style={styles.actionsBar}>
-          <Button color="#EA212E" onPress={this.clear} title="❌ Clear" />
-          <Button color="#1DBD21" onPress={this.save} title="Save  ✅" />
+          <Button
+            backgroundColor="#E0F2F1"
+            onPress={this.clear}
+            title="Clear"
+            raised
+            borderRadius={10}
+            fontSize={20}
+            style={styles.btn}
+            color="black"
+          />
+          <Button
+            backgroundColor="#E0F2F1"
+            onPress={this.save}
+            title="Save"
+            raised
+            borderRadius={10}
+            fontSize={20}
+            style={styles.btn}
+            color="black"
+          />
         </View>
         <Modal animationType="slide" visible={!!this.state.path}>
           <View style={styles.modal}>
@@ -88,6 +109,26 @@ export default class Doodler extends Component {
               source={{ uri: `file://${this.state.path}` }}
               style={styles.image}
             />
+            <View style={styles.btnContainer}>
+              <Button
+                title="Back"
+                raised
+                borderRadius={10}
+                fontSize={18}
+                style={styles.smallbtn}
+                backgroundColor="#00796B"
+                onPress={() => this.props.navigation.navigate("StressRelief")}
+              />
+              <Button
+                title="Home"
+                raised
+                borderRadius={10}
+                fontSize={18}
+                style={styles.smallbtn}
+                backgroundColor="#00796B"
+                onPress={() => this.props.navigation.navigate("HomeScreen")}
+              />
+            </View>
           </View>
         </Modal>
       </View>
@@ -97,12 +138,13 @@ export default class Doodler extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#191919",
+    backgroundColor: "#1d423d",
     flex: 1,
     paddingTop: 20
   },
   colorsBar: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingTop: 10
@@ -125,18 +167,34 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   modal: {
-    backgroundColor: "#F5FCFF",
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#E0F2F1",
     paddingTop: 20,
-    flex: 1
+    flex: 3
   },
   title: {
-    color: "#333333",
+    color: "black",
     fontSize: 20,
     marginTop: 20,
     textAlign: "center"
   },
   image: {
-    flex: 1,
+    flex: 3,
     margin: 20
+  },
+  btnContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  btn: {
+    width: 100,
+    margin: 5,
+    marginTop: 5
+  },
+  smallbtn: {
+    width: 80,
+    margin: 5
   }
 });
