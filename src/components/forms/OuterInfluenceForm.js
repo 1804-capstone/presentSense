@@ -26,12 +26,12 @@ export default class OuterInfluenceForm extends React.Component {
   render() {
     const { handleEntry } = this.props
     const outerInfluences = [
-      { label: "interpersonal relationships", value: 0 },
-      { label: "family conflicts/resolutions", value: 1 },
-      { label: "work struggles and opportunities", value: 2 },
-      { label: "healthy living", value: 3 },
-      { label: "personal goals", value: 4 },
-      { label: "romantic partners", value: 5 }
+      { label: "Interpersonal relationships", value: 0 },
+      { label: "Family resolutions or conflicts", value: 1 },
+      { label: "Work opportunies or struggles", value: 2 },
+      { label: "Healthy living", value: 3 },
+      { label: "Personal goals", value: 4 },
+      { label: "Romantic partners", value: 5 }
       ]
     return (
       <View>
@@ -68,7 +68,7 @@ export default class OuterInfluenceForm extends React.Component {
                       obj={obj}
                       index={i}
                       onPress={onPress}
-                      labelStyle={{ fontWeight: "bold", color: "#00796B" }}
+                      labelStyle={{ fontWeight: "bold", color: "#00796B", marginBottom: 15}}
                       labelWrapStyle={{}}
                     />
                   </RadioButton>
@@ -76,7 +76,7 @@ export default class OuterInfluenceForm extends React.Component {
               })}
             </RadioForm>
             <Text>
-              selected: {outerInfluences[this.state.valueIndex].label}
+              Selected: {outerInfluences[this.state.valueIndex].label}
             </Text>
           </View>
         </ScrollView>

@@ -16,3 +16,4 @@ export { default as Map } from "./Map"
 export { default as StressGame } from "./StressGame";
 export { default as StressRelief } from "./StressRelief";
 export { default as Doodler } from "./Doodler";
+export { default as SingleJournal } from './Journal/SingleJournal'

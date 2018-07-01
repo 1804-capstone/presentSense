@@ -41,8 +41,9 @@ class MyJournals extends React.Component {
             <ScrollView>
               {this.props.moodLogs.map( (log, ind) => {
                 return (
-                  <JournalPanel key={ind} style={{backgroundColor: 'powderblue'}} date={makeNiceDate(log.date)}>
+                  <JournalPanel key={ind} style={{backgroundColor: 'powderblue'}} date={makeNiceDate(log.date)} navigate={navigate} log={log}>
                     <View style={styles.txtContainer}>
+                      <View style={styles.line} />
                       <Text style={styles.innerTxt}>Overall Mood: {log.moodText}</Text>
                       <Text style={styles.innerTxt}>Biggest Influence: {log.outerInfluencesText}</Text>
                     </View>
@@ -77,12 +78,15 @@ const styles = StyleSheet.create({
     borderTopColor: 'black'
   },
   txtContainer: {
-    borderTopWidth: 1,
-    borderTopColor: 'grey',
     marginLeft: 15,
     marginRight: 15,
     padding: 10,
     backgroundColor: '#B2DFDB'
+  },
+  line: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+    marginBottom: 7
   },
   innerTxt: {
     fontSize: 18

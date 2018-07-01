@@ -20,7 +20,8 @@ import {
   MyJournals,
   NewJournal,
   Map,
-  StressGame
+  StressGame,
+  SingleJournal
 } from "./components";
 
 // import MoodInputForm from "./components/forms/MoodInputForm";
@@ -49,7 +50,8 @@ const StackNavigator = createStackNavigator(
     Doodler: { screen: Doodler },
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
-    Map: { screen: Map }
+    Map: { screen: Map },
+    SingleJournal: {screen: SingleJournal}
   },
 
   {

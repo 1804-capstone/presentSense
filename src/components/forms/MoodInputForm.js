@@ -65,7 +65,7 @@ export default class MoodInputForm extends React.Component {
                       obj={obj}
                       index={i}
                       onPress={onPress}
-                      labelStyle={{ fontWeight: "bold", color: "#00796B" }}
+                      labelStyle={{ fontWeight: "bold", color: "#00796B", marginBottom: 15}}
                       labelWrapStyle={{}}
                     />
                   </RadioButton>
@@ -73,7 +73,7 @@ export default class MoodInputForm extends React.Component {
               })}
             </RadioForm>
             <Text>
-              selected: {moodInput[this.state.valueIndex].label}
+              Selected: {moodInput[this.state.valueIndex].label}
             </Text>
           </View>
         </ScrollView>
