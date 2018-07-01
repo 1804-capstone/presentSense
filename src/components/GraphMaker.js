@@ -42,7 +42,7 @@ class Graphmaker extends React.Component {
       xAxis: 0,
       xAxisLine: ""
     };
-    this.getSteps = this.getSteps.bind(this);
+    // this.getSteps = this.getSteps.bind(this);
     this.getHeartRate = this.getHeartRate.bind(this);
     this.getXAxis = this.getXAxis.bind(this);
   }
