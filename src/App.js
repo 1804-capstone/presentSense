@@ -17,17 +17,18 @@ import {
   Preferences,
   StressRelief,
   Doodler,
-  MyEntries,
-  NewEntry,
+  MyJournals,
+  NewJournal,
   Map,
-  StressGame
+  StressGame,
+  SingleJournal
 } from "./components";
 
-import MoodInputForm from "./components/forms/MoodInputForm";
-import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
-import AccomplishForm from "./components/forms/AccomplishForm";
-import StruggleForm from "./components/forms/StruggleForm";
-import JournalForm from "./components/forms/JournalForm";
+// import MoodInputForm from "./components/forms/MoodInputForm";
+// import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
+// import AccomplishForm from "./components/forms/AccomplishForm";
+// import StruggleForm from "./components/forms/StruggleForm";
+// import JournalForm from "./components/forms/JournalForm";
 
 const StackNavigator = createStackNavigator(
   {
@@ -38,18 +39,19 @@ const StackNavigator = createStackNavigator(
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
     GraphMaker: { screen: GraphMaker },
-    MoodInputForm: { screen: MoodInputForm },
-    OuterInfluenceForm: { screen: OuterInfluenceForm },
-    AccomplishForm: { screen: AccomplishForm },
-    StruggleForm: { screen: StruggleForm },
-    JournalForm: { screen: JournalForm },
+    // MoodInputForm: { screen: MoodInputForm },
+    // OuterInfluenceForm: { screen: OuterInfluenceForm },
+    // AccomplishForm: { screen: AccomplishForm },
+    // StruggleForm: { screen: StruggleForm },
+    // JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
     StressGame: { screen: StressGame },
     StressRelief: { screen: StressRelief },
     Doodler: { screen: Doodler },
-    MyEntries: { screen: MyEntries },
-    NewEntry: { screen: NewEntry },
-    Map: { screen: Map }
+    MyJournals: { screen: MyJournals },
+    NewJournal: { screen: NewJournal },
+    Map: { screen: Map },
+    SingleJournal: {screen: SingleJournal}
   },
 
   {

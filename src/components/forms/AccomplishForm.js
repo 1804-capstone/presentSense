@@ -19,54 +19,26 @@ export default class AccomplishForm extends React.Component {
   }
 
   render() {
+    const { handleEntry } = this.props
     return (
       <ScrollView>
         <Text style={styles.welcome}>
           What's one thing you accomplished today?{" "}
         </Text>
         <TextInput
+          placeholder="Today I accomplished..."
           style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
           multiline
           numberOfLines={10}
           value={this.state.content}
-          onChangeText={content => this.setState({ content })}
-        />
-        {/* <TouchableHighlight
-          underlayColor="green"
-          onPress={() => {
-            this.props.addNote(this.state.content, +this.state.pageNumber);
-            this.props.navigation.navigate("TOC");
-          }}
-        > */}
-        {/* <Text>Add Entry</Text>
-        <View>
-          <Button
-            title="Next"
-            onPress={() => this.props.navigation.navigate("StruggleForm")}
-          />
-        </View> */}
-        {/* </TouchableHighlight> */}
+          onChangeText={content => {
+            this.setState({ content })
+            handleEntry('accomplishment', content)
+          }} />
       </ScrollView>
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {
-//     pages: state.pages
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     addNote: (content, pageNumber) => dispatch(postNote(content, pageNumber))
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AnnotationEdit);
 
 const styles = StyleSheet.create({
   container: {
