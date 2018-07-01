@@ -2,23 +2,23 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import { addNewEntry } from '../store/firebase'
+import { addNewEntry } from '../../store/firebase'
 import {
   MoodInputForm,
   OuterInfluenceForm,
   AccomplishForm,
   StruggleForm,
   JournalForm
-  } from './forms'
+  } from '../forms'
 
-class NewEntry extends React.Component {
+class NewJournal extends React.Component {
   constructor() {
     super()
     this.state = {
       mood: 0,
-      moodText: '',
+      moodText: 'Fantastic',
       outerInfluences: 0,
-      outerInfluencesText: '',
+      outerInfluencesText: 'Interpersonal relationships',
       accomplishment: '',
       struggle: '',
       advice: '',
@@ -35,7 +35,8 @@ class NewEntry extends React.Component {
 
   handleSubmit() {
     const { navigate } = this.props.navigation
-    this.props.addNewEntry(this.state, navigate)
+    const newEntry = {...this.state, date: Date.now()}
+    this.props.addNewEntry(newEntry, navigate)
   }
 
   render() {
@@ -78,4 +79,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(null, mapDispatch)(NewEntry)
+export default connect(null, mapDispatch)(NewJournal)

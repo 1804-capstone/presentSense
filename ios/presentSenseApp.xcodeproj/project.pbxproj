@@ -38,6 +38,7 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* presentSenseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* presentSenseAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		30F81392B86847B58619E3FD /* libRNSketch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6749DFD8464259ABAC3C86 /* libRNSketch.a */; };
 		3FFE513EEDCB4B7CA993B2D8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AC1EC8C8B1E46679AB4FD4B /* SimpleLineIcons.ttf */; };
 		40BEEB5820DFFE24008F7B33 /* libRNWebGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BEEB5620DFFDF9008F7B33 /* libRNWebGL.a */; };
 		451F77C9F8674423933CB13D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D374F8371C8547BCA3EA4C08 /* Entypo.ttf */; };
@@ -357,13 +358,6 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNWebGL;
 		};
-		5193244520E5847800C7B005 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 278531747F5C4723BD315E8B /* RNSketch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D03120661CD1FA5200897D5B;
-			remoteInfo = RNSketch;
-		};
 		51D11C7E20DC2F5A008B5C89 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */;
@@ -420,6 +414,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		F57F53DB20E6CCA20088F41F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D03120661CD1FA5200897D5B;
+			remoteInfo = RNSketch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -445,7 +446,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		14F18A5163124DBEBC9EBED5 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-		278531747F5C4723BD315E8B /* RNSketch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSketch.xcodeproj; path = "../node_modules/react-native-sketch/RNSketch.xcodeproj"; sourceTree = "<group>"; };
+		2C6749DFD8464259ABAC3C86 /* libRNSketch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSketch.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* presentSenseApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "presentSenseApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* presentSenseApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "presentSenseApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,7 +454,6 @@
 		31B461C98E75EB0C15C003FE /* Pods-presentSenseAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		40BEEB2920DFFDF8008F7B33 /* RNWebGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNWebGL.xcodeproj; path = "../node_modules/react-native-webgl/ios/RNWebGL.xcodeproj"; sourceTree = "<group>"; };
 		4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
-		509F80C45DDD48DB8CBFF2AA /* libRNSketch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSketch.a; sourceTree = "<group>"; };
 		513522E720DC426A003F24CC /* presentSenseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = presentSenseApp.entitlements; path = presentSenseApp/presentSenseApp.entitlements; sourceTree = "<group>"; };
 		513522E820DC426A003F24CC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		51705AEF20E53F430072DA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "presentSenseApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -468,6 +468,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79F677E906CB42119D390202 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSketch.xcodeproj; path = "../node_modules/react-native-sketch/RNSketch.xcodeproj"; sourceTree = "<group>"; };
 		87BF774CE550619E389EE214 /* Pods-presentSenseApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseApp/Pods-presentSenseApp.release.xcconfig"; sourceTree = "<group>"; };
 		8F7723F1F88FBABE607465E0 /* libPods-presentSenseApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-presentSenseApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DB5204EE2443BD9795EB4C /* Pods-presentSenseApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseApp-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseApp-tvOSTests/Pods-presentSenseApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -606,6 +607,7 @@
 				FC704D4B12054D3A84380A7E /* libRNFirebase.a in Frameworks */,
 				7D0C0ABC5879478A8DE75A0F /* libRCTAppleHealthKit.a in Frameworks */,
 				C04CEF02C541C8F0A7F67F42 /* libPods-presentSenseApp.a in Frameworks */,
+				30F81392B86847B58619E3FD /* libRNSketch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,7 +796,7 @@
 				72C3DA4586864129A4D99627 /* libRNFirebase.a */,
 				4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */,
 				F57F722020E1415F00ADB517 /* GoogleService-Info.plist */,
-				509F80C45DDD48DB8CBFF2AA /* libRNSketch.a */,
+				2C6749DFD8464259ABAC3C86 /* libRNSketch.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -811,14 +813,6 @@
 			isa = PBXGroup;
 			children = (
 				40BEEB5620DFFDF9008F7B33 /* libRNWebGL.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		5193244220E5847800C7B005 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5193244620E5847800C7B005 /* libRNSketch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -876,7 +870,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */,
 				55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */,
-				278531747F5C4723BD315E8B /* RNSketch.xcodeproj */,
+				85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -991,6 +985,14 @@
 				F5099EAD20E587CD0083174B /* DummyView.h */,
 			);
 			path = AirGoogleMaps;
+			sourceTree = "<group>";
+		};
+		F57F53D820E6CCA20088F41F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F57F53DC20E6CCA20088F41F /* libRNSketch.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F5DD046820E6852A00046DAA /* AirMaps */ = {
@@ -1238,8 +1240,8 @@
 					ProjectRef = 21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */;
 				},
 				{
-					ProductGroup = 5193244220E5847800C7B005 /* Products */;
-					ProjectRef = 278531747F5C4723BD315E8B /* RNSketch.xcodeproj */;
+					ProductGroup = F57F53D820E6CCA20088F41F /* Products */;
+					ProjectRef = 85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */;
 				},
 				{
 					ProductGroup = 40BEEB2A20DFFDF8008F7B33 /* Products */;
@@ -1495,13 +1497,6 @@
 			remoteRef = 40BEEB5520DFFDF9008F7B33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5193244620E5847800C7B005 /* libRNSketch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSketch.a;
-			remoteRef = 5193244520E5847800C7B005 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		51D11C7F20DC2F5A008B5C89 /* libRCTAppleHealthKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1556,6 +1551,13 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F57F53DC20E6CCA20088F41F /* libRNSketch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSketch.a;
+			remoteRef = F57F53DB20E6CCA20088F41F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1839,8 +1841,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1869,8 +1869,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1951,8 +1949,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1989,8 +1985,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2029,8 +2023,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2067,8 +2059,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (

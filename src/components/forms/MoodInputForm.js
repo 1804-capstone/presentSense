@@ -26,11 +26,11 @@ export default class MoodInputForm extends React.Component {
   render() {
     const { handleEntry } = this.props
     const  moodInput = [
-      { label: "fantastic", value: 0 },
-      { label: "good", value: 1 },
-      { label: "ok", value: 2 },
-      { label: "not great", value: 3 },
-      { label: "awful", value: 4 }
+      { label: "Fantastic", value: 0 },
+      { label: "Good", value: 1 },
+      { label: "Ok", value: 2 },
+      { label: "Not great", value: 3 },
+      { label: "Awful", value: 4 }
       ]
     return (
       <View>
