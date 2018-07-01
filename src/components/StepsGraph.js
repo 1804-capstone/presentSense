@@ -89,7 +89,6 @@ export default class HealthGraph extends React.Component {
           endDate: new Date(step.endDate.slice(0, -5))
         }));
         stepValues.reverse();
-        console.log("HERE IS THE NEWWWW STUFF", stepValues[0]);
       }
       const stepLineShape = stepLineGraph(stepValues);
       if (stepValues && stepValues.length) {
