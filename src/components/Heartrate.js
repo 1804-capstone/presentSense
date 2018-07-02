@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
-import THREE from "./three";
+import THREE from "./meshUtilities/three.js";
 import moment from "moment";
 //mesh utilities
 import { GeometrySetup, MeshAnimator } from "./meshUtilities/ringMesh";
