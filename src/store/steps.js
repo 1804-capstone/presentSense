@@ -2,9 +2,7 @@ import AppleHealthKit from "rn-apple-healthkit";
 
 const GET_STEPS_OVER_TIME = "GET_STEPS_OVER_TIME";
 
-const initialState = {
-  steps: []
-};
+const initialState = []
 
 const getStepsOverTime = steps => ({
   type: GET_STEPS_OVER_TIME,
@@ -16,6 +14,7 @@ export const fetchLatestSteps = stepOptions => dispatch =>
     if (err) {
       console.log("error getting steps from healthkit", err);
     } else {
+      console.log("IN THUNK, STEPS?", results)
       dispatch(getStepsOverTime(results));
     }
   });

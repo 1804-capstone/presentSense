@@ -3,6 +3,7 @@ import { Button } from "react-native-elements";
 import Drawer from 'react-native-draggable-view'
 // import iconClaw from '../images/icon_claw.png'
 import { DrawerHeader, DrawerView } from './Drawer'
+import GraphMaker from '../Graph/GraphMaker'
 import { StyleSheet,
         Text,
         View,
@@ -19,16 +20,16 @@ export default class MyData extends React.Component {
   render() {
       return (
         <View style={{backgroundColor: "#E0F2F1"}}>
-          <View style={styles.compContainer}>
+          {/* <View style={styles.compContainer}>
           <Text> HI? </Text>
-            {/* THIS IS WHERE TO PLUG IN THE GRAPH COMPONENT
+            THIS IS WHERE TO PLUG IN THE GRAPH COMPONENT
             <View style={styles.square} />
           </View>
           the following View limits how high the Drawer comes up the screen
-          <View style={{height: 500, backgroundColor:"#4DB6AC", zIndex: 0}}> */}
-          </View>
+          <View style={{height: 500, backgroundColor:"#4DB6AC", zIndex: 0}}>
+          </View> */}
           <Drawer
-              initialDrawerSize={.17}
+              initialDrawerSize={.16}
               // GRAPH COMPONENT MAY ALSO GO HERE, WE'LL SEE
               renderContainerView={() =>
                 <View style={{
@@ -36,7 +37,9 @@ export default class MyData extends React.Component {
                     backgroundColor: "#E0F2F1",
                     }}>
                   <Text>this is the div border</Text>
-                  </View>}
+                  </View>
+                  // <GraphMaker />
+                  }
               renderDrawerView={() => <DrawerView />}
               renderInitDrawerView={() => (<View style={{
                   backgroundColor: 'black',

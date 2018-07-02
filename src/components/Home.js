@@ -93,7 +93,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#4DB6AC"
-          onPress={() => navigate("MyData")}
+          onPress={() => navigate("GraphMaker")}
         />
         <Button
           title="Abstract Data"
