@@ -70,12 +70,13 @@ export default class LineGraph extends React.Component {
       .x(d => x(d.startDate))
       .y(d => y(d.value));
     const newData = data.map(datum => {
-      console.log(datum);
-      return {
+      const superNew = {
         value: datum.value,
         startDate: new Date(datum.startDate.slice(0, -5)),
         endDate: new Date(datum.endDate.slice(0, -5))
       }
+      console.log("HELLO DATA", typeof superNew.startDate);
+      return superNew
     });
     newData.reverse();
     const ticks = x.ticks(timeDay.every(1));
