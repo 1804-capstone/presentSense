@@ -90,6 +90,7 @@ export default class HealthGraph extends React.Component {
         }));
         stepValues.reverse();
       }
+
       const stepLineShape = stepLineGraph(stepValues);
       if (stepValues && stepValues.length) {
         this.setState({ stepLineShape: stepLineShape });
