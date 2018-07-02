@@ -15,7 +15,7 @@ const Screen = {
   height: Dimensions.get('window').height
 }
 
-export default class Test extends React.Component {
+export default class MyData extends React.Component {
   render() {
       return (
         <View style={{backgroundColor: "#E0F2F1"}}>

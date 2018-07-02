@@ -7,7 +7,7 @@ import store from "./store";
 import {
   Login,
   Home,
-  Dashboard,
+  MyData,
   LoginForm,
   Loading,
   Heartrate,
@@ -34,7 +34,7 @@ const StackNavigator = createStackNavigator(
   {
     LoginScreen: { screen: Login },
     HomeScreen: { screen: Home },
-    Dashboard: { screen: Dashboard },
+    MyData: { screen: MyData },
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
