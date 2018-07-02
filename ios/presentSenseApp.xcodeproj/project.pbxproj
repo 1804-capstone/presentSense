@@ -454,11 +454,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		14F18A5163124DBEBC9EBED5 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		239EA40FD33B469398187349 /* libRNSketch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSketch.a; sourceTree = "<group>"; };
-=======
 		2C6749DFD8464259ABAC3C86 /* libRNSketch.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSketch.a; sourceTree = "<group>"; };
->>>>>>> master
 		2D02E47B1E0B4A5D006451C7 /* presentSenseApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "presentSenseApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* presentSenseApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "presentSenseApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -620,11 +616,7 @@
 				FC704D4B12054D3A84380A7E /* libRNFirebase.a in Frameworks */,
 				7D0C0ABC5879478A8DE75A0F /* libRCTAppleHealthKit.a in Frameworks */,
 				C04CEF02C541C8F0A7F67F42 /* libPods-presentSenseApp.a in Frameworks */,
-<<<<<<< HEAD
-				E3E7FC210A5E43FD902AF600 /* libRNSketch.a in Frameworks */,
-=======
 				30F81392B86847B58619E3FD /* libRNSketch.a in Frameworks */,
->>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,11 +813,7 @@
 				72C3DA4586864129A4D99627 /* libRNFirebase.a */,
 				4E28C5C70DAB42C492BD8BF8 /* libRCTAppleHealthKit.a */,
 				F57F722020E1415F00ADB517 /* GoogleService-Info.plist */,
-<<<<<<< HEAD
-				239EA40FD33B469398187349 /* libRNSketch.a */,
-=======
 				2C6749DFD8464259ABAC3C86 /* libRNSketch.a */,
->>>>>>> master
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -899,11 +887,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */,
 				55003298F1D84F1D9E18DBC8 /* RCTAppleHealthKit.xcodeproj */,
-<<<<<<< HEAD
-				A9B4D9EF0D364686AEFDC525 /* RNSketch.xcodeproj */,
-=======
 				85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */,
->>>>>>> master
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1278,13 +1262,8 @@
 					ProjectRef = 21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */;
 				},
 				{
-<<<<<<< HEAD
-					ProductGroup = 40AD308920E6CB6600B52C1F /* Products */;
-					ProjectRef = A9B4D9EF0D364686AEFDC525 /* RNSketch.xcodeproj */;
-=======
 					ProductGroup = F57F53D820E6CCA20088F41F /* Products */;
 					ProjectRef = 85E29704D0F94460B0F6D472 /* RNSketch.xcodeproj */;
->>>>>>> master
 				},
 				{
 					ProductGroup = 40BEEB2A20DFFDF8008F7B33 /* Products */;
