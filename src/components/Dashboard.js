@@ -28,7 +28,7 @@ export default class Test extends React.Component {
           <View style={{height: 500, backgroundColor:"#4DB6AC", zIndex: 0}}> */}
           </View>
           <Drawer
-              initialDrawerSize={.15}
+              initialDrawerSize={.17}
               // GRAPH COMPONENT MAY ALSO GO HERE, WE'LL SEE
               renderContainerView={() =>
                 <View style={{
