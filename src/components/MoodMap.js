@@ -28,7 +28,7 @@ class MoodMap extends Component {
     this.props.fetchMoods(this.state.latitude, this.state.longitude)
   }
   render() {
-    console.log("MOOD IN MAP", this.props.moodsNearby)
+    // console.log("MOOD IN MAP", this.props.moodsNearby)
 	let points = [
 		{latitude:40.710089, longitude:-74.001668, weight: 1},
 		{latitude:40.716953, longitude:-74.007504, weight: 90},

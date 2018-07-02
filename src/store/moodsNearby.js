@@ -36,7 +36,7 @@ export const fetchMoodsNearby = (lat, long) => {
             }
             moodsNearby.push(data)
           })
-          console.log('MOODS IN STORE', moodsNearby)
+          // console.log('MOODS IN STORE', moodsNearby)
           dispatch(fetchMoods(moodsNearby))
         })
     } catch (err) {
