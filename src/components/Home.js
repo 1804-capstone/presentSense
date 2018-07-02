@@ -66,17 +66,28 @@ class Home extends React.Component {
     console.log("USERDOC!!!!!", this.props.userDocId);
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Button
+            title="account"
+            raised
+            buttonStyle={{ width: "75%", alignSelf: "flex-start" }}
+            borderRadius={10}
+            fontSize={15}
+            backgroundColor="#80CBC4"
+            onPress={() => navigate("Preferences")}
+          />
+          <Button
+            title="Logout"
+            raised
+            buttonStyle={{ width: "75%", alignSelf: "flex-end" }}
+            borderRadius={10}
+            fontSize={15}
+            backgroundColor="#80CBC4"
+            onPress={() => this.handleLogout()}
+          />
+        </View>
         <Button
-          title="Logout"
-          raised
-          buttonStyle={{ width: "25%", alignSelf: "flex-end" }}
-          borderRadius={10}
-          fontSize={15}
-          backgroundColor="#80CBC4"
-          onPress={() => this.handleLogout()}
-        />
-        <Button
-          title="Dashboard"
+          title="My Data"
           raised
           borderRadius={10}
           large={true}
@@ -85,22 +96,22 @@ class Home extends React.Component {
           onPress={() => navigate("GraphMaker")}
         />
         <Button
-          title="Preferences"
+          title="Abstract Data"
           raised
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#26A69A"
-          onPress={() => navigate("Preferences")}
+          onPress={() => navigate("Heartrate")}
         />
         <Button
-          title="My Entries"
+          title="My Journal"
           raised
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#009688"
-          onPress={() => navigate("MyEntries")}
+          onPress={() => navigate("MyJournals")}
         />
         <Button
           title="Stress Relief"
@@ -128,11 +139,16 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
     backgroundColor: "#E0F2F1",
     // alignItems: 'center',
     justifyContent: "space-between",
     paddingTop: "5%",
     paddingBottom: "10%"
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 

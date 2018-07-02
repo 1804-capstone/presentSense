@@ -2,18 +2,27 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
+import { addNewEntry } from '../../store/firebase'
 import {
   MoodInputForm,
   OuterInfluenceForm,
   AccomplishForm,
   StruggleForm,
   JournalForm
-  } from './forms'
+  } from '../forms'
 
-export default class NewEntry extends React.Component {
+class NewJournal extends React.Component {
   constructor() {
     super()
     this.state = {
+      mood: 0,
+      moodText: 'Fantastic',
+      outerInfluences: 0,
+      outerInfluencesText: 'Interpersonal relationships',
+      accomplishment: '',
+      struggle: '',
+      advice: '',
+      journalEntry: ''
 
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,21 +30,23 @@ export default class NewEntry extends React.Component {
   }
 
   handleEntry(category, input) {
-    //set the state with {category: input}
+    this.setState({[category]: input})
   }
 
   handleSubmit() {
     const { navigate } = this.props.navigation
+    const newEntry = {...this.state, date: Date.now()}
+    this.props.addNewEntry(newEntry, navigate)
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <MoodInputForm />
-        <OuterInfluenceForm />
-        <AccomplishForm />
-        <StruggleForm />
-        <JournalForm />
+        <MoodInputForm handleEntry={this.handleEntry}/>
+        <OuterInfluenceForm handleEntry={this.handleEntry}/>
+        <AccomplishForm handleEntry={this.handleEntry}/>
+        <StruggleForm handleEntry={this.handleEntry}/>
+        <JournalForm handleEntry={this.handleEntry}/>
         <Button
           title="Submit Entry"
           buttonStyle={styles.btn}
@@ -61,3 +72,11 @@ const styles = StyleSheet.create({
     width: 200
   }
 })
+
+const mapDispatch = dispatch => {
+  return {
+    addNewEntry: (newEntry, navigate) => dispatch(addNewEntry(newEntry, navigate))
+  }
+}
+
+export default connect(null, mapDispatch)(NewJournal)
