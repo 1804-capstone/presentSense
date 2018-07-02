@@ -44,7 +44,7 @@ class Graphmaker extends React.Component {
     };
     // this.getSteps = this.getSteps.bind(this);
     this.getHeartRate = this.getHeartRate.bind(this);
-    this.getXAxis = this.getXAxis.bind(this);
+    // this.getXAxis = this.getXAxis.bind(this);
   }
   componentDidMount() {
     if (!this.props.heartRateSamples || !this.props.heartRateSamples.length) {
@@ -59,44 +59,44 @@ class Graphmaker extends React.Component {
       this.props.fetchSleep(queryOptions);
       this.setState({ sleep: this.props.sleepSamples });
     }
-    if (this.state.xAxis === 0) {
-      this.getXAxis();
-    }
+    // if (this.state.xAxis === 0) {
+    //   this.getXAxis();
+    // }
   }
   newQueryOptions() {
     queryOptions = { ...queryOptions, endDate: new Date().toISOString() };
   }
 
-  getXAxis() {
-    let start = moment(queryOptions.startDate);
-    let end = moment(queryOptions.endDate);
-    const width = Dimensions.get("window").width;
-    const xAxis = end.diff(start, "days");
-    this.setState({ xAxis: xAxis });
-    // const x = scaleTime()
-    //   .domain([
-    //     new Date(queryOptions.startDate),
-    //     new Date(queryOptions.endDate)
-    //   ])
-    //   .range([0, width * 0.8]);
-    const x = scaleTime()
-      .domain([0, 1])
-      .range([0, width * 0.8]);
-    // const xAxisLine = axisBottom(x).ticks(26);
-    console.log("what is X", x);
-    let arr = [];
-    for (let i = 0; i < xAxis; i++) {
-      arr.push(i);
-    }
-    let xAxisLine = line()
-      .x(function(d) {
-        return x(d);
-      })
-      .y(() => 0);
-    let myLine = xAxisLine(arr);
-    this.setState({ xAxisLine: myLine });
-    console.log("what is my line", myLine);
-  }
+  // getXAxis() {
+  //   let start = moment(queryOptions.startDate);
+  //   let end = moment(queryOptions.endDate);
+  //   const width = Dimensions.get("window").width;
+  //   const xAxis = end.diff(start, "days");
+  //   this.setState({ xAxis: xAxis });
+  //   // const x = scaleTime()
+  //   //   .domain([
+  //   //     new Date(queryOptions.startDate),
+  //   //     new Date(queryOptions.endDate)
+  //   //   ])
+  //   //   .range([0, width * 0.8]);
+  //   const x = scaleTime()
+  //     .domain([0, 1])
+  //     .range([0, width * 0.8]);
+  //   // const xAxisLine = axisBottom(x).ticks(26);
+  //   console.log("what is X", x);
+  //   let arr = [];
+  //   for (let i = 0; i < xAxis; i++) {
+  //     arr.push(i);
+  //   }
+  //   let xAxisLine = line()
+  //     .x(function(d) {
+  //       return x(d);
+  //     })
+  //     .y(() => 0);
+  //   let myLine = xAxisLine(arr);
+  //   this.setState({ xAxisLine: myLine });
+  //   console.log("what is my line", myLine);
+  // }
 
   // async getSteps() {
   //   try {
