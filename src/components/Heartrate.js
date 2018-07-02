@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
@@ -37,6 +43,7 @@ class Heartrate extends React.Component {
     this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
+    this.handleTouch = this.handleTouch.bind(this);
   }
   componentDidMount() {
     if (!this.props.lastHr) {
@@ -189,16 +196,25 @@ class Heartrate extends React.Component {
     stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
     this.props.fetchLatestSteps(stepOptions);
   }
+  handleTouch(event) {
+    console.log(
+      "TOUCHCOORDS",
+      event.nativeEvent.locationX,
+      event.nativeEvent.locationY
+    );
+  }
   render() {
     // console.log("**? ", this.props.stepSamples);
     return (
       <View style={styles.container}>
-        <WebGLView
-          style={styles.webglView}
-          onContextCreate={this.onContextCreate}
-        />
-        {}
-        <Button
+        <TouchableOpacity onPress={event => this.handleTouch(event)}>
+          <View>
+            <WebGLView
+              style={styles.webglView}
+              onContextCreate={this.onContextCreate}
+            />
+            {}
+            {/* <Button
           title={`HR: ${this.state.rate}`}
           raised
           style={styles.buttons}
@@ -207,7 +223,9 @@ class Heartrate extends React.Component {
           fontSize={40}
           backgroundColor="#4DB6AC"
           onPress={() => this.getHR()}
-        />
+        /> */}
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
