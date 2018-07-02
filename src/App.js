@@ -19,7 +19,7 @@ import {
   Doodler,
   MyJournals,
   NewJournal,
-  Map,
+  MoodMap,
   StressGame,
   SingleJournal
 } from "./components";
@@ -50,7 +50,7 @@ const StackNavigator = createStackNavigator(
     Doodler: { screen: Doodler },
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
-    Map: { screen: Map },
+    MoodMap: { screen: MoodMap },
     SingleJournal: {screen: SingleJournal}
   },
 

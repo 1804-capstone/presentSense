@@ -1,5 +1,4 @@
 import firebase from "react-native-firebase";
-import { NewEntry } from "../components";
 const db = firebase.firestore();
 
 /** ACTION TYPES **/
@@ -126,17 +125,6 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
 };
 
 
-db.runTransaction(function(transaction) {
-  // This code may get re-run multiple times if there are conflicts.
-  return transaction.get(docRef).then(function(doc) {
-      transaction.update(docRef, { users: [...doc.data().users, id ]});
-  });
-}).then(function() {
-  console.log("Transaction successfully committed!");
-}).catch(function(error) {
-  console.log("Transaction failed: ", error);
-});
-
 export const addNewEntry = (newEntry, navigate) => {
   return async dispatch => {
     try {
@@ -196,7 +184,7 @@ const initialState = {
   moodLogs: []
 };
 
-/** FIREBASE REDUCER **/
+/** FIRESTORE REDUCER **/
 export default (firestoreStore = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP:
