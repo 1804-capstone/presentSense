@@ -68,7 +68,7 @@ class Home extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Button
-            title="account"
+            title="Account"
             raised
             buttonStyle={{ width: "75%", alignSelf: "flex-start" }}
             borderRadius={10}
