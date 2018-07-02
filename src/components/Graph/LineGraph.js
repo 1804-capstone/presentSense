@@ -2,7 +2,7 @@ import { scaleLinear, scaleTime } from "d3-scale";
 import { line } from "d3-shape";
 import { Dimensions, View, Text, ART, StyleSheet } from "react-native";
 import React from "react";
-import dummyData from "./DummyData";
+// import dummyData from "./DummyData";
 import moment from "moment";
 import d3 from "d3";
 import { timeDay } from "d3-time";
@@ -51,14 +51,15 @@ export default class LineGraph extends React.Component {
     this.setState({ paths: linePaths });
   }
   individualGraphMaker = (data, startDate, endDate) => {
-    console.log("here is the data", [...arguments])
     //construct x-scale
     const min = new Date(startDate);
     const max = new Date(endDate);
-    const { width, height } = Dimensions.get("window").width;
+    console.log("the dates", min, max);
+    const { width, height } = Dimensions.get("window");
     const x = scaleTime()
       .domain([min, max])
-      .range([0, width * 0.8]);
+      .range([0, width]);
+
     //construct y-scale
     const values = data.map(datum => datum.value);
     const maxVal = values.sort((a, b) => a - b)[values.length - 1];
@@ -69,18 +70,12 @@ export default class LineGraph extends React.Component {
     const path = line()
       .x(d => x(d.startDate))
       .y(d => y(d.value));
-    const newData = data.map(datum => {
-      const superNew = {
-        value: datum.value,
-        startDate: new Date(datum.startDate.slice(0, -5)),
-        endDate: new Date(datum.endDate.slice(0, -5))
-      }
-      console.log("HELLO DATA", typeof superNew.startDate);
-      return superNew
-    });
+    const newData = data.map(datum => ({
+      value: datum.value,
+      startDate: new Date(datum.startDate.slice(0, -5)),
+      endDate: new Date(datum.endDate.slice(0, -5))
+    }));
     newData.reverse();
-    const ticks = x.ticks(timeDay.every(1));
-    console.log("here is my path", path(newData));
     return path(newData);
   };
   render() {

@@ -90,6 +90,7 @@ export default class HealthGraph extends React.Component {
         }));
         stepValues.reverse();
       }
+
       const stepLineShape = stepLineGraph(stepValues);
       if (stepValues && stepValues.length) {
         this.setState({ stepLineShape: stepLineShape });
@@ -138,6 +139,7 @@ export default class HealthGraph extends React.Component {
     const dataLine = line()
       .x(d => x(d.tick))
       .y(d => y(d.y));
+    // .style("stroke-dasharray", "3,3");
 
     const yTicksForSteps = y.ticks(20);
     const yTicks = yTicksForSteps.map(tick => [
@@ -147,6 +149,7 @@ export default class HealthGraph extends React.Component {
       },
       { tick, x: width * 10 }
     ]);
+    console.log("LOOK AT MY TICKS", yTicks);
 
     const yDataLine = line()
       .x(d => x(d.x))
