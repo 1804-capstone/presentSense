@@ -12,7 +12,7 @@ export { default as GraphMaker } from "./Graph/GraphMaker";
 export { default as Preferences } from "./Preferences";
 export { default as MyJournals } from "./Journal/MyJournals";
 export { default as NewJournal } from "./Journal/NewJournal";
-export { default as Map } from "./Map";
+export { default as MoodMap } from "./MoodMap";
 export { default as StressGame } from "./StressGame";
 export { default as StressRelief } from "./StressRelief";
 export { default as Doodler } from "./Doodler";

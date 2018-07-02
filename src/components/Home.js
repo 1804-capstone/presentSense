@@ -68,7 +68,7 @@ class Home extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Button
-            title="account"
+            title="Account"
             raised
             buttonStyle={{ width: "75%", alignSelf: "flex-start" }}
             borderRadius={10}
@@ -123,13 +123,13 @@ class Home extends React.Component {
           onPress={() => navigate("StressRelief")}
         />
         <Button
-          title="Mood Maps"
+          title="Mood Map"
           raised
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#00796B"
-          onPress={() => navigate("Map")}
+          onPress={() => navigate("MoodMap")}
         />
       </View>
     );

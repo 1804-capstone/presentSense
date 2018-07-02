@@ -19,7 +19,7 @@ import {
   Doodler,
   MyJournals,
   NewJournal,
-  Map,
+  MoodMap,
   StressGame,
   SingleJournal
 } from "./components";
@@ -29,7 +29,7 @@ import {
 // import AccomplishForm from "./components/forms/AccomplishForm";
 // import StruggleForm from "./components/forms/StruggleForm";
 // import JournalForm from "./components/forms/JournalForm";
-
+console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {
     LoginScreen: { screen: Login },
@@ -50,8 +50,8 @@ const StackNavigator = createStackNavigator(
     Doodler: { screen: Doodler },
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
-    Map: { screen: Map },
-    SingleJournal: {screen: SingleJournal}
+    MoodMap: { screen: MoodMap },
+    SingleJournal: { screen: SingleJournal }
   },
 
   {
