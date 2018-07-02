@@ -111,7 +111,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#009688"
-          onPress={() => navigate("MyEntries")}
+          onPress={() => navigate("MyJournals")}
         />
         <Button
           title="Stress Relief"

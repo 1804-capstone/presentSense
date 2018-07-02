@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, ART, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  ART,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator
+} from "react-native";
 const { Surface, Group, Shape } = ART;
 import { scaleLinear, scaleTime } from "d3-scale";
 import { connect } from "react-redux";
@@ -9,6 +16,7 @@ import { axisBottom } from "d3-axis";
 import * as d3 from "d3";
 import { timeDay } from "d3-time";
 import StepsGraph from "./StepsGraph";
+import LineGraph from "./LineGraph";
 import moment from "moment";
 
 //thunks we're gonna need
@@ -17,6 +25,7 @@ import {
   fetchLatestHeartRate
 } from "../store/heartrate";
 import { fetchLatestSteps } from "../store/steps";
+import { fetchSleep } from "../store/sleep";
 let queryOptions = {
   startDate: new Date(2018, 5, 1).toISOString(), // required
   endDate: new Date().toISOString() // optional; default now
@@ -29,10 +38,11 @@ class Graphmaker extends React.Component {
     this.state = {
       steps: [],
       heartRate: [],
+      sleep: [],
       xAxis: 0,
       xAxisLine: ""
     };
-    this.getSteps = this.getSteps.bind(this);
+    // this.getSteps = this.getSteps.bind(this);
     this.getHeartRate = this.getHeartRate.bind(this);
     this.getXAxis = this.getXAxis.bind(this);
   }
@@ -44,6 +54,10 @@ class Graphmaker extends React.Component {
     if (!this.props.stepSamples || !this.props.stepSamples.length) {
       this.props.fetchStepsOverTime(queryOptions);
       this.setState({ steps: this.props.stepSamples });
+    }
+    if (!this.props.sleepSamples || !this.props.sleepSamples.length) {
+      this.props.fetchSleep(queryOptions);
+      this.setState({ sleep: this.props.sleepSamples });
     }
     if (this.state.xAxis === 0) {
       this.getXAxis();
@@ -84,18 +98,18 @@ class Graphmaker extends React.Component {
     console.log("what is my line", myLine);
   }
 
-  async getSteps() {
-    try {
-    } catch (err) {
-      console.log("error gettting steps", err);
-    }
-  }
+  // async getSteps() {
+  //   try {
+  //   } catch (err) {
+  //     console.log("error gettting steps", err);
+  //   }
+  // }
   getHeartRate() {
     this.newQueryOptions();
     this.props.fetchHeartRateOverTime(heartOptions);
   }
   render() {
-    console.log("HERE ARE MY DATES", queryOptions.startDate);
+    console.log("here is my state", this.state);
     let minDate = new Date(queryOptions.startDate);
     let maxDate = new Date(queryOptions.endDate);
     const { height, width } = Dimensions.get("window");
@@ -116,8 +130,18 @@ class Graphmaker extends React.Component {
             <Text>{minDate.toString().slice(4, 11)}</Text>
           </View>
 
-          <View style={styles.graph}>
+          {/* <View style={styles.graph}>
             <StepsGraph
+              startDate={queryOptions.startDate}
+              endDate={queryOptions.endDate}
+              data={{
+                steps: this.props.stepSamples,
+                heartRate: this.props.heartRateSamples
+              }}
+            />
+          </View> */}
+          <View style={styles.graph}>
+            <LineGraph
               startDate={queryOptions.startDate}
               endDate={queryOptions.endDate}
               data={{
@@ -155,7 +179,7 @@ class Graphmaker extends React.Component {
             </Group>
           </Surface> */}
         {/* </View> */}
-        <View style={{ textAlign: "center" }}>
+        <View>
           <Text style={{ color: "red", fontWeight: "bold" }}>
             Your heartrate for the past {diff + 1} days
           </Text>
@@ -165,7 +189,11 @@ class Graphmaker extends React.Component {
         </View>
       </View>
     );
-    const noData = <Text>nope :(</Text>;
+    const noData = (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
     return this.props.stepSamples.length && this.props.heartRateSamples.length
       ? graphContent
       : noData;
@@ -175,13 +203,16 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchHeartRateOverTime: queryOptions =>
       dispatch(fetchHeartRateOverTime(queryOptions)),
-    fetchStepsOverTime: queryOptions => dispatch(fetchLatestSteps(queryOptions))
+    fetchStepsOverTime: queryOptions =>
+      dispatch(fetchLatestSteps(queryOptions)),
+    fetchSleep: queryOptions => dispatch(fetchSleep(queryOptions))
   };
 };
 const mapStateToProps = state => {
   return {
     heartRateSamples: state.heartRate.hrSamples,
-    stepSamples: state.steps
+    stepSamples: state.steps,
+    sleepSamples: state.sleep
   };
 };
 
