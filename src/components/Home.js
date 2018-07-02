@@ -123,13 +123,13 @@ class Home extends React.Component {
           onPress={() => navigate("StressRelief")}
         />
         <Button
-          title="Mood Maps"
+          title="Mood Map"
           raised
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#00796B"
-          onPress={() => navigate("Map")}
+          onPress={() => navigate("MoodMap")}
         />
       </View>
     );

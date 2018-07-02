@@ -57,7 +57,6 @@
 		CA042E29C776466D21FC93C9 /* libPods-presentSenseApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE6F2190DEE087442DC474F /* libPods-presentSenseApp-tvOSTests.a */; };
 		D670BC00AD404926B8723E3F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14F18A5163124DBEBC9EBED5 /* EvilIcons.ttf */; };
 		DEC95FBD925548E5BE0A397F /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E19BB0756714EECBD9365FE /* Octicons.ttf */; };
-		E3E7FC210A5E43FD902AF600 /* libRNSketch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 239EA40FD33B469398187349 /* libRNSketch.a */; };
 		EB15A4429F674B149FA53EFF /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD655D070DDC4834A4605287 /* Zocial.ttf */; };
 		F5099ED820E587CD0083174B /* AIRGoogleMapUrlTile.m in Sources */ = {isa = PBXBuildFile; fileRef = F5099E8520E587CD0083174B /* AIRGoogleMapUrlTile.m */; };
 		F5099ED920E587CD0083174B /* AIRGoogleMapPolygonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5099E8820E587CD0083174B /* AIRGoogleMapPolygonManager.m */; };
@@ -345,13 +344,6 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		40AD308C20E6CB6600B52C1F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9B4D9EF0D364686AEFDC525 /* RNSketch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D03120661CD1FA5200897D5B;
-			remoteInfo = RNSketch;
-		};
 		40BD4B4320D9EAFA00CABC48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21FF2B9747174ECB848BD0EF /* RNFirebase.xcodeproj */;
@@ -482,7 +474,6 @@
 		90DB5204EE2443BD9795EB4C /* Pods-presentSenseApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-presentSenseApp-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-presentSenseApp-tvOSTests/Pods-presentSenseApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		91889AAC4DB240FDBBA84152 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		9E19BB0756714EECBD9365FE /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		A9B4D9EF0D364686AEFDC525 /* RNSketch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSketch.xcodeproj; path = "../node_modules/react-native-sketch/RNSketch.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C0A6BDADD7B044E9A378E8F7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		CC4D9EDEEE9E9B1B6A9738F3 /* libPods-presentSenseAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-presentSenseAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -799,14 +790,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		40AD308920E6CB6600B52C1F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				40AD308D20E6CB6600B52C1F /* libRNSketch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		40BD4B1A20D9EAFA00CABC48 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,8 +1064,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				0BA8893E3A6575E16B9626E4 /* [CP] Embed Pods Frameworks */,
-				D90F0B39CD4351AD85057222 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1104,7 +1085,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				1E44E41E6B69EFCCA9616A92 /* [CP] Copy Pods Resources */,
-				FED4AB69C791E2B2C6D58E1D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1141,8 +1121,6 @@
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
-				C4B3A6F1745B352DD5B75719 /* [CP] Embed Pods Frameworks */,
-				1E3579379E83C40C7ED75A90 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1505,13 +1483,6 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		40AD308D20E6CB6600B52C1F /* libRNSketch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSketch.a;
-			remoteRef = 40AD308C20E6CB6600B52C1F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		40BD4B4420D9EAFA00CABC48 /* libRNFirebase.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1653,36 +1624,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0BA8893E3A6575E16B9626E4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1E3579379E83C40C7ED75A90 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-presentSenseApp-tvOSTests/Pods-presentSenseApp-tvOSTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1E44E41E6B69EFCCA9616A92 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1769,51 +1710,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C4B3A6F1745B352DD5B75719 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-presentSenseApp-tvOSTests/Pods-presentSenseApp-tvOSTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D90F0B39CD4351AD85057222 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-presentSenseAppTests/Pods-presentSenseAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FED4AB69C791E2B2C6D58E1D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-presentSenseApp/Pods-presentSenseApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

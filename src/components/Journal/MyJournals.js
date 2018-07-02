@@ -38,6 +38,10 @@ class MyJournals extends React.Component {
           />
           <View>
             <Text style={styles.pastTxt}>Past Journals:</Text>
+            {this.props.moodLogs.length < 1
+            ? <Text style={styles.none}>
+                You do not have any journal entries yet. Add one now!</Text>
+            : (
             <ScrollView>
               {this.props.moodLogs.map( (log, ind) => {
                 return (
@@ -51,6 +55,7 @@ class MyJournals extends React.Component {
                 )
               })}
             </ScrollView>
+            )}
           </View>
       </View>
     )
@@ -76,6 +81,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderTopWidth: 1,
     borderTopColor: 'black'
+  },
+  none: {
+    margin: 15,
+    fontSize: 21
   },
   txtContainer: {
     marginLeft: 15,

@@ -1,5 +1,4 @@
 import firebase from "react-native-firebase";
-import { NewEntry } from "../components";
 const db = firebase.firestore();
 
 /** ACTION TYPES **/
@@ -84,7 +83,8 @@ export const signUpUser = (email, password, navigate) => {
           sleep: true,
           mood: true,
           share: true,
-          location: true
+          location: true,
+          moodData: {average: 2, totalNumberOfEntries: 0}
       })
       const id = user.uid
       dispatch(signUp({ email, password, id }));
@@ -124,12 +124,26 @@ export const updateUserPrefs = (docId, preferences, navigate) => {
   };
 };
 
+
 export const addNewEntry = (newEntry, navigate) => {
   return async dispatch => {
     try {
       const user = firebase.auth().currentUser
       const id = user.uid
-      await db.collection('users').doc(id).collection('moodLog').add(newEntry)
+      const userDocRef = await db.collection('users').doc(id)
+      await userDocRef.collection('moodLog').add(newEntry)
+      //adding a new entry will also update the moodData field on the user doc:
+      await db.runTransaction( transaction => {
+        return transaction.get(userDocRef).then( doc => {
+          const oldTotal = doc.data().moodData.totalNumberOfEntries
+          const oldAverage = doc.data().moodData.average
+          const newTotal = oldTotal + 1
+          const newAverage = (oldTotal * oldAverage + newEntry.mood) / newTotal
+          transaction.update(userDocRef, {moodData: {
+            average: newAverage,
+            totalNumberOfEntries: newTotal
+          }})})
+      })
       dispatch(addEntry(newEntry))
       navigate("MyJournals")
     } catch (err) {
@@ -170,7 +184,7 @@ const initialState = {
   moodLogs: []
 };
 
-/** FIREBASE REDUCER **/
+/** FIRESTORE REDUCER **/
 export default (firestoreStore = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP:
