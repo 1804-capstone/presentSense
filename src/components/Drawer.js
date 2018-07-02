@@ -7,7 +7,8 @@ import { StyleSheet,
         View,
         StatusBar,
         Image,
-        Dimensions } from "react-native";
+        Dimensions,
+        DatePickerIOS } from "react-native";
 
 const Screen = {
   width: Dimensions.get('window').width,
@@ -26,10 +27,7 @@ export const DrawerHeader = props => {
 export const DrawerView = props => {
   return (
     <View style={styles.viewCont}>
-      <Text style={styles.text}>Today</Text>
-      <Text style={styles.text}>Week</Text>
-      <Text style={styles.text}>Month</Text>
-      <Text style={styles.text}>Year</Text>
+
     </View>
   )
 }

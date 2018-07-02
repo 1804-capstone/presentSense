@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-native-elements";
-// import Drawer from 'react-native-draggable-view'
+import Drawer from 'react-native-draggable-view'
 // import iconClaw from '../images/icon_claw.png'
 import { DrawerHeader, DrawerView } from './Drawer'
 import { StyleSheet,
