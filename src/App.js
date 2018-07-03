@@ -21,7 +21,8 @@ import {
   NewJournal,
   Map,
   StressGame,
-  SingleJournal
+  SingleJournal,
+  DataCarousel
 } from "./components";
 
 // import MoodInputForm from "./components/forms/MoodInputForm";
@@ -51,7 +52,8 @@ const StackNavigator = createStackNavigator(
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
     Map: { screen: Map },
-    SingleJournal: {screen: SingleJournal}
+    SingleJournal: { screen: SingleJournal },
+    DataCarousel: { screen: DataCarousel }
   },
 
   {

@@ -87,13 +87,13 @@ class Home extends React.Component {
           />
         </View>
         <Button
-          title="My Data"
+          title="Carousel"
           raised
           borderRadius={10}
           large={true}
           fontSize={40}
           backgroundColor="#4DB6AC"
-          onPress={() => navigate("GraphMaker")}
+          onPress={() => navigate("DataCarousel")}
         />
         <Button
           title="Abstract Data"

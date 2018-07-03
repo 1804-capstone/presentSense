@@ -223,7 +223,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#E0F2F1"
+    backgroundColor: "#E0F2F1",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
   },
   subContainer: {
     flex: 0.6,

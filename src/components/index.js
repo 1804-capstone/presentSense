@@ -10,10 +10,11 @@ export { default as AnimBlob } from "./AnimBlob";
 export { default as StepsGraph } from "./StepsGraph";
 export { default as GraphMaker } from "./GraphMaker";
 export { default as Preferences } from "./Preferences";
-export { default as MyJournals } from "./Journal/MyJournals"
-export { default as NewJournal } from "./Journal/NewJournal"
-export { default as Map } from "./Map"
+export { default as MyJournals } from "./Journal/MyJournals";
+export { default as NewJournal } from "./Journal/NewJournal";
+export { default as Map } from "./Map";
 export { default as StressGame } from "./StressGame";
 export { default as StressRelief } from "./StressRelief";
 export { default as Doodler } from "./Doodler";
-export { default as SingleJournal } from './Journal/SingleJournal'
+export { default as SingleJournal } from "./Journal/SingleJournal";
+export { default as DataCarousel } from "./DataCarousel";

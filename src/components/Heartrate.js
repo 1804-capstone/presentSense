@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Button } from "react-native-elements";
+import Carousel from "react-native-snap-carousel";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
 import THREE from "./meshUtilities/three.js";
@@ -33,6 +34,7 @@ let stepOptions = {
   startDate: new Date(2018, 5, 20).toISOString(), // required
   endDate: new Date().toISOString()
 };
+const SLIDER_1 = 1;
 
 class Heartrate extends React.Component {
   constructor(props) {
@@ -40,13 +42,17 @@ class Heartrate extends React.Component {
     this.state = {
       rate: 0,
       touchPos: { x: 0, y: 0 },
-      camera: {}
+      camera: {},
+      activeSlide: SLIDER_1
     };
     this.getHR = this.getHR.bind(this);
     this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
+  }
+  _renderItem({ item, index }) {
+    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
   }
   componentDidMount() {
     if (!this.props.lastHr) {
@@ -229,20 +235,21 @@ class Heartrate extends React.Component {
     let Helper = new CameraHelper();
     let vProjectedMousePos = new THREE.Vector3();
 
-    Helper.Compute(
-      event.nativeEvent.locationX,
-      event.nativeEvent.locationY,
-      camera,
-      vProjectedMousePos,
-      width,
-      height
-    );
-    console.log(
-      "TOUCHING",
-      event.nativeEvent.locationX,
-      event.nativeEvent.locationY,
-      vProjectedMousePos
-    );
+    // Helper.Compute(
+    //   event.nativeEvent.locationX,
+    //   event.nativeEvent.locationY,
+    //   camera,
+    //   vProjectedMousePos,
+    //   width,
+    //   height
+    // );
+    Helper.Compute(x, y, camera, vProjectedMousePos, width, height);
+    // console.log(
+    //   "TOUCHING",
+    //   event.nativeEvent.locationX,
+    //   event.nativeEvent.locationY,
+    //   vProjectedMousePos
+    // );
     this.setState({
       touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y }
     });
