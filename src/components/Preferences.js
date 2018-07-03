@@ -26,18 +26,16 @@ class Preferences extends React.Component {
   }
 
   render() {
-    console.log("USERDOCID???", this.props.userDocId);
-    const { navigate } = this.props.navigation;
-    console.log("CAN WE NAV?", navigate);
+    const { navigate } = this.props.navigation;;
     return (
       <View style={styles.container}>
-        <Text>Name: </Text>
+        <Text style={styles.txt}>Name: </Text>
         <TextInput
-          style={{ height: 20, borderColor: "gray", borderWidth: 1 }}
+          style={styles.txtInput}
           value={this.state.name}
           onChangeText={name => this.setState({ name })}
         />
-        <Text>Tracked Metrics</Text>
+        {/* <Text>Tracked Metrics</Text>
         <Text>Heart Rate: </Text>
         <Switch
           value={this.state.heartRate}
@@ -57,22 +55,38 @@ class Preferences extends React.Component {
         <Switch
           value={this.state.mood}
           onValueChange={value => this.setState({ mood: value })}
-        />
-        <Text>
-          This information will be tabulated and shared anonymously to provide
-          better user experience.
+        /> */}
+        <Text style={styles.txt2}>
+          The following options improve user experience with the Mood Map.
+          This information will be tabulated and shared anonymously.
         </Text>
-        <Text>Share Your Metrics: </Text>
-        <Switch
-          value={this.state.share}
-          onValueChange={value => this.setState({ share: value })}
-        />
-        <Text>Share Your Location: </Text>
-        <Switch
-          value={this.state.location}
-          onValueChange={value => this.setState({ location: value })}
-        />
-        <Button title="Save Changes" onPress={this.handleSave} />
+        <View style={styles.toggle}>
+          <Text style={styles.txt3}>
+            Share Your Metrics:{'\n'}
+            (your mood average will {'\n'}
+            appear on map)</Text>
+          <Switch
+            value={this.state.share}
+            onValueChange={value => this.setState({ share: value })}
+          />
+        </View>
+        <View style={styles.toggle}>
+          <Text style={styles.txt3}>
+            Share Your Location: {'\n'}
+            (map will centralize on {'\n'}
+            your location)</Text>
+          <Switch
+            value={this.state.location}
+            onValueChange={value => this.setState({ location: value })}
+          />
+        </View>
+        <Button title="Save Changes"
+          buttonStyle={styles.btn}
+          raised
+          borderRadius={10}
+          fontSize={30}
+          backgroundColor="#4DB6AC"
+          onPress={this.handleSave} />
       </View>
     );
   }
@@ -82,15 +96,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E0F2F1",
-    // alignItems: 'center',
     justifyContent: "space-between",
-    paddingTop: "5%",
-    paddingBottom: "10%"
+    padding: '10%'
   },
-  buttons: {
-    // padding: '5%',
-    // height: 200,
-    // flex: 1
+  txt: {
+    fontSize: 30
+  },
+  txtInput: {
+    height: 40,
+    fontSize: 20,
+    borderColor: "gray",
+    borderBottomWidth: 1
+  },
+  txt2: {
+    fontSize: 15
+  },
+  txt3: {
+    fontSize: 20,
+
+  },
+  toggle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  btn: {
+    margin: 20,
+    alignSelf: 'center',
+    width: 250
   }
 });
 
