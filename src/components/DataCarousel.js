@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import Heartrate from "./Heartrate";
-import GraphMaker from "./GraphMaker";
+import GraphMaker from "./Graph/GraphMaker";
 
 const abstractContent = <Heartrate />;
 const graphContent = <GraphMaker />;
