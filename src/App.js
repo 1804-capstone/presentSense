@@ -21,10 +21,14 @@ import {
   NewJournal,
   MoodMap,
   StressGame,
-  SingleJournal
+  SingleJournal,
+  DataCarousel
 } from "./components";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {
@@ -41,6 +45,7 @@ const StackNavigator = createStackNavigator(
     Doodler: { screen: Doodler },
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
+    DataCarousel: { screen: DataCarousel },
     MoodMap: { screen: MoodMap },
     SingleJournal: { screen: SingleJournal },
   },
