@@ -23,52 +23,47 @@ import {
 import { fetchLatestSteps } from "../store/steps";
 //starting options for heart rate gatherer
 const { width, height } = Dimensions.get("window");
-let heartOptions = {
-  unit: "bpm", // optional; default 'bpm'
-  startDate: new Date(2017, 4, 20).toISOString(), // required
-  endDate: new Date().toISOString(), // optional; default now
-  ascending: false, // optional; default false
-  limit: 10 // optional; default no limit
-};
-let stepOptions = {
-  startDate: new Date(2018, 5, 20).toISOString(), // required
-  endDate: new Date().toISOString()
-};
-const SLIDER_1 = 1;
+// let heartOptions = {
+//   unit: "bpm", // optional; default 'bpm'
+//   startDate: new Date(2017, 4, 20).toISOString(), // required
+//   endDate: new Date().toISOString(), // optional; default now
+//   ascending: false, // optional; default false
+//   limit: 10 // optional; default no limit
+// };
+// let stepOptions = {
+//   startDate: new Date(2018, 5, 20).toISOString(), // required
+//   endDate: new Date().toISOString()
+// };
 
 class Heartrate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rate: 0,
       touchPos: { x: 0, y: 0 },
       camera: {},
-      activeSlide: SLIDER_1
+      hrSamples: [],
+      stepSampes: []
     };
-    this.getHR = this.getHR.bind(this);
-    this.getSteps = this.getSteps.bind(this);
+    // this.getHR = this.getHR.bind(this);
+    // this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
   }
-  _renderItem({ item, index }) {
-    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
-  }
-  componentDidMount() {
-    if (!this.props.lastHr) {
-      this.props.fetchLatestHeartRate(heartOptions);
+
+  componentDidMount() {}
+  static getDerivedStateFromProps(props, state) {
+    //check if the props match their counterparts in the local state object.
+    if (props.hrSamples !== state.hrSamples) {
+      //COMPONENT SHOULD UPDATE!
+      //perhaps also call your functions that compute the lines from data here?
+      return {
+        // this sets the local state object to the newly updated props
+        hrSamples: props.hrSamples
+      };
     }
-    if (!this.props.hrSamples) {
-      this.props.fetchHeartRateOverTime(heartOptions);
-    }
-    this.getHR();
-    if (!this.props.stepSamples || !this.props.stepSamples.length) {
-      let maxDate = moment(stepOptions.endDate);
-      let minDate = moment(stepOptions.startDate);
-      let diff = maxDate.diff(minDate, "days");
-      stepOptions = { ...stepOptions, limit: diff };
-      this.props.fetchLatestSteps(stepOptions);
-    }
+    //props and state match, no re-render needed!
+    return null;
   }
   componentWillUnmount() {
     cancelAnimationFrame();
@@ -104,7 +99,8 @@ class Heartrate extends React.Component {
     let cubeGeometry;
     let cubeMesh;
     let cubeMaterial;
-
+    let heartSampleLength = this.props.hrSamples.length;
+    let stepSampleLength = this.props.stepSamples.length;
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 0;
@@ -121,7 +117,8 @@ class Heartrate extends React.Component {
         vertexColors: THREE.VertexColors,
         shininess: 0
       });
-      heartGeometry = GeometrySetup(heartOptions, 1, 1);
+      //re set up heart options:
+      heartGeometry = GeometrySetup({ limit: heartSampleLength }, 1, 1);
       heartMaterial.vertexColors = THREE.VertexColors;
 
       heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
@@ -135,7 +132,7 @@ class Heartrate extends React.Component {
         vertexColors: THREE.VertexColors,
         shininess: 0
       });
-      stepGeometry = GeometrySetup(stepOptions, 1, 2);
+      stepGeometry = GeometrySetup({ limit: stepSampleLength }, 1, 2);
       stepMaterial.vertexColors = THREE.VertexColors;
 
       stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
@@ -157,7 +154,7 @@ class Heartrate extends React.Component {
       heartGeometry.colorsNeedUpdate = true;
       MeshAnimator(
         heartGeometry,
-        heartOptions,
+        { limit: heartSampleLength },
         this.props.hrSamples,
         clock,
         1, //scale
@@ -170,7 +167,7 @@ class Heartrate extends React.Component {
         //console.log("step samples", this.props.stepSamples);
         MeshAnimator(
           stepGeometry,
-          stepOptions,
+          { limit: stepSampleLength },
           this.props.stepSamples,
           clock,
           0.1, //scale
@@ -208,20 +205,18 @@ class Heartrate extends React.Component {
     newData[fitCount - 1] = data[data.length - 1]; // for new allocation
     return newData;
   }
-  getHR() {
-    //destructure our options so we can set new options with new NOW date
-    heartOptions = { ...heartOptions, endDate: new Date().toISOString() };
-    this.props.fetchLatestHeartRate(heartOptions);
-    this.setState({ rate: this.props.lastHr.value || 0 });
-    this.props.fetchHeartRateOverTime(heartOptions);
-  }
-  getSteps() {
-    stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
-    this.props.fetchLatestSteps(stepOptions);
-  }
+  // getHR() {
+  //   //destructure our options so we can set new options with new NOW date
+  //   heartOptions = { ...heartOptions, endDate: new Date().toISOString() };
+  //   this.props.fetchLatestHeartRate(heartOptions);
+  //   this.setState({ rate: this.props.lastHr.value || 0 });
+  //   this.props.fetchHeartRateOverTime(heartOptions);
+  // }
+  // getSteps() {
+  //   stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
+  //   this.props.fetchLatestSteps(stepOptions);
+  // }
   handleTouch(event) {
-    //let lastTouch = this.state.touchPos;
-    //this.setState({ touchPos: { x: event.nativeEvent.locationX } });
     let camera = new THREE.PerspectiveCamera(
       75,
       Dimensions.get("window").width / Dimensions.get("window").height,
@@ -243,13 +238,7 @@ class Heartrate extends React.Component {
       width,
       height
     );
-    // Helper.Compute(x, y, camera, vProjectedMousePos, width, height);
-    // console.log(
-    //   "TOUCHING",
-    //   event.nativeEvent.locationX,
-    //   event.nativeEvent.locationY,
-    //   vProjectedMousePos
-    // );
+
     this.setState({
       touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y }
     });
@@ -264,17 +253,6 @@ class Heartrate extends React.Component {
               style={styles.webglView}
               onContextCreate={this.onContextCreate}
             />
-            {}
-            {/* <Button
-          title={`HR: ${this.state.rate}`}
-          raised
-          style={styles.buttons}
-          borderRadius={10}
-          large={true}
-          fontSize={40}
-          backgroundColor="#4DB6AC"
-          onPress={() => this.getHR()}
-        /> */}
           </View>
         </TouchableOpacity>
       </View>
@@ -302,19 +280,18 @@ const styles = StyleSheet.create({
 });
 
 //getting our actions on props
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchLatestHeartRate: heartOptions =>
-      dispatch(fetchLatestHeartRate(heartOptions)),
-    fetchHeartRateOverTime: heartOptions =>
-      dispatch(fetchHeartRateOverTime(heartOptions)),
-    fetchLatestSteps: stepOptions => dispatch(fetchLatestSteps(stepOptions))
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchLatestHeartRate: heartOptions =>
+//       dispatch(fetchLatestHeartRate(heartOptions)),
+//     fetchHeartRateOverTime: heartOptions =>
+//       dispatch(fetchHeartRateOverTime(heartOptions)),
+//     fetchLatestSteps: stepOptions => dispatch(fetchLatestSteps(stepOptions))
+//   };
+// };
 
 const mapStateToProps = state => {
   return {
-    lastHr: state.heartRate.lastHr,
     hrSamples: state.heartRate.hrSamples,
     stepSamples: state.steps
   };
@@ -322,5 +299,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Heartrate);
