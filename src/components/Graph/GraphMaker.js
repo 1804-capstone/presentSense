@@ -130,23 +130,14 @@ class Graphmaker extends React.Component {
             <Text>{minDate.toString().slice(4, 11)}</Text>
           </View>
 
-          {/* <View style={styles.graph}> */}
-          {/* <StepsGraph
-              startDate={queryOptions.startDate}
-              endDate={queryOptions.endDate}
-              data={{
-                steps: this.props.stepSamples,
-                heartRate: this.props.heartRateSamples
-              }}
-            />
-          </View> */}
           <View style={styles.graph}>
             <LineGraph
               startDate={queryOptions.startDate}
               endDate={queryOptions.endDate}
               data={{
                 steps: this.props.stepSamples,
-                heartRate: this.props.heartRateSamples
+                heartRate: this.props.heartRateSamples,
+                sleep: this.props.sleepSamples
               }}
             />
           </View>
@@ -154,31 +145,7 @@ class Graphmaker extends React.Component {
             <Text>{maxDate.toString().slice(4, 11)}</Text>
           </View>
         </View>
-        {/* <View style={styles.xAxis}> */}
-        {/* <View style={[styles.tickLabelX, { flex: 1, flexDirection: "row" }]}> */}
-        {/* <View style={{ backgroundColor: "yellow" }}>
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            {ticks.map(tick => {
-              return (
-                <Text key={tick} style={{ left: x(tick) }}>
-                  '
-                </Text>
-              );
-            })}
-          </View> */}
-        {/* <Surface
-            width={Dimensions.get("window").width * 0.8}
-            height={Dimensions.get("window").height * 0.02}
-          >
-            <Group x={0} y={5}>
-              <Shape
-                d={this.state.xAxisLine}
-                stroke={"#2ca02c"}
-                strokeWidth={10}
-              />
-            </Group>
-          </Surface> */}
-        {/* </View> */}
+
         <View>
           <Text style={{ color: "red", fontWeight: "bold" }}>
             Your heartrate for the past {diff + 1} days

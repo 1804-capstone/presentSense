@@ -64,6 +64,21 @@ export default class LineGraph extends React.Component {
       .range([0, width]);
     console.log("HELLO NURSE", data);
 
+    //convert sleep data
+    if (datum === "sleep") {
+      data = data.map(datum => {
+        const start = moment(new Date(datum.startDate));
+        const end = moment(new Date(datum.endDate));
+        let diff = end.diff(start, "hours", true);
+        const newDatum = {
+          value: diff,
+          startDate: datum.startDate,
+          endDate: datum.endDate
+        };
+        return newDatum;
+      });
+    }
+
     //construct y-scale
     const values = data.map(datum => datum.value);
     const maxVal = values.sort((a, b) => a - b)[values.length - 1];
@@ -83,10 +98,13 @@ export default class LineGraph extends React.Component {
     console.log("hey this is the new data", newData);
     let color;
     if (datum === "steps") {
-      color = "red";
+      color = "blue";
     }
     if (datum === "heartRate") {
-      color = "blue";
+      color = "red";
+    }
+    if (datum === "sleep") {
+      color = "#8a2be2";
     }
     return {
       path: path(newData),
@@ -121,7 +139,33 @@ export default class LineGraph extends React.Component {
     };
   }
 
-  yAxis(minVal, maxVal) {}
+  // yAxis(maxVal) {
+  //   const min = new Date(this.props.startDate);
+  //   const max = new Date(this.props.endDate);
+  //   const { width, height } = Dimensions.get("window");
+  //   const x = scaleTime()
+  //     .domain([min, max])
+  //     .range([0, width]);
+  //   const y = scaleLinear()
+  //     .domain([0, maxVal])
+  //     .range([0, height]);
+  //   const ticks = y.ticks(maxVal / 10);
+  //   const yTicks = ticks.map(tick => [
+  //     {
+  //       x: 0,
+  //       tick
+  //     },
+  //     { x: width * 0.2, tick }
+  //   ]);
+  //   const yPoints = yTicks.filter((date, index) => index % 3 === 0);
+  //   const yPath = line()
+  //     .x(d => x(d.x))
+  //     .y(d => y(d.tick));
+  //   return {
+  //     yPoints,
+  //     yPath
+  //   };
+  // }
 
   render() {
     console.log("****here is my state****", this.state);
@@ -130,6 +174,9 @@ export default class LineGraph extends React.Component {
       this.props.startDate,
       this.props.endDate
     );
+    // const values = this.props.data.steps.map(step => step.value);
+    // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
+    // const { yPoints, yPath } = this.yAxis(maxVal);
     return (
       <View>
         <Surface width={width * 0.8} height={height * 0.5}>
@@ -145,109 +192,12 @@ export default class LineGraph extends React.Component {
             {points.map(point => (
               <Shape d={path(point)} stroke="#000" strokeWidth={3} />
             ))}
+            {/* {yPoints.map(point => (
+              <Shape d={path(yPoints)} stroke="#000" strokeWidth={3} />
+            ))} */}
           </Group>
         </Surface>
       </View>
     );
   }
 }
-
-// const xScale = timeOptions => {
-//   const min = timeOptions.startDate;
-//   const max = timeOptions.endDate;
-//   const width = Dimensions.get("window").width;
-//   return scaleTime()
-//     .domain([min, max])
-//     .range([0, width * 0.8]);
-// };
-
-// const makeLineGraph = (data, timeOptions) => {
-//   const { width, height } = Dimensions.get("window");
-//   const y = yScale(data);
-//   const x = xScale(timeOptions);
-//   const path = line()
-//     .x(d => d.endDate)
-//     .y(d => y(d.value));
-//   const values = data.map(datum => ({
-//     value: datum.value * -1 + height * 0.5,
-//     startDate: new Date(datum.startDate.slice(0, -5)),
-//     endDate: new Date(datum.endDate.slice(0, -5))
-//   }));
-//   values.reverse();
-//   const shape = path(values);
-//   const ticks = values.map(value => {
-//     return {
-//       xVal: xScale(value.endDate),
-//       yVal: yScale(value.data),
-//       datum: value
-//     };
-//   });
-//   return {
-//     yAxis: y,
-//     shape,
-//     ticks
-//   };
-// };
-
-// const myTimes = {
-//   startDate: new Date(2018, 5, 1), // required
-//   endDate: new Date()
-// };
-
-// const miniData = [
-//   {
-//     value: 11000,
-//     startDate: "2018-06-28T00:00:00.000-0400",
-//     endDate: "2018-06-29T00:00:00.000-0400"
-//   },
-//   {
-//     value: 9000,
-//     startDate: "2018-06-27T00:00:00.000-0400",
-//     endDate: "2018-06-28T00:00:00.000-0400"
-//   }
-// ];
-
-// class Graph2 extends React.Component {
-//   render() {
-//     const { width, height } = Dimensions.get("window");
-//     // console.log("HERE IS MY START DATE", myTimes.startDate);
-//     // const myDate = new Date(miniData[0].endDate.slice(0, -5));
-//     // const x = xScale(myTimes);
-//     // const stuff = makeLineGraph(miniData, myTimes, width, height);
-//     // console.log("DOES THIS WORK", stuff);
-//     // const y = yScale(miniData);
-//     // console.log("is this working", y(8000));
-//     const y = yScale(miniData);
-//     const x = xScale(myTimes);
-//     const values = miniData.map(datum => ({
-//       value: datum.value * -1 + height * 0.5,
-//       startDate: new Date(datum.startDate.slice(0, -5)),
-//       endDate: new Date(datum.endDate.slice(0, -5))
-//     }));
-//     values.reverse();
-//     // console.log("here is my y", x(values[0].endDate));
-//     // console.log("here are my values", values);
-//     // const xVals = values.map(elem => x(elem.endDate));
-//     // console.log("here are the x axis coords", xVals);
-//     // const path = line()
-//     //   .x(d => x(d.endDate))
-//     //   .y(d => y(d.value));
-//     // const xAxis = line()
-//     //   .x(d => x(d.endDate))
-//     //   .y(() => 0);
-//     // console.log("here is my path", path(miniData));
-//     const thingy = x.ticks(timeDay.every(1));
-//     console.log("HERE IS MY THING", thingy);
-//     return (
-//       <View style={{ flex: 1, flexDirection: "row" }}>
-//         {thingy.map(elem => {
-//           return (
-//             <Text key={elem} style={{ left: x(elem) * 2 }}>
-//               Hey
-//             </Text>
-//           );
-//         })}
-//       </View>
-//     );
-//   }
-// }
