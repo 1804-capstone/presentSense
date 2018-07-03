@@ -15,24 +15,24 @@ const SingleJournal = props => {
         <Text style={styles.txt}>{log.outerInfluencesText}</Text>
         <View style={styles.line} />
         <Text style={styles.label}>Accomplishment: </Text>
-        <Text style={styles.txt}>{log.accomplishment.length > 0
-          ? log.accomplishment
-          : 'You did not enter any accomplishments in this journal.'}</Text>
+        {log.accomplishment.length > 0
+          ? <Text style={styles.txt}>{log.accomplishment}</Text>
+          : <Text style={styles.noEntry}>You did not enter any accomplishments   in this journal.</Text>}
         <View style={styles.line} />
         <Text style={styles.label}>Struggle: </Text>
-        <Text style={styles.txt}>{log.struggle.length > 0
-          ? log.struggle
-          : 'You did not enter any struggles in this journal.'}</Text>
+        {log.struggle.length > 0
+          ? <Text style={styles.txt}>{log.struggle}</Text>
+          : <Text style={styles.noEntry}>You did not enter any struggles in      this journal.</Text>}
         <View style={styles.line} />
         <Text style={styles.label}>Advice: </Text>
-        <Text style={styles.txt}>{log.advice.length > 0
-          ? log.advice
-          : 'You did not enter any advice in this journal.'}</Text>
+        {log.advice.length > 0
+          ? <Text style={styles.txt}>{log.advice}</Text>
+          : <Text style={styles.noEntry}>You did not enter any advice in this     journal.</Text>}
         <View style={styles.line} />
         <Text style={styles.label}>Other Thoughts: </Text>
-        <Text style={styles.txt}>{log.journalEntry.length > 0
-          ? log.journalEntry
-          : 'You did not enter any other thoughts in this journal.'}</Text>
+        {log.journalEntry.length > 0
+          ? <Text style={styles.txt}>{log.journalEntry}</Text>
+          : <Text style={styles.noEntry}>You did not enter any other thoughts in this journal.</Text>}
       </View>
     </ScrollView>
   )
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 20,
     padding: 10
+  },
+  noEntry: {
+    fontWeight: 'normal',
+    fontSize: 20,
+    padding: 10,
+    color: 'grey'
   },
   line: {
     borderBottomWidth: 1,

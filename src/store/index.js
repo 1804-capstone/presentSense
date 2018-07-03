@@ -8,12 +8,14 @@ import heartRate from "./heartrate";
 import steps from "./steps";
 import firestoreStore from "./firebase";
 import sleep from "./sleep";
+import moodsNearby from './moodsNearby'
 
 const reducer = combineReducers({
   heartRate,
   steps,
   firestoreStore,
-  sleep
+  sleep,
+  moodsNearby
 });
 
 const middleware = composeWithDevTools(

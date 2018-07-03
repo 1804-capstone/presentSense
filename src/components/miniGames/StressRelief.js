@@ -12,7 +12,7 @@ export default class StressRelief extends React.Component {
       <View style={styles.container}>
         <Image
           style={{ width: 200, height: 200 }}
-          source={require("../images/glow.jpg")}
+          source={require("../../images/glow.jpg")}
         />
         <Button
           title="Glow Worms"
@@ -25,7 +25,7 @@ export default class StressRelief extends React.Component {
         />
         <Image
           style={{ width: 200, height: 200 }}
-          source={require("../images/heart.jpg")}
+          source={require("../../images/heart.jpg")}
         />
         <Button
           title="Doodler"

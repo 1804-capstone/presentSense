@@ -23,9 +23,9 @@ import moment from "moment";
 import {
   fetchHeartRateOverTime,
   fetchLatestHeartRate
-} from "../store/heartrate";
-import { fetchLatestSteps } from "../store/steps";
-import { fetchSleep } from "../store/sleep";
+} from "../../store/heartrate";
+import { fetchLatestSteps } from "../../store/steps";
+import { fetchSleep } from "../../store/sleep";
 let queryOptions = {
   startDate: new Date(2018, 5, 1).toISOString(), // required
   endDate: new Date().toISOString() // optional; default now
@@ -130,8 +130,8 @@ class Graphmaker extends React.Component {
             <Text>{minDate.toString().slice(4, 11)}</Text>
           </View>
 
-          {/* <View style={styles.graph}>
-            <StepsGraph
+          {/* <View style={styles.graph}> */}
+          {/* <StepsGraph
               startDate={queryOptions.startDate}
               endDate={queryOptions.endDate}
               data={{
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     // marginTop: -5
   },
   graph: {
-    backgroundColor: "green"
+    backgroundColor: "#E0F2F1"
   },
   dateStyle: {
     transform: [{ rotate: "90deg" }]
