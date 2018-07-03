@@ -26,7 +26,7 @@ class Preferences extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;;
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.txt}>Name: </Text>
