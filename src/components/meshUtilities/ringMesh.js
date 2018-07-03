@@ -91,7 +91,7 @@ export const MeshAnimator = (
         100 +
         100 *
           Math.cos(
-            2 * clock.getElapsedTime() + data[constrainedIndex].value * 20
+            2 * clock.getElapsedTime() + data[constrainedIndex].value * 2
           );
       dataPoint2 =
         0.5 * data[constrainedIndex].value * scale +
@@ -99,7 +99,7 @@ export const MeshAnimator = (
           data[constrainedIndex].value *
           scale *
           Math.sin(
-            1 * clock.getElapsedTime() + data[constrainedIndex].value * 10
+            1 * clock.getElapsedTime() + data[constrainedIndex].value * 1
           );
     } else {
       dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());

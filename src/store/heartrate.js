@@ -44,7 +44,20 @@ export default (state = initialState, action) => {
     case GET_HR:
       return { ...state, lastHr: action.heartRate };
     case GET_HR_OVER_TIME:
-      return { ...state, hrSamples: action.heartRateSamples };
+      console.log("GET NEW HEART");
+      if (action.heartRateSamples.length > 100) {
+        let resampled = [];
+        for (
+          let i = 0;
+          i < action.heartRateSamples.length;
+          i += Math.floor(action.heartRateSamples.length / 100)
+        ) {
+          resampled.push(action.heartRateSamples[i]);
+        }
+        return { ...state, hrSamples: resampled };
+      } else {
+        return { ...state, hrSamples: action.heartRateSamples };
+      }
     default:
       return state;
   }

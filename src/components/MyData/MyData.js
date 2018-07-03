@@ -66,7 +66,8 @@ class MyData extends React.Component {
     let endDate = this.state.endDate;
     this.props.fetchMoodsOverTime(startDate, endDate);
     this.props.fetchStepsOverTime({ startDate, endDate });
-    this.props.fetchMoodsOverTime(startDate, endDate);
+    this.props.fetchHeartRateOverTime({ startDate, endDate });
+    console.log("UPDATING OPTIONS", startDate, endDate);
   }
 
   render() {

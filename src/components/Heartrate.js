@@ -43,12 +43,14 @@ class Heartrate extends React.Component {
       camera: {},
       hrSamples: [],
       stepSampes: []
+      //resampledHeart: []
     };
     // this.getHR = this.getHR.bind(this);
     // this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
+    //this.getDerivedStateFromProps = this.getDerivedStateFromProps.bind(this);
   }
 
   componentDidMount() {}
@@ -56,12 +58,15 @@ class Heartrate extends React.Component {
     //check if the props match their counterparts in the local state object.
     if (props.hrSamples !== state.hrSamples) {
       //COMPONENT SHOULD UPDATE!
+      console.log("COMPONENT SHOULD UPDATE");
       //perhaps also call your functions that compute the lines from data here?
+      //this.onContextCreate();
       return {
         // this sets the local state object to the newly updated props
         hrSamples: props.hrSamples
       };
     }
+    console.log("null????????");
     //props and state match, no re-render needed!
     return null;
   }
@@ -101,6 +106,7 @@ class Heartrate extends React.Component {
     let cubeMaterial;
     let heartSampleLength = this.props.hrSamples.length;
     let stepSampleLength = this.props.stepSamples.length;
+
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 0;
@@ -149,17 +155,18 @@ class Heartrate extends React.Component {
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
-
-      heartGeometry.verticesNeedUpdate = true;
-      heartGeometry.colorsNeedUpdate = true;
-      MeshAnimator(
-        heartGeometry,
-        { limit: heartSampleLength },
-        this.props.hrSamples,
-        clock,
-        1, //scale
-        1 //z index
-      );
+      if (this.props.hrSamples && this.props.hrSamples.length) {
+        heartGeometry.verticesNeedUpdate = true;
+        heartGeometry.colorsNeedUpdate = true;
+        MeshAnimator(
+          heartGeometry,
+          { limit: heartSampleLength },
+          this.props.hrSamples,
+          clock,
+          1, //scale
+          1 //z index
+        );
+      }
       if (this.props.stepSamples && this.props.stepSamples.length) {
         //console.log("trying to animate steps");
         stepGeometry.verticesNeedUpdate = true;
@@ -205,17 +212,7 @@ class Heartrate extends React.Component {
     newData[fitCount - 1] = data[data.length - 1]; // for new allocation
     return newData;
   }
-  // getHR() {
-  //   //destructure our options so we can set new options with new NOW date
-  //   heartOptions = { ...heartOptions, endDate: new Date().toISOString() };
-  //   this.props.fetchLatestHeartRate(heartOptions);
-  //   this.setState({ rate: this.props.lastHr.value || 0 });
-  //   this.props.fetchHeartRateOverTime(heartOptions);
-  // }
-  // getSteps() {
-  //   stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
-  //   this.props.fetchLatestSteps(stepOptions);
-  // }
+
   handleTouch(event) {
     let camera = new THREE.PerspectiveCamera(
       75,
@@ -244,7 +241,6 @@ class Heartrate extends React.Component {
     });
   }
   render() {
-    // console.log("**? ", this.props.stepSamples);
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={event => this.handleTouch(event)}>
@@ -264,14 +260,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center"
-    //justifyContent: "center",
-    // paddingTop: "10%",
-    // paddingBottom: "10%"
-  },
-  buttons: {
-    // padding: '5%',
-    // height: 200,
-    // flex: 1
   },
   webglView: {
     width: width,
