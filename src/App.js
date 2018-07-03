@@ -25,10 +25,6 @@ import {
   DataCarousel
 } from "./components";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {

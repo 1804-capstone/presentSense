@@ -4,6 +4,7 @@ import Drawer from 'react-native-drawer'
 // import iconClaw from '../images/icon_claw.png'
 import { DrawerView } from './Drawer'
 import GraphMaker from '../Graph/GraphMaker'
+import DataCarousel from '../DataCarousel'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { fetchMoodsOverTime } from '../../store/mood'
@@ -82,7 +83,7 @@ class MyData extends React.Component {
         side='bottom'
         onCloseStart={() => this.updateOptions()}
         >
-          <GraphMaker />
+          <DataCarousel />
       </Drawer>
       )
     }

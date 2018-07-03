@@ -178,22 +178,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#E0F2F1",
     width: Dimensions.get("window").width,
-<<<<<<< HEAD
     height: '100%'
-=======
-    height: Dimensions.get("window").height
->>>>>>> master
   },
   subContainer: {
     flex: 0.8,
     flexDirection: "row",
-<<<<<<< HEAD
-    alignItems: "center",
-    // backgroundColor: "red",
-    // marginTop: -5
-=======
     alignItems: "center"
->>>>>>> master
   },
   graph: {
     backgroundColor: "#E0F2F1"

@@ -93,11 +93,7 @@ class Home extends React.Component {
           large={true}
           fontSize={40}
           backgroundColor="#4DB6AC"
-<<<<<<< HEAD
           onPress={() => navigate("MyData")}
-=======
-          onPress={() => navigate("DataCarousel")}
->>>>>>> master
         />
         {/* <Button
           title="Abstract Data"
