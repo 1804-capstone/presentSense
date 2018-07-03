@@ -178,10 +178,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#E0F2F1",
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
+    height: '100%'
   },
   subContainer: {
-    flex: 0.6,
+    flex: 0.8,
     flexDirection: "row",
     alignItems: "center"
   },
