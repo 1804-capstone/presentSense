@@ -56,14 +56,14 @@ class Home extends React.Component {
         console.log("error initializing Healthkit: ", err);
         return;
       } else {
-        console.log("HEALTHKIT IS INITIALIZED!!!!!!");
+        // console.log("HEALTHKIT IS INITIALIZED!!!!!!");
       }
       // Healthkit is initialized...
       // now safe to read and write Healthkit data...
     });
     const { navigate } = this.props.navigation;
 
-    console.log("USERDOC!!!!!", this.props.userDocId);
+    //console.log("USERDOC!!!!!", this.props.userDocId);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -87,7 +87,7 @@ class Home extends React.Component {
           />
         </View>
         <Button
-          title="Carousel"
+          title="My Data"
           raised
           borderRadius={10}
           large={true}
@@ -95,7 +95,7 @@ class Home extends React.Component {
           backgroundColor="#4DB6AC"
           onPress={() => navigate("DataCarousel")}
         />
-        <Button
+        {/* <Button
           title="Abstract Data"
           raised
           borderRadius={10}
@@ -103,7 +103,7 @@ class Home extends React.Component {
           fontSize={40}
           backgroundColor="#26A69A"
           onPress={() => navigate("Heartrate")}
-        />
+        /> */}
         <Button
           title="My Journal"
           raised
