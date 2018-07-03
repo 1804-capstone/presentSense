@@ -7,7 +7,7 @@ import store from "./store";
 import {
   Login,
   Home,
-  Dashboard,
+  MyData,
   LoginForm,
   Loading,
   Heartrate,
@@ -21,37 +21,29 @@ import {
   NewJournal,
   MoodMap,
   StressGame,
-  SingleJournal
+  SingleJournal,
+  DataCarousel
 } from "./components";
 
-// import MoodInputForm from "./components/forms/MoodInputForm";
-// import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
-// import AccomplishForm from "./components/forms/AccomplishForm";
-// import StruggleForm from "./components/forms/StruggleForm";
-// import JournalForm from "./components/forms/JournalForm";
 console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {
     LoginScreen: { screen: Login },
     HomeScreen: { screen: Home },
-    Dashboard: { screen: Dashboard },
+    MyData: { screen: MyData },
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
     GraphMaker: { screen: GraphMaker },
-    // MoodInputForm: { screen: MoodInputForm },
-    // OuterInfluenceForm: { screen: OuterInfluenceForm },
-    // AccomplishForm: { screen: AccomplishForm },
-    // StruggleForm: { screen: StruggleForm },
-    // JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
     StressGame: { screen: StressGame },
     StressRelief: { screen: StressRelief },
     Doodler: { screen: Doodler },
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
+    DataCarousel: { screen: DataCarousel },
     MoodMap: { screen: MoodMap },
-    SingleJournal: { screen: SingleJournal }
+    SingleJournal: { screen: SingleJournal },
   },
 
   {

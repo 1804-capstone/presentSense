@@ -20,10 +20,7 @@ import LineGraph from "./LineGraph";
 import moment from "moment";
 
 //thunks we're gonna need
-import {
-  fetchHeartRateOverTime,
-  fetchLatestHeartRate
-} from "../../store/heartrate";
+import { fetchHeartRateOverTime } from "../../store/heartrate";
 import { fetchLatestSteps } from "../../store/steps";
 import { fetchSleep } from "../../store/sleep";
 let queryOptions = {
@@ -67,43 +64,6 @@ class Graphmaker extends React.Component {
     queryOptions = { ...queryOptions, endDate: new Date().toISOString() };
   }
 
-  // getXAxis() {
-  //   let start = moment(queryOptions.startDate);
-  //   let end = moment(queryOptions.endDate);
-  //   const width = Dimensions.get("window").width;
-  //   const xAxis = end.diff(start, "days");
-  //   this.setState({ xAxis: xAxis });
-  //   // const x = scaleTime()
-  //   //   .domain([
-  //   //     new Date(queryOptions.startDate),
-  //   //     new Date(queryOptions.endDate)
-  //   //   ])
-  //   //   .range([0, width * 0.8]);
-  //   const x = scaleTime()
-  //     .domain([0, 1])
-  //     .range([0, width * 0.8]);
-  //   // const xAxisLine = axisBottom(x).ticks(26);
-  //   console.log("what is X", x);
-  //   let arr = [];
-  //   for (let i = 0; i < xAxis; i++) {
-  //     arr.push(i);
-  //   }
-  //   let xAxisLine = line()
-  //     .x(function(d) {
-  //       return x(d);
-  //     })
-  //     .y(() => 0);
-  //   let myLine = xAxisLine(arr);
-  //   this.setState({ xAxisLine: myLine });
-  //   console.log("what is my line", myLine);
-  // }
-
-  // async getSteps() {
-  //   try {
-  //   } catch (err) {
-  //     console.log("error gettting steps", err);
-  //   }
-  // }
   getHeartRate() {
     this.newQueryOptions();
     this.props.fetchHeartRateOverTime(heartOptions);
@@ -113,10 +73,7 @@ class Graphmaker extends React.Component {
     let minDate = new Date(queryOptions.startDate);
     let maxDate = new Date(queryOptions.endDate);
     const { height, width } = Dimensions.get("window");
-    // const x = scaleTime()
-    //   .domain([minDate, maxDate])
-    //   .range([0, width * 0.8]);
-    // const ticks = x.ticks(timeDay.every(1));
+
     const theStartDate = queryOptions.startDate;
     const newStart = moment(new Date(theStartDate));
     const now = moment(new Date());
@@ -190,33 +147,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#E0F2F1"
+    backgroundColor: "#E0F2F1",
+    width: Dimensions.get("window").width,
+    height: "100%"
   },
   subContainer: {
-    flex: 0.6,
+    flex: 0.8,
     flexDirection: "row",
     alignItems: "center"
-    // backgroundColor: "red",
-    // marginTop: -5
   },
   graph: {
     backgroundColor: "#E0F2F1"
   },
   dateStyle: {
     transform: [{ rotate: "90deg" }]
-    // marginTop: -5
   }
-  // xAxis: {
-  //   backgroundColor: "yellow"
-  //   // flex: 1,
-  //   // flexDirection: "column"
-  // },
-  // tickLabelX: {
-  //   position: "absolute",
-  //   bottom: 0,
-  //   fontSize: 12,
-  //   textAlign: "center"
-  // }
 });
 
 export default connect(
