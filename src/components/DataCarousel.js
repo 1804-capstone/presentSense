@@ -9,7 +9,6 @@ import {
 import Carousel from "react-native-snap-carousel";
 import Heartrate from "./Heartrate";
 import GraphMaker from "./GraphMaker";
-import Graph from "./LineGraph";
 
 const abstractContent = <Heartrate />;
 const graphContent = <GraphMaker />;
@@ -33,10 +32,6 @@ export default class DataCarousel extends React.Component {
 
   render() {
     const isEven = this.state.activeSlide % 2 === 0;
-    // const abstractContent = <Heartrate />;
-    // const graphContent = <GraphMaker />;
-    // const contentArray = [abstractContent, graphContent];
-
     return (
       <View style={styles.container}>
         {/* <Text>carousel?</Text> */}
