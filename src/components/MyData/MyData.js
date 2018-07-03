@@ -1,9 +1,13 @@
 import React from "react";
 import { Button } from "react-native-elements";
-import Drawer from 'react-native-draggable-view'
+import Drawer from 'react-native-drawer'
 // import iconClaw from '../images/icon_claw.png'
-import { DrawerHeader, DrawerView } from './Drawer'
+import { DrawerView } from './Drawer'
 import GraphMaker from '../Graph/GraphMaker'
+import { connect } from 'react-redux'
+import moment from 'moment'
+import { fetchMoodsOverTime } from '../../store/mood'
+import { fetchLatestSteps } from "../../store/steps";
 import { StyleSheet,
         Text,
         View,
@@ -16,58 +20,88 @@ const Screen = {
   height: Dimensions.get('window').height
 }
 
-export default class MyData extends React.Component {
+class MyData extends React.Component {
+  constructor() {
+    super()
+    console.log('HI?')
+    this.getMonth = () => {
+      const date = new Date()
+      const month = +date.getMonth()
+      const newDate = date.setMonth(month - 1)
+      return moment(newDate).toDate()
+    }
+    this.state = {
+      heartrate: true,
+      stepCount: true,
+      sleep: true,
+      mood: true,
+      startDate: new Date(this.getMonth()),
+      endDate: new Date()
+    }
+    console.log("S", this.state.startDate)
+    console.log("E", this.state.endDate)
+    this.toggleMetric = this.toggleMetric.bind(this)
+    this.updateOptions = this.updateOptions.bind(this)
+  }
+
+  componentDidMount() {
+    let startDate = this.state.startDate
+    let endDate = this.state.endDate
+    this.props.fetchStepsOverTime({startDate, endDate})
+  }
+
+  toggleMetric(name, value) {
+    this.setState({[name]: value})
+  }
+
+  //function to invoke in onCloseStart prop that dispatches the thunks for data
+  updateOptions() {
+    let startDate = this.state.startDate
+    let endDate = this.state.endDate
+    this.props.getMoodsOverTime(startDate, endDate)
+    this.props.fetchStepsOverTime({startDate, endDate})
+  }
+
   render() {
       return (
-        <View style={{backgroundColor: "#E0F2F1"}}>
-          {/* <View style={styles.compContainer}>
-          <Text> HI? </Text>
-            THIS IS WHERE TO PLUG IN THE GRAPH COMPONENT
-            <View style={styles.square} />
-          </View>
-          the following View limits how high the Drawer comes up the screen
-          <View style={{height: 500, backgroundColor:"#4DB6AC", zIndex: 0}}>
-          </View> */}
-          <Drawer
-              initialDrawerSize={.16}
-              // GRAPH COMPONENT MAY ALSO GO HERE, WE'LL SEE
-              renderContainerView={() =>
-                <View style={{
-                    height: Screen.height,
-                    backgroundColor: "#E0F2F1",
-                    }}>
-                  <Text>this is the div border</Text>
-                  </View>
-                  // <GraphMaker />
-                  }
-              renderDrawerView={() => <DrawerView />}
-              renderInitDrawerView={() => (<View style={{
-                  backgroundColor: 'black',
-                  opacity: 0.6,
-                  height: 50,
-              }}>
-                  <DrawerHeader />
-              </View>)}
-          />
-        </View>
-      );
-  }
+        <Drawer
+        type="overlay"
+        content={<DrawerView values={this.state} toggleMetric={this.toggleMetric}/>}
+        captureGestures='closed'
+        // tapToOpen={false}
+        // openDrawerOffset={100}
+        panCloseMask={0.9}
+        // panOpenMask={0.2}
+        closedDrawerOffset={0.14}
+        styles={styles.drawer}
+        // tweenHandler={(ratio) => ({
+        //   main: { opacity:(2-ratio)/2 }
+        // })}
+        acceptPan={true}
+        panThreshold={0.08}
+        side='bottom'
+        onCloseStart={() => this.updateOptions()}
+        >
+          <GraphMaker />
+      </Drawer>
+      )
+    }
 }
 
 const styles = StyleSheet.create({
-  compContainer: {
-    backgroundColor: "#E0F2F1",
-    // position: 'relative',
-    // top: 250,
-    zIndex: -1,
-    // height: 400,
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center'
-  },
-  square: {
-    backgroundColor: 'steelblue',
-    width: 400,
-    height: 450,
-}
+  drawer: {
+    height: Dimensions.get("window").height,
+    shadowColor: '#000000',
+    shadowOpacity: 0.9,
+    shadowRadius: 3
+  }
 })
+
+const mapDispatch = dispatch => {
+  return {
+    getMoodsOverTime: (startDate, endDate) => dispatch(fetchMoodsOverTime(startDate, endDate)),
+    fetchStepsOverTime: queryOptions => dispatch(fetchLatestSteps(queryOptions))
+  }
+}
+
+export default connect(null, mapDispatch)(MyData)

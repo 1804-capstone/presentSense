@@ -24,11 +24,7 @@ import {
   SingleJournal
 } from "./components";
 
-// import MoodInputForm from "./components/forms/MoodInputForm";
-// import OuterInfluenceForm from "./components/forms/OuterInfluenceForm";
-// import AccomplishForm from "./components/forms/AccomplishForm";
-// import StruggleForm from "./components/forms/StruggleForm";
-// import JournalForm from "./components/forms/JournalForm";
+
 console.disableYellowBox = true;
 const StackNavigator = createStackNavigator(
   {
@@ -39,11 +35,6 @@ const StackNavigator = createStackNavigator(
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
     GraphMaker: { screen: GraphMaker },
-    // MoodInputForm: { screen: MoodInputForm },
-    // OuterInfluenceForm: { screen: OuterInfluenceForm },
-    // AccomplishForm: { screen: AccomplishForm },
-    // StruggleForm: { screen: StruggleForm },
-    // JournalForm: { screen: JournalForm },
     Preferences: { screen: Preferences },
     StressGame: { screen: StressGame },
     StressRelief: { screen: StressRelief },
@@ -51,7 +42,7 @@ const StackNavigator = createStackNavigator(
     MyJournals: { screen: MyJournals },
     NewJournal: { screen: NewJournal },
     MoodMap: { screen: MoodMap },
-    SingleJournal: { screen: SingleJournal }
+    SingleJournal: { screen: SingleJournal },
   },
 
   {
