@@ -13,7 +13,7 @@ import Graph from "./LineGraph";
 
 const abstractContent = <Heartrate />;
 const graphContent = <GraphMaker />;
-const contentArray = [abstractContent, graphContent];
+const contentArray = [graphContent, abstractContent];
 
 export default class DataCarousel extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class DataCarousel extends React.Component {
     this._renderItem = this._renderItem.bind(this);
   }
   _renderItem({ item, index }) {
-    if (index % 2 === 0) {
+    if (index % 2 === 1) {
       return <Heartrate />;
     } else {
       return <GraphMaker />;

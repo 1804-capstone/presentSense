@@ -235,15 +235,15 @@ class Heartrate extends React.Component {
     let Helper = new CameraHelper();
     let vProjectedMousePos = new THREE.Vector3();
 
-    // Helper.Compute(
-    //   event.nativeEvent.locationX,
-    //   event.nativeEvent.locationY,
-    //   camera,
-    //   vProjectedMousePos,
-    //   width,
-    //   height
-    // );
-    Helper.Compute(x, y, camera, vProjectedMousePos, width, height);
+    Helper.Compute(
+      event.nativeEvent.locationX,
+      event.nativeEvent.locationY,
+      camera,
+      vProjectedMousePos,
+      width,
+      height
+    );
+    // Helper.Compute(x, y, camera, vProjectedMousePos, width, height);
     // console.log(
     //   "TOUCHING",
     //   event.nativeEvent.locationX,

@@ -239,6 +239,7 @@ const styles = StyleSheet.create({
   },
   dateStyle: {
     transform: [{ rotate: "90deg" }]
+
     // marginTop: -5
   }
   // xAxis: {
