@@ -17,3 +17,4 @@ export { default as StressRelief } from "./miniGames/StressRelief";
 export { default as Doodler } from "./miniGames/Doodler";
 export { default as SingleJournal } from "./Journal/SingleJournal";
 export { default as DataCarousel } from "./DataCarousel";
+export { default as MoodMap } from "./MoodMap";

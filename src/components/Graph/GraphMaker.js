@@ -20,10 +20,7 @@ import LineGraph from "./LineGraph";
 import moment from "moment";
 
 //thunks we're gonna need
-import {
-  fetchHeartRateOverTime,
-  fetchLatestHeartRate
-} from "../../store/heartrate";
+import { fetchHeartRateOverTime } from "../../store/heartrate";
 import { fetchLatestSteps } from "../../store/steps";
 import { fetchSleep } from "../../store/sleep";
 let queryOptions = {
@@ -97,13 +94,6 @@ class Graphmaker extends React.Component {
     this.setState({ xAxisLine: myLine });
     console.log("what is my line", myLine);
   }
-
-  // async getSteps() {
-  //   try {
-  //   } catch (err) {
-  //     console.log("error gettting steps", err);
-  //   }
-  // }
   getHeartRate() {
     this.newQueryOptions();
     this.props.fetchHeartRateOverTime(heartOptions);
@@ -113,10 +103,7 @@ class Graphmaker extends React.Component {
     let minDate = new Date(queryOptions.startDate);
     let maxDate = new Date(queryOptions.endDate);
     const { height, width } = Dimensions.get("window");
-    // const x = scaleTime()
-    //   .domain([minDate, maxDate])
-    //   .range([0, width * 0.8]);
-    // const ticks = x.ticks(timeDay.every(1));
+
     const theStartDate = queryOptions.startDate;
     const newStart = moment(new Date(theStartDate));
     const now = moment(new Date());
@@ -130,16 +117,6 @@ class Graphmaker extends React.Component {
             <Text>{minDate.toString().slice(4, 11)}</Text>
           </View>
 
-          {/* <View style={styles.graph}> */}
-          {/* <StepsGraph
-              startDate={queryOptions.startDate}
-              endDate={queryOptions.endDate}
-              data={{
-                steps: this.props.stepSamples,
-                heartRate: this.props.heartRateSamples
-              }}
-            />
-          </View> */}
           <View style={styles.graph}>
             <LineGraph
               startDate={queryOptions.startDate}
@@ -154,31 +131,7 @@ class Graphmaker extends React.Component {
             <Text>{maxDate.toString().slice(4, 11)}</Text>
           </View>
         </View>
-        {/* <View style={styles.xAxis}> */}
-        {/* <View style={[styles.tickLabelX, { flex: 1, flexDirection: "row" }]}> */}
-        {/* <View style={{ backgroundColor: "yellow" }}>
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            {ticks.map(tick => {
-              return (
-                <Text key={tick} style={{ left: x(tick) }}>
-                  '
-                </Text>
-              );
-            })}
-          </View> */}
-        {/* <Surface
-            width={Dimensions.get("window").width * 0.8}
-            height={Dimensions.get("window").height * 0.02}
-          >
-            <Group x={0} y={5}>
-              <Shape
-                d={this.state.xAxisLine}
-                stroke={"#2ca02c"}
-                strokeWidth={10}
-              />
-            </Group>
-          </Surface> */}
-        {/* </View> */}
+
         <View>
           <Text style={{ color: "red", fontWeight: "bold" }}>
             Your heartrate for the past {diff + 1} days
@@ -231,28 +184,13 @@ const styles = StyleSheet.create({
     flex: 0.6,
     flexDirection: "row",
     alignItems: "center"
-    // backgroundColor: "red",
-    // marginTop: -5
   },
   graph: {
     backgroundColor: "#E0F2F1"
   },
   dateStyle: {
     transform: [{ rotate: "90deg" }]
-
-    // marginTop: -5
   }
-  // xAxis: {
-  //   backgroundColor: "yellow"
-  //   // flex: 1,
-  //   // flexDirection: "column"
-  // },
-  // tickLabelX: {
-  //   position: "absolute",
-  //   bottom: 0,
-  //   fontSize: 12,
-  //   textAlign: "center"
-  // }
 });
 
 export default connect(
