@@ -1,4 +1,4 @@
-import THREE from "../three";
+import THREE from "./three";
 
 //a function that takes in data, options, and magnitude params and outputs a mesh
 export const GeometrySetup = (options, scale = 1, zIndex = 1) => {

@@ -1,9 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 import { Button } from "react-native-elements";
+import Carousel from "react-native-snap-carousel";
 import { connect } from "react-redux";
 import { WebGLView } from "react-native-webgl";
-import THREE from "./three";
+import THREE from "./meshUtilities/three.js";
+import CameraHelper, { screenToWorld } from "./meshUtilities/screenToWorld";
 import moment from "moment";
 //mesh utilities
 import { GeometrySetup, MeshAnimator } from "./meshUtilities/ringMesh";
@@ -20,23 +28,31 @@ let heartOptions = {
   startDate: new Date(2017, 4, 20).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
-  limit: 50 // optional; default no limit
+  limit: 10 // optional; default no limit
 };
 let stepOptions = {
-  startDate: new Date(2018, 5, 1).toISOString(), // required
+  startDate: new Date(2018, 5, 20).toISOString(), // required
   endDate: new Date().toISOString()
 };
+const SLIDER_1 = 1;
 
 class Heartrate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rate: 0
+      rate: 0,
+      touchPos: { x: 0, y: 0 },
+      camera: {},
+      activeSlide: SLIDER_1
     };
     this.getHR = this.getHR.bind(this);
     this.getSteps = this.getSteps.bind(this);
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
+    this.handleTouch = this.handleTouch.bind(this);
+  }
+  _renderItem({ item, index }) {
+    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
   }
   componentDidMount() {
     if (!this.props.lastHr) {
@@ -85,6 +101,10 @@ class Heartrate extends React.Component {
     let stepMesh;
     let stepMaterial;
 
+    let cubeGeometry;
+    let cubeMesh;
+    let cubeMaterial;
+
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 0;
@@ -121,6 +141,12 @@ class Heartrate extends React.Component {
       stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
 
       scene.add(stepMesh);
+
+      //debug cube
+      cubeGeometry = new THREE.BoxGeometry(20, 20, 20);
+      cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x0f0ff0 });
+      cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+      scene.add(cubeMesh);
     }
 
     const animate = () => {
@@ -153,6 +179,10 @@ class Heartrate extends React.Component {
         stepGeometry.verticesNeedUpdate = true;
       }
 
+      //move cube to touch position
+
+      cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
+      //console.log("cube pose", cubeMesh.position);
       gl.flush();
       rngl.endFrame();
     };
@@ -189,16 +219,53 @@ class Heartrate extends React.Component {
     stepOptions == { ...stepOptions, endDate: new Date().toISOString() };
     this.props.fetchLatestSteps(stepOptions);
   }
+  handleTouch(event) {
+    //let lastTouch = this.state.touchPos;
+    //this.setState({ touchPos: { x: event.nativeEvent.locationX } });
+    let camera = new THREE.PerspectiveCamera(
+      75,
+      Dimensions.get("window").width / Dimensions.get("window").height,
+      1,
+      1100
+    );
+    const { width, height } = Dimensions.get("screen");
+    camera.position.y = 0;
+    camera.position.z = 500;
+
+    let Helper = new CameraHelper();
+    let vProjectedMousePos = new THREE.Vector3();
+
+    Helper.Compute(
+      event.nativeEvent.locationX,
+      event.nativeEvent.locationY,
+      camera,
+      vProjectedMousePos,
+      width,
+      height
+    );
+    // Helper.Compute(x, y, camera, vProjectedMousePos, width, height);
+    // console.log(
+    //   "TOUCHING",
+    //   event.nativeEvent.locationX,
+    //   event.nativeEvent.locationY,
+    //   vProjectedMousePos
+    // );
+    this.setState({
+      touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y }
+    });
+  }
   render() {
     // console.log("**? ", this.props.stepSamples);
     return (
       <View style={styles.container}>
-        <WebGLView
-          style={styles.webglView}
-          onContextCreate={this.onContextCreate}
-        />
-        {}
-        <Button
+        <TouchableOpacity onPress={event => this.handleTouch(event)}>
+          <View>
+            <WebGLView
+              style={styles.webglView}
+              onContextCreate={this.onContextCreate}
+            />
+            {}
+            {/* <Button
           title={`HR: ${this.state.rate}`}
           raised
           style={styles.buttons}
@@ -207,7 +274,9 @@ class Heartrate extends React.Component {
           fontSize={40}
           backgroundColor="#4DB6AC"
           onPress={() => this.getHR()}
-        />
+        /> */}
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

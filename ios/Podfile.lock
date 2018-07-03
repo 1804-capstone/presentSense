@@ -22,13 +22,13 @@ PODS:
   - FirebaseAnalytics (5.0.0):
     - FirebaseCore (~> 5.0)
     - FirebaseInstanceID (~> 3.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
   - FirebaseAuth (5.0.0):
     - FirebaseCore (~> 5.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseCore (5.0.1):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseFirestore (0.12.1):
     - FirebaseCore (~> 5.0)
     - FirebaseFirestore/abseil-cpp (= 0.12.1)
@@ -64,7 +64,7 @@ PODS:
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
   - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+  - GoogleToolboxForMac/NSData+zlib (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - gRPC (1.13.0):
     - gRPC-RxLibrary (= 1.13.0)
@@ -104,28 +104,6 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Google-Maps-iOS-Utils (from `https://github.com/pjamrozowicz/google-maps-ios-utils.git`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - BoringSSL
-    - Crashlytics
-    - Fabric
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAuth
-    - FirebaseCore
-    - FirebaseFirestore
-    - FirebaseInstanceID
-    - GoogleMaps
-    - GoogleToolboxForMac
-    - gRPC
-    - gRPC-Core
-    - gRPC-ProtoRPC
-    - gRPC-RxLibrary
-    - GTMSessionFetcher
-    - leveldb-library
-    - nanopb
-    - Protobuf
-
 EXTERNAL SOURCES:
   Google-Maps-iOS-Utils:
     :git: https://github.com/pjamrozowicz/google-maps-ios-utils.git
@@ -159,4 +137,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: cdc9cde86d51e872a36c8e7fa17edae4c82644db
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0
