@@ -134,11 +134,11 @@ class Graphmaker extends React.Component {
             <LineGraph
               startDate={queryOptions.startDate}
               endDate={queryOptions.endDate}
-              data={{
-                steps: this.props.stepSamples,
-                heartRate: this.props.heartRateSamples,
-                sleep: this.props.sleepSamples
-              }}
+              // data={{
+              //   steps: this.props.stepSamples,
+              //   heartRate: this.props.heartRateSamples,
+              //   sleep: this.props.sleepSamples
+              // }}
             />
           </View>
           <View style={styles.dateStyle}>

@@ -6,31 +6,10 @@ import React from "react";
 import moment from "moment";
 import d3 from "d3";
 import { timeDay } from "d3-time";
+import { connect } from "react-redux";
 const { Surface, Group, Shape } = ART;
 
-// export const individualGraphMaker = (data, timeOptions) => {
-//   //construct x-scale
-//   const min = timeOptions.startDate;
-//   const max = timeOptions.endDate;
-//   const width = Dimensions.get("window").width;
-//   const x = scaleTime()
-//     .domain([min, max])
-//     .range([0, width * 0.8]);
-//   //construct y-scale
-//   const values = data.map(datum => datum.value);
-//   const maxVal = values.sort((a, b) => a - b)[values.length - 1];
-//   const height = Dimensions.get("window").height;
-//   const y = scaleLinear()
-//     .domain([0, maxVal])
-//     .range([0, height * 0.5]);
-//   // create svg path
-//   const path = line()
-//     .x(d => x(d.endDate))
-//     .x(d => y(d.value));
-//   return path;
-// };
-
-export default class LineGraph extends React.Component {
+class LineGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,11 +18,39 @@ export default class LineGraph extends React.Component {
     this.individualGraphMaker = this.individualGraphMaker.bind(this);
     this.xAxis = this.xAxis.bind(this);
   }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.steps !== state.steps) {
+      return {
+        steps: props.steps
+      };
+    }
+    if (props.sleep !== state.sleep) {
+      return { sleep: props.sleep };
+    }
+    if (props.heartRate !== state.heartRate) {
+      return { heartRate: props.heartRate };
+    }
+    if (props.mood !== state.mood) {
+      return { mood: props.mood };
+    }
+    if (props.startDate !== state.startDate) {
+      return { startDate: props.startDate };
+    }
+    if (props.endDate !== state.endDate) {
+      return { endDate: props.endDate };
+    }
+    return null;
+  }
+
   componentDidMount() {
     let linePaths = [];
-    for (let datum in this.props.data) {
+    let startDate = this.props.steps[0].startDate;
+    let endDate = this.props.steps[this.props.steps.length - 1].endDate;
+    console.log("Here are my props", this.props);
+    for (let datum in this.props) {
       let path = this.individualGraphMaker(
-        this.props.data[datum],
+        this.props[datum],
         this.props.startDate,
         this.props.endDate,
         datum
@@ -62,7 +69,6 @@ export default class LineGraph extends React.Component {
     const x = scaleTime()
       .domain([min, max])
       .range([0, width]);
-    console.log("HELLO NURSE", data);
 
     //convert sleep data
     if (datum === "sleep") {
@@ -95,7 +101,6 @@ export default class LineGraph extends React.Component {
       endDate: new Date(datum.endDate.slice(0, -5))
     }));
     newData.reverse();
-    console.log("hey this is the new data", newData);
     let color;
     if (datum === "steps") {
       color = "blue";
@@ -201,3 +206,24 @@ export default class LineGraph extends React.Component {
     );
   }
 }
+
+const mapState = state => {
+  return {
+    heartRate: state.heartRate.hrSamples,
+    steps: state.steps,
+    sleep: state.sleep,
+    mood: state.mood
+  };
+};
+
+export default connect(mapState)(LineGraph);
+
+// const mapDispatch = dispatch => {
+//   return {
+//     fetchHeartRateOverTime: queryOptions =>
+//       dispatch(fetchHeartRateOverTime(queryOptions)),
+//     fetchStepsOverTime: queryOptions =>
+//       dispatch(fetchLatestSteps(queryOptions)),
+//     fetchSleep: queryOptions => dispatch(fetchSleep(queryOptions))
+//   };
+// };
