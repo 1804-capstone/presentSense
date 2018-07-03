@@ -45,13 +45,15 @@ export default class LineGraph extends React.Component {
       let path = this.individualGraphMaker(
         this.props.data[datum],
         this.props.startDate,
-        this.props.endDate
+        this.props.endDate,
+        datum
       );
       linePaths.push(path);
     }
     this.setState({ paths: linePaths });
   }
-  individualGraphMaker = (data, startDate, endDate) => {
+  individualGraphMaker = (data, startDate, endDate, datum) => {
+    console.log(`here is the data for ${datum}`, data);
     //construct x-scale
     const min = new Date(startDate);
     const max = new Date(endDate);
@@ -73,12 +75,23 @@ export default class LineGraph extends React.Component {
       .x(d => x(d.startDate))
       .y(d => y(d.value));
     const newData = data.map(datum => ({
-      value: datum.value,
+      value: datum.value * -1 + maxVal,
       startDate: new Date(datum.startDate.slice(0, -5)),
       endDate: new Date(datum.endDate.slice(0, -5))
     }));
     newData.reverse();
-    return path(newData);
+    console.log("hey this is the new data", newData);
+    let color;
+    if (datum === "steps") {
+      color = "red";
+    }
+    if (datum === "heartRate") {
+      color = "blue";
+    }
+    return {
+      path: path(newData),
+      color
+    };
   };
   xAxis(startDate, endDate) {
     const min = new Date(startDate);
@@ -108,7 +121,7 @@ export default class LineGraph extends React.Component {
     };
   }
 
-  yAxis() {}
+  yAxis(minVal, maxVal) {}
 
   render() {
     console.log("****here is my state****", this.state);
@@ -122,7 +135,12 @@ export default class LineGraph extends React.Component {
         <Surface width={width * 0.8} height={height * 0.5}>
           <Group x={0} y={0}>
             {this.state.paths.map(path => (
-              <Shape key={path} d={path} stroke="#000" strokeWidth={1} />
+              <Shape
+                key={path.color}
+                d={path.path}
+                stroke={path.color}
+                strokeWidth={1}
+              />
             ))}
             {points.map(point => (
               <Shape d={path(point)} stroke="#000" strokeWidth={3} />
