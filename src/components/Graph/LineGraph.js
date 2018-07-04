@@ -217,7 +217,7 @@ class LineGraph extends React.Component {
         </Surface>
       </View>
     );
-    return this.state.data.length ? data : noData;
+    return this.props.steps.length ? data : noData;
   }
 }
 
