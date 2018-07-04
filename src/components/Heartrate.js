@@ -14,13 +14,17 @@ import THREE from "./meshUtilities/three.js";
 import CameraHelper, { screenToWorld } from "./meshUtilities/screenToWorld";
 import moment from "moment";
 //mesh utilities
-import { GeometrySetup, MeshAnimator } from "./meshUtilities/ringMesh";
-//these actions should let us talk to healthkit
 import {
-  fetchLatestHeartRate,
-  fetchHeartRateOverTime
-} from "../store/heartrate";
-import { fetchLatestSteps } from "../store/steps";
+  GeometrySetup,
+  MeshAnimator,
+  HeartMeshAnimator
+} from "./meshUtilities/ringMesh";
+//these actions should let us talk to healthkit
+// import {
+//   fetchLatestHeartRate,
+//   fetchHeartRateOverTime
+// } from "../store/heartrate";
+// import { fetchLatestSteps } from "../store/steps";
 //starting options for heart rate gatherer
 const { width, height } = Dimensions.get("window");
 // let heartOptions = {
@@ -42,8 +46,8 @@ class Heartrate extends React.Component {
       touchPos: { x: 0, y: 0 },
       camera: {},
       hrSamples: [],
-      stepSampes: []
-      //resampledHeart: []
+      stepSamples: [],
+      key: 0
     };
     // this.getHR = this.getHR.bind(this);
     // this.getSteps = this.getSteps.bind(this);
@@ -158,7 +162,7 @@ class Heartrate extends React.Component {
       if (this.props.hrSamples && this.props.hrSamples.length) {
         heartGeometry.verticesNeedUpdate = true;
         heartGeometry.colorsNeedUpdate = true;
-        MeshAnimator(
+        HeartMeshAnimator(
           heartGeometry,
           { limit: heartSampleLength },
           this.props.hrSamples,
@@ -177,7 +181,7 @@ class Heartrate extends React.Component {
           { limit: stepSampleLength },
           this.props.stepSamples,
           clock,
-          0.1, //scale
+          0.01, //scale
           0 //z index
         );
         stepGeometry.verticesNeedUpdate = true;
@@ -244,7 +248,7 @@ class Heartrate extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={event => this.handleTouch(event)}>
-          <View>
+          <View key={this.props.stepSamples.length}>
             <WebGLView
               style={styles.webglView}
               onContextCreate={this.onContextCreate}
