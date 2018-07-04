@@ -17,7 +17,7 @@ class MoodMap extends Component {
     navigator.geolocation.requestAuthorization()
 
     //the following sets us to SF on the simulator phone, so I am
-    //commenting it out and using NY coords
+    //commenting it out and using NY coords in state
 
     // navigator.geolocation.getCurrentPosition(location => {
     //   this.setState({
@@ -29,29 +29,6 @@ class MoodMap extends Component {
   }
   render() {
     // console.log("MOOD IN MAP", this.props.moodsNearby)
-	let points = [
-		{latitude:40.710089, longitude:-74.001668, weight: 1},
-		{latitude:40.716953, longitude:-74.007504, weight: 90},
-		{latitude:40.720637, longitude:-74.008480, weight: 70},
-		{latitude:40.720913, longitude:-74.004800, weight: 50},
-		{latitude:40.725610, longitude:-74.005242, weight: 88},
-		{latitude:40.630610, longitude:-69.535242, weight: 98},
-		{latitude:41.730610, longitude:-63.935242, weight: 41},
-		{latitude:40.730610, longitude:-73.935242, weight: 66},
-		{latitude:41.730610, longitude:-73.935242, weight: 9},
-		{latitude:39.730610, longitude:-73.835242, weight: 11},
-		{latitude:40.730610, longitude:-73.735242, weight: 33},
-		{latitude:44.730110, longitude:-73.635242, weight: 76},
-		{latitude:39.732610, longitude:-73.535242, weight: 63},
-		{latitude:40.710610, longitude:-71.935242, weight: 99},
-		{latitude:40.732610, longitude:-72.935242, weight: 1},
-		{latitude:40.733610, longitude:-73.935282, weight: 46},
-		{latitude:40.730410, longitude:-73.535242, weight: 22},
-		{latitude:40.730650, longitude:-74.935242, weight: 1},
-		{latitude:40.730616, longitude:-70.915242, weight: 33},
-		{latitude:40.730710, longitude:-73.933242, weight: 1},
-		{latitude:40.830610, longitude:-73.934242, weight: 100}
-	];
     return (
       <View style ={styles.container}>
         <Text style={styles.txt}>The Mood Near You</Text>
@@ -67,7 +44,7 @@ class MoodMap extends Component {
           <MapView.Heatmap
             points={this.props.moodsNearby}
             opacity={1}
-            radius={50}
+            radius={30}
             onZoomRadiusChange={{
               zoom: [0, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17],
               radius: [10, 10, 15, 20, 30, 60, 80, 100, 120, 150, 180, 200, 250, 250]}}
@@ -76,7 +53,7 @@ class MoodMap extends Component {
               values: [0, 0.25, 0.50, 0.75, 1]
               }}
             maxIntensity={100}
-            gradientSmoothing={5}
+            gradientSmoothing={10}
             heatmapMode={"POINTS_WEIGHT"}/>
         </MapView>
         <View style={styles.keyContainer}>
@@ -168,16 +145,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   key: {
-    paddingRight: 7,
-    paddingLeft: 7,
-    // margin: 5,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
 
   },
   keyTxt: {
-    fontSize: 18,
+    fontSize: 15,
   }
 });
 

@@ -47,7 +47,13 @@ const StackNavigator = createStackNavigator(
   },
 
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Loading",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#B2DFDB'
+      },
+      headerTitle: 'PresentSense'
+    }
   }
 );
 
