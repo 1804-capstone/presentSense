@@ -1,6 +1,13 @@
 import { scaleLinear, scaleTime } from "d3-scale";
 import { line } from "d3-shape";
-import { Dimensions, View, Text, ART, StyleSheet } from "react-native";
+import {
+  Dimensions,
+  View,
+  Text,
+  ART,
+  StyleSheet,
+  ActivityIndicator
+} from "react-native";
 import React from "react";
 // import dummyData from "./DummyData";
 import moment from "moment";
@@ -182,7 +189,13 @@ class LineGraph extends React.Component {
     // const values = this.props.data.steps.map(step => step.value);
     // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
     // const { yPoints, yPath } = this.yAxis(maxVal);
-    return (
+    const noData = (
+      <View>
+        {" "}
+        <ActivityIndicator size="large" />
+      </View>
+    );
+    const data = (
       <View>
         <Surface width={width * 0.8} height={height * 0.5}>
           <Group x={0} y={0}>
@@ -204,6 +217,7 @@ class LineGraph extends React.Component {
         </Surface>
       </View>
     );
+    return this.state.data.length ? data : noData;
   }
 }
 
