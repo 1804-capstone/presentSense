@@ -25,7 +25,6 @@ const Screen = {
 class MyData extends React.Component {
   constructor() {
     super()
-    console.log('HI?')
     this.getMonth = () => {
       const date = new Date()
       const month = +date.getMonth()
@@ -40,8 +39,6 @@ class MyData extends React.Component {
       startDate: new Date(this.getMonth()),
       endDate: new Date()
     }
-    console.log("S", this.state.startDate)
-    console.log("E", this.state.endDate)
     this.toggleMetric = this.toggleMetric.bind(this)
     this.updateOptions = this.updateOptions.bind(this)
   }

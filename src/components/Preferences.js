@@ -63,7 +63,7 @@ class Preferences extends React.Component {
         <View style={styles.toggle}>
           <Text style={styles.txt3}>
             Share Your Metrics:{'\n'}
-            (your mood average will {'\n'}
+            (mood average will {'\n'}
             appear on map)</Text>
           <Switch
             value={this.state.share}
