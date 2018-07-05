@@ -86,13 +86,13 @@ class LineGraph extends React.Component {
     const { width, height } = Dimensions.get("window");
     const x = scaleTime()
       .domain([min, max])
-      .range([0, width]);
+      .range([0, width * 0.8]);
 
     //convert sleep data
     if (datum === "sleep") {
       data = data.map(datum => {
-        const start = moment(new Date(datum.startDate));
-        const end = moment(new Date(datum.endDate));
+        const start = moment(new Date(datum.startDate.slice(0, -5)));
+        const end = moment(new Date(datum.endDate.slice(0, -5)));
         let diff = end.diff(start, "hours", true);
         const newDatum = {
           value: diff,
@@ -124,13 +124,13 @@ class LineGraph extends React.Component {
       color = "#008b8b";
     }
     if (datum === "heartRate") {
-      color = "#006400";
+      color = "#68228b";
     }
     if (datum === "sleep") {
       color = "#104e8b";
     }
     if (datum === "mood") {
-      color = "#68228b";
+      color = "#006400";
     }
     return {
       path: path(newData),
@@ -153,9 +153,9 @@ class LineGraph extends React.Component {
         tick,
         y: 0
       },
-      { tick, y: height * 0.2 }
+      { tick, y: height * 0.1 }
     ]);
-    const points = dates.filter((date, index) => index % 3 === 0);
+    const points = dates.filter((date, index) => index % 2 === 0);
     const path = line()
       .x(d => x(d.tick))
       .y(d => y(d.y));
@@ -218,37 +218,39 @@ class LineGraph extends React.Component {
     // const values = this.props.data.steps.map(step => step.value);
     // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
     // const { yPoints, yPath } = this.yAxis(maxVal);
-    const noData = (
-      <View>
-        {" "}
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    // const noData = (
+    //   <View>
+    //     {" "}
+    //     <ActivityIndicator size="large" />
+    //   </View>
+    // );
     const data = (
       <View style={styles.container}>
-        <Surface width={width} height={height}>
-          <Group x={0} y={0}>
-            {linePaths.map(path => (
-              <Shape
-                key={path.color}
-                d={path.path}
-                stroke={path.color}
-                strokeWidth={2}
-              />
-            ))}
-            {points.map(point => (
-              <Shape d={path(point)} stroke="#000" strokeWidth={3} />
-            ))}
-            {/* {yPoints.map(point => (
+        <View style={styles.graph}>
+          <Surface width={width * 0.8} height={height * 0.5}>
+            <Group x={0} y={0}>
+              {linePaths.map(path => (
+                <Shape
+                  key={path.color}
+                  d={path.path}
+                  stroke={path.color}
+                  strokeWidth={2}
+                />
+              ))}
+              {points.map(point => (
+                <Shape d={path(point)} stroke="#D3D3D3" strokeWidth={3} />
+              ))}
+              {/* {yPoints.map(point => (
               <Shape d={path(yPoints)} stroke="#000" strokeWidth={3} />
             ))} */}
-            {/* <Shape
+              {/* <Shape
               d="M89.5389594561964,185.2777777777778L279.6344454939…015286,111.16666666666666L327.0129176979117,333.5"
               stroke="#000"
               strokeWidth={6}
             /> */}
-          </Group>
-        </Surface>
+            </Group>
+          </Surface>
+        </View>
       </View>
     );
     return data;
@@ -280,10 +282,26 @@ export default connect(mapState)(LineGraph);
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    padding: 0,
-    height: "100%",
-    width: "100%",
-    backgroundColor: "rgba(178, 223, 219, 1)"
+    flex: 1,
+    backgroundColor: "#E0F2F1",
+    flexDirection: "column"
+    // alignItems: "center",
+    // justifyContent: "space-between",
+    // paddingTop: "10%",
+    // paddingLeft: "10%",
+    // paddingRight: "10%",
+    // paddingBottom: "10%"
+  },
+  heading: {
+    flex: 1,
+    justifyContent: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    alignItems: "center"
+  },
+  graph: {
+    // paddingLeft: "5%",
+    // paddingRight: "5%",
+    // width: "50%"
   }
 });
