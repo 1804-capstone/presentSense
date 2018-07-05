@@ -135,7 +135,9 @@ class Heartrate extends React.Component {
     let cubeMaterial;
     let heartSampleLength = this.props.hrSamples.length;
     let stepSampleLength = this.props.stepSamples.length;
+    let sleepSamples = this.props.sleepSamples;
     let sleepSampleLength = this.props.sleepSamples.length;
+    let moodSamples = this.props.moodSamples;
     let moodSampleLength = this.props.moodSamples.length;
 
     function init() {
@@ -162,6 +164,7 @@ class Heartrate extends React.Component {
 
       scene.add(heartMesh);
       ///-----------------------------------------------------
+
       sleepMaterial = new THREE.MeshPhongMaterial({
         color: 0x0043af,
         side: THREE.DoubleSide,
@@ -169,10 +172,15 @@ class Heartrate extends React.Component {
         vertexColors: THREE.VertexColors,
         shininess: 0
       });
-      sleepGeometry = GeometrySetup({ limit: sleepSampleLength }, 11, 1);
+      sleepGeometry = GeometrySetup(
+        { limit: Math.min(3, sleepSampleLength) },
+        11,
+        1
+      );
       sleepMaterial.vertexColors = THREE.VertexColors;
       sleepMesh = new THREE.Mesh(sleepGeometry, sleepMaterial);
       scene.add(sleepMesh);
+
       //--------------------------------------------------------
       stepMaterial = new THREE.MeshPhongMaterial({
         color: 0x28b7ae,
@@ -188,17 +196,20 @@ class Heartrate extends React.Component {
 
       scene.add(stepMesh);
       //--------------------------------------------------
-      moodMaterial = new THREE.MeshPhongMaterial({
-        color: 0x82f2ad,
-        side: THREE.DoubleSide,
-        flatShading: true,
-        vertexColors: THREE.VertexColors,
-        shininess: 0
-      });
-      moodGeometry = GeometrySetup({ limit: moodSampleLength }, 3, 3);
-      moodMaterial.vertexColors = THREE.VertexColors;
-      moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
-      scene.add(moodMesh);
+      if (moodSamples && moodSampleLength > 3) {
+        moodMaterial = new THREE.MeshPhongMaterial({
+          color: 0x82f2ad,
+          side: THREE.DoubleSide,
+          flatShading: true,
+          vertexColors: THREE.VertexColors,
+          shininess: 0
+        });
+        moodGeometry = GeometrySetup({ limit: moodSampleLength }, 3, 3);
+        moodMaterial.vertexColors = THREE.VertexColors;
+        moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
+        scene.add(moodMesh);
+      }
+
       //-------------------------------------------------------
       //debug cube
       cubeGeometry = new THREE.BoxGeometry(20, 20, 20);
@@ -237,7 +248,7 @@ class Heartrate extends React.Component {
         stepGeometry.verticesNeedUpdate = true;
       }
       //--------------------------------------------
-      if (this.state.sleepSamples && this.state.sleepSamples.length) {
+      if (sleepSamples && sleepSampleLength > 0) {
         console.log("Sleeps!", this.state.sleepSamples);
         sleepGeometry.verticesNeedUpdate = true;
         sleepGeometry.colorsNeedUpdate = true;
@@ -252,7 +263,7 @@ class Heartrate extends React.Component {
         sleepGeometry.verticesNeedUpdate = true;
       }
       //--------------------------------------------------
-      if (this.props.moodSamples && this.props.moodSamples.length) {
+      if (moodSamples && moodSampleLength > 3) {
         moodGeometry.verticesNeedUpdate = true;
         moodGeometry.colorsNeedUpdate = true;
         MoodMeshAnimator(

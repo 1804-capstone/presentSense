@@ -74,12 +74,18 @@ export const MeshAnimator = (
 ) => {
   //vert positions
 
-  let numPoints = options.limit || data.length;
+  let numPoints = data.length;
   let angle = (2 * Math.PI) / numPoints;
   let dataPoint;
   let dataPoint2;
   let constrainedIndex;
-  for (let i = 0; i < numPoints; i++) {
+  console.log(
+    "GEOMETRY LEN",
+    geometry.vertices.length,
+    options.limit,
+    data.length
+  );
+  for (let i = 0; i < Math.floor(geometry.vertices.length / 2) - 1; i++) {
     if (data && data.length) {
       if (data.length < numPoints) {
         constrainedIndex = i % data.length;
@@ -106,7 +112,7 @@ export const MeshAnimator = (
       dataPoint2 = 40 + 40 * Math.cos(clock.getElapsedTime());
     }
 
-    geometry.vertices[i * 2].set(
+    geometry.vertices[Math.max(i * 2 - 2, 0)].set(
       dataPoint * Math.sin(angle * i),
       0 + dataPoint * Math.cos(angle * i),
       zIndex
