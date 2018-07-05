@@ -232,6 +232,7 @@ export const HeartMeshAnimator = (
 
   let colorPoint;
   let dataValue;
+  let vertColor = {};
   for (let i = 0; i < geometry.faces.length; i++) {
     if (data && data.length) {
       let constrainedIndex = i % data.length;
@@ -247,36 +248,63 @@ export const HeartMeshAnimator = (
     }
     //individual vertices
     let face = geometry.faces[i];
-    let vertColor = {
+    vertColor[i] = {
       r: 0.5 + 0.1 * Math.sin(clock.getElapsedTime() + 0.2 * dataValue),
       g: 0.6 + 0.1 * Math.sin(clock.getElapsedTime() - 0.2 * dataValue),
       b: 0.8 + 0.3 * Math.sin(clock.getElapsedTime() + 0.1 * dataValue)
     };
     for (let j = 0; j < 3; j++) {
+      if (i % 2 === 0) {
+        face.vertexColors[j].r = 1;
+        face.vertexColors[j].g = 1;
+        face.vertexColors[j].b = 1;
+        if(
+
+        )
+      } else {
+        //outer double vertex
+        face.vertexColors[j].r = vertColor[i].r;
+        face.vertexColors[j].g = vertColor[i].g;
+        face.vertexColors[j].b = vertColor[i].b;
+      }
+    }
+    for (let j = 0; j < 3; j++) {
       if (j === 1 && i % 2 === 0) {
+        //inner single vertex
         face.vertexColors[j].r = 1;
         face.vertexColors[j].g = 1;
         face.vertexColors[j].b = 1;
       } else if (i % 2 === 1) {
         if (j === 2 || j === 1) {
+          //inner double vertex
           face.vertexColors[j].r = 1;
           face.vertexColors[j].g = 1;
           face.vertexColors[j].b = 1;
         } else {
-          face.vertexColors[j].r = vertColor.r;
-          face.vertexColors[j].g = vertColor.g;
-          face.vertexColors[j].b = vertColor.b;
+          //outer single vertex
+          face.vertexColors[j].r = vertColor[i].r;
+          face.vertexColors[j].g = vertColor[i].g;
+          face.vertexColors[j].b = vertColor[i].b;
         }
       } else {
-        face.vertexColors[j].r =
-          0.5 + 0.1 * Math.sin(clock.getElapsedTime() + 0.2 * dataValue);
-        face.vertexColors[j].g =
-          0.6 + 0.1 * Math.sin(clock.getElapsedTime() - 0.2 * dataValue);
-        face.vertexColors[j].b =
-          0.8 + 0.3 * Math.sin(clock.getElapsedTime() + 0.1 * dataValue);
+        // face.vertexColors[j].r =
+        //   0.5 + 0.1 * Math.sin(clock.getElapsedTime() + 0.2 * dataValue);
+        // face.vertexColors[j].g =
+        //   0.6 + 0.1 * Math.sin(clock.getElapsedTime() - 0.2 * dataValue);
+        // face.vertexColors[j].b =
+        //   0.8 + 0.3 * Math.sin(clock.getElapsedTime() + 0.1 * dataValue);
         // face.vertexColors[j].r = 0;
         // face.vertexColors[j].g = 0;
         // face.vertexColors[j].b = 0;
+        if (i > 0) {
+          face.vertexColors[j].r = vertColor[i - 1].r;
+          face.vertexColors[j].g = vertColor[i - 1].g;
+          face.vertexColors[j].b = vertColor[i - 1].b;
+        } else {
+          face.vertexColors[j].r = vertColor[i].r;
+          face.vertexColors[j].g = vertColor[i].g;
+          face.vertexColors[j].b = vertColor[i].b;
+        }
       }
     }
   }
