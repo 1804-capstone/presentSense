@@ -11,7 +11,7 @@ export default class StressRelief extends React.Component {
     return (
       <View style={styles.container}>
         <Image
-          style={{ width: 200, height: 200 }}
+          style={{ width: 200, height: 180 }}
           source={require("../../images/glow.jpg")}
         />
         <Button
@@ -24,8 +24,8 @@ export default class StressRelief extends React.Component {
           onPress={() => this.props.navigation.navigate("StressGame")}
         />
         <Image
-          style={{ width: 200, height: 200 }}
-          source={require("../../images/heart.jpg")}
+          style={{ width: 200, height: 180 }}
+          source={require("../../images/draw.png")}
         />
         <Button
           title="Doodler"
