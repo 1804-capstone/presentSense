@@ -35,27 +35,6 @@ class Preferences extends React.Component {
           value={this.state.name}
           onChangeText={name => this.setState({ name })}
         />
-        {/* <Text>Tracked Metrics</Text>
-        <Text>Heart Rate: </Text>
-        <Switch
-          value={this.state.heartRate}
-          onValueChange={value => this.setState({ heartRate: value })}
-        />
-        <Text>Steps: </Text>
-        <Switch
-          value={this.state.steps}
-          onValueChange={value => this.setState({ steps: value })}
-        />
-        <Text>Sleep: </Text>
-        <Switch
-          value={this.state.sleep}
-          onValueChange={value => this.setState({ sleep: value })}
-        />
-        <Text>Mood: </Text>
-        <Switch
-          value={this.state.mood}
-          onValueChange={value => this.setState({ mood: value })}
-        /> */}
         <Text style={styles.txt2}>
           The following options improve user experience with the Mood Map.
           This information will be tabulated and shared anonymously.

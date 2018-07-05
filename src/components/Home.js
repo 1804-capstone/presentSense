@@ -70,18 +70,24 @@ class Home extends React.Component {
           <Button
             title="Account"
             raised
-            buttonStyle={{ width: "75%", alignSelf: "flex-start" }}
+            buttonStyle={{
+              width: "75%",
+              alignSelf: "flex-start"
+            }}
             borderRadius={10}
-            fontSize={15}
+            fontSize={18}
             backgroundColor="#80CBC4"
             onPress={() => navigate("Preferences")}
           />
           <Button
             title="Logout"
             raised
-            buttonStyle={{ width: "75%", alignSelf: "flex-end" }}
+            buttonStyle={{
+              width: "75%",
+              alignSelf: "flex-end"
+            }}
             borderRadius={10}
-            fontSize={15}
+            fontSize={18}
             backgroundColor="#80CBC4"
             onPress={() => this.handleLogout()}
           />
@@ -138,17 +144,20 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     flexDirection: "column",
     backgroundColor: "#E0F2F1",
     // alignItems: 'center',
     justifyContent: "space-between",
-    paddingTop: "5%",
-    paddingBottom: "10%"
+    paddingTop: "15%",
+    paddingBottom: "8%"
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    paddingLeft: "2%",
+    paddingRight: "2%"
+    // marginTop: "10%"
   }
 });
 
