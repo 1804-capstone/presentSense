@@ -17,7 +17,8 @@ import moment from "moment";
 import {
   GeometrySetup,
   MeshAnimator,
-  HeartMeshAnimator
+  HeartMeshAnimator,
+  MoodMeshAnimator
 } from "./meshUtilities/ringMesh";
 //these actions should let us talk to healthkit
 // import {
@@ -187,17 +188,17 @@ class Heartrate extends React.Component {
 
       scene.add(stepMesh);
       //--------------------------------------------------
-      // moodMaterial = new THREE.MeshPhongMaterial({
-      //   color: 0xffffff,
-      //   side: THREE.DoubleSide,
-      //   flatShading: true,
-      //   vertexColors: THREE.VertexColors,
-      //   shininess: 0
-      // });
-      // moodGeometry = GeometrySetup({ limit: moodSampleLength }, 100, 3);
-      // moodMaterial.vertexColors = THREE.VertexColors;
-      // moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
-      // scene.add(moodMesh);
+      moodMaterial = new THREE.MeshPhongMaterial({
+        color: 0x82f2ad,
+        side: THREE.DoubleSide,
+        flatShading: true,
+        vertexColors: THREE.VertexColors,
+        shininess: 0
+      });
+      moodGeometry = GeometrySetup({ limit: moodSampleLength }, 3, 3);
+      moodMaterial.vertexColors = THREE.VertexColors;
+      moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
+      scene.add(moodMesh);
       //-------------------------------------------------------
       //debug cube
       cubeGeometry = new THREE.BoxGeometry(20, 20, 20);
@@ -251,19 +252,19 @@ class Heartrate extends React.Component {
         sleepGeometry.verticesNeedUpdate = true;
       }
       //--------------------------------------------------
-      // if (this.props.moodSamples && this.props.moodSamples.length) {
-      //   moodGeometry.verticesNeedUpdate = true;
-      //   moodGeometry.colorsNeedUpdate = true;
-      //   MeshAnimator(
-      //     moodGeometry,
-      //     { limit: moodSampleLength },
-      //     this.props.moodSamples,
-      //     clock,
-      //     100, //scale
-      //     3 //z index
-      //   );
-      //   moodGeometry.verticesNeedUpdate = true;
-      // }
+      if (this.props.moodSamples && this.props.moodSamples.length) {
+        moodGeometry.verticesNeedUpdate = true;
+        moodGeometry.colorsNeedUpdate = true;
+        MoodMeshAnimator(
+          moodGeometry,
+          { limit: moodSampleLength },
+          this.props.moodSamples,
+          clock,
+          40, //scale
+          -2 //z index
+        );
+        moodGeometry.verticesNeedUpdate = true;
+      }
       //----------------------------------------------
       //move cube to touch position
       cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
