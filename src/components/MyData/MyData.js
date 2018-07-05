@@ -111,7 +111,7 @@ class MyData extends React.Component {
         captureGestures="closed" // tapToOpen={false}
         // openDrawerOffset={100}
         panCloseMask={0.9} // panOpenMask={0.2}
-        closedDrawerOffset={0.0}
+        closedDrawerOffset={0}
         styles={styles.drawer} // tweenHandler={(ratio) => ({
         //   main: { opacity:(2-ratio)/2 }
         // })}
@@ -126,6 +126,9 @@ class MyData extends React.Component {
           <DataCarousel />
           // <View><Text>Swipe up for Options</Text></View>
         )}
+        <View style={styles.bottom}>
+          <Text style={styles.bottomTxt}>Swipe up for options</Text>
+        </View>
       </Drawer>
     );
   }
@@ -137,9 +140,6 @@ const styles = StyleSheet.create({
     shadowColor: "#000000",
     shadowOpacity: 0.9,
     shadowRadius: 3
-  },
-  carousel: {
-    height: 100
   },
   bottom: {
     backgroundColor: "#00695C",

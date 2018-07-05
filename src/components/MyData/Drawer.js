@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-native-elements";
+import { Icon } from "react-native-elements";
 // import Drawer from 'react-native-draggable-view'
 import iconClaw from "../../images/icon_claw.png";
 import {
@@ -27,20 +27,14 @@ const Screen = {
 };
 
 const DrawerView = props => {
-  // const {
-  //   heartrate,
-  //   stepCount,
-  //   sleep,
-  //   mood,
-  //   startDate,
-  //   endDate
-  // } = props.values;
-  // const { toggleMetric } = props;
   console.log("DrawerView Props:", props);
   return (
     <View>
       <View style={styles.iconHolder}>
-        <Image style={styles.icon_claw} source={iconClaw} />
+        <Icon
+          name='chevron-down'
+          type='font-awesome'
+          iconStyle={styles.icon} />
       </View>
       <View style={styles.container}>
         <View style={styles.txtCont}>
@@ -130,20 +124,14 @@ export default connect(
 )(DrawerView);
 
 const styles = StyleSheet.create({
-  icon_claw: {
-    position: "absolute",
-    top: 20,
-    bottom: 0,
-    // left: (Screen.width / 2) - 16,
-    // right: (Screen.width / 2) - 16,
-    width: 50
-    // height: 10,
-  },
   iconHolder: {
     backgroundColor: "#00695C",
-    height: 85,
+    height: 50,
     flexDirection: "row",
     justifyContent: "center"
+  },
+  icon: {
+    color: 'white'
   },
   container: {
     display: "flex",
@@ -175,7 +163,7 @@ const styles = StyleSheet.create({
   },
   dateCont: {
     padding: 10,
-    height: 200
+    height: 230
   },
   text: {
     fontSize: 18,
