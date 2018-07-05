@@ -21,13 +21,13 @@ export default class AccomplishForm extends React.Component {
   render() {
     const { handleEntry } = this.props
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.welcome}>
           What's one thing you accomplished today?{" "}
         </Text>
         <TextInput
           placeholder="Today I accomplished..."
-          style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
+          style={styles.input}
           multiline
           numberOfLines={10}
           value={this.state.content}
@@ -46,13 +46,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#E0F2F1",
     justifyContent: "space-between",
-    paddingTop: "10%",
-    paddingBottom: "10%"
+    padding: 15
   },
   welcome: {
     fontSize: 20,
     textAlign: "center",
-    marginTop: 20,
-    marginBottom: 20
+    marginBottom: 10
+  },
+  input: {
+    height: 60,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: '90%',
+    fontSize: 18,
+    padding: 5
   }
 });
