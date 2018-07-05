@@ -12,7 +12,7 @@ import {
   Loading,
   Heartrate,
   StepsGraph,
-  GraphMaker,
+  // GraphMaker,
   Signup,
   Preferences,
   StressRelief,
@@ -34,7 +34,7 @@ const StackNavigator = createStackNavigator(
     LoginForm: { screen: LoginForm },
     Loading: { screen: Loading },
     Heartrate: { screen: Heartrate },
-    GraphMaker: { screen: GraphMaker },
+    // GraphMaker: { screen: GraphMaker },
     Preferences: { screen: Preferences },
     StressGame: { screen: StressGame },
     StressRelief: { screen: StressRelief },
@@ -43,11 +43,17 @@ const StackNavigator = createStackNavigator(
     NewJournal: { screen: NewJournal },
     DataCarousel: { screen: DataCarousel },
     MoodMap: { screen: MoodMap },
-    SingleJournal: { screen: SingleJournal },
+    SingleJournal: { screen: SingleJournal }
   },
 
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Loading",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: "#B2DFDB"
+      },
+      headerTitle: "PresentSense"
+    }
   }
 );
 

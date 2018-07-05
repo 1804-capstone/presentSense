@@ -1,58 +1,63 @@
 import firebase from "react-native-firebase";
 const db = firebase.firestore();
-import moment from 'moment'
+import moment from "moment";
+import { toggleFetching } from "./visMeta";
 
 /** ACTION TYPES **/
-const FETCH_MOODS_OVER_TIME = 'FETCH_MOODS_OVER_TIME'
+const FETCH_MOODS_OVER_TIME = "FETCH_MOODS_OVER_TIME";
 
 /** ACTION CREATORS **/
-const fetchTheMoods = moods => ({type: FETCH_MOODS_OVER_TIME, moods})
+const fetchTheMoods = moods => ({ type: FETCH_MOODS_OVER_TIME, moods });
 
 /** THUNK CREATORS **/
 
 export const fetchMoodsOverTime = (startDate, endDate) => {
   return async dispatch => {
     try {
-      const user = firebase.auth().currentUser
-      const id = user.uid
+      // dispatch(toggleFetching("mood", true));
+      const user = firebase.auth().currentUser;
+      const id = user.uid;
       //convert date to proper format for query
-      const start = moment(startDate).valueOf()
-      const end = moment(endDate).valueOf()
+      const start = moment(startDate).valueOf();
+      const end = moment(endDate).valueOf();
       //query db for moodlogs between selected dates
-      await db.collection('users').doc(id).collection('moodLog')
-        .where('date', '>=', start)
-        .where('date', '<=', end)
-        .orderBy('date')
+      await db
+        .collection("users")
+        .doc(id)
+        .collection("moodLog")
+        .where("date", ">=", start)
+        .where("date", "<=", end)
+        .orderBy("date")
         .get()
         .then(function(querySnapshot) {
-          let moodsOverTime = []
+          let moodsOverTime = [];
           querySnapshot.forEach(function(doc) {
             let moodPoint = {
               startDate: moment(doc.data().date).toISOString(),
               endDate: moment(Date.now()).toISOString(),
               value: doc.data().mood
-            }
-            moodsOverTime.push(moodPoint)
-        })
-      // console.log("MOOOOOOD", moodsOverTime)
-      dispatch(fetchTheMoods(moodsOverTime))
-      })
+            };
+            moodsOverTime.push(moodPoint);
+          });
+          // console.log("MOOOOOOD", moodsOverTime)
+          dispatch(fetchTheMoods(moodsOverTime));
+          dispatch(toggleFetching("mood", false));
+        });
     } catch (err) {
-      console.log('Error fetching mood data: ', err.message)
+      console.log("Error fetching mood data: ", err.message);
     }
-  }
-}
+  };
+};
 
 /** INITIAL STATE **/
-const initialState = []
-
+const initialState = [];
 
 /** REDUCER **/
 export default (mood = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MOODS_OVER_TIME:
-      return action.moods
+      return action.moods;
     default:
-      return state
+      return state;
   }
-})
+});

@@ -179,7 +179,6 @@ export const fetchMoodlogs = () => {
 const initialState = {
   password: "",
   errorMessage: null,
-  userDocId: "",
   preferences: {},
   moodLogs: []
 };

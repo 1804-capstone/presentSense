@@ -1,4 +1,5 @@
 import AppleHealthKit from "rn-apple-healthkit";
+import { toggleFetching } from "./visMeta";
 
 //action types
 const GET_HR = "GET_HR";
@@ -23,6 +24,7 @@ const getHeartRateOverTime = heartRateSamples => ({
 //   limit: 10 // optional; default no limit
 // };
 export const fetchLatestHeartRate = heartOptions => dispatch =>
+  // dispatch(toggleFetching("heartrate", true));
   AppleHealthKit.getHeartRateSamples(heartOptions, (err, results) => {
     if (err) {
       console.log("error getting heartrate from healthkit");
@@ -30,14 +32,17 @@ export const fetchLatestHeartRate = heartOptions => dispatch =>
       dispatch(getHeartRate(results[0]));
     }
   });
-export const fetchHeartRateOverTime = heartOptions => dispatch =>
+export const fetchHeartRateOverTime = heartOptions => dispatch => {
+  // dispatch(toggleFetching("heartrate", true));
   AppleHealthKit.getHeartRateSamples(heartOptions, (err, results) => {
     if (err) {
       console.log("error getting heartrate from healthkit");
     } else {
       dispatch(getHeartRateOverTime(results));
+      dispatch(toggleFetching("heartrate", false));
     }
   });
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {

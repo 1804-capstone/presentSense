@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import Heartrate from "./Heartrate";
-import GraphMaker from "./Graph/GraphMaker";
+import LineGraph from "./Graph/LineGraph";
 
 import { connect } from "react-redux";
 import {
@@ -20,7 +20,7 @@ import { fetchLatestSteps } from "../store/steps";
 //query options from a store for the draggable drawer?
 
 const abstractContent = <Heartrate />;
-const graphContent = <GraphMaker />;
+const graphContent = <LineGraph />;
 const contentArray = [graphContent, abstractContent];
 
 class DataCarousel extends React.Component {
@@ -46,12 +46,14 @@ class DataCarousel extends React.Component {
     if (index % 2 === 1) {
       return <Heartrate />;
     } else {
-      return <GraphMaker />;
+      return <LineGraph />;
     }
   }
 
   render() {
     const gotData = this.waitForData();
+    console.log("do we get here? we're in the data carousel");
+    const isEven = this.state.activeSlide % 2 === 0;
     return (
       <View style={styles.container}>
         {/* <Text>carousel?</Text> */}
