@@ -47,6 +47,7 @@ class Heartrate extends React.Component {
       camera: {},
       hrSamples: [],
       stepSamples: [],
+      sleepSamples: [],
       key: 0
     };
     // this.getHR = this.getHR.bind(this);
@@ -54,24 +55,39 @@ class Heartrate extends React.Component {
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
-    //this.getDerivedStateFromProps = this.getDerivedStateFromProps.bind(this);
   }
 
   componentDidMount() {}
   static getDerivedStateFromProps(props, state) {
-    //check if the props match their counterparts in the local state object.
-    if (props.hrSamples !== state.hrSamples) {
-      //COMPONENT SHOULD UPDATE!
+    if (
+      props.hrSamples !== state.hrSamples ||
+      props.sleepSamples.length !== state.sleepSamples.length
+    ) {
       console.log("COMPONENT SHOULD UPDATE");
-      //perhaps also call your functions that compute the lines from data here?
-      //this.onContextCreate();
+      const convertSleep = data => {
+        data = data.map(datum => {
+          const start = moment(new Date(datum.startDate.slice(0, -5)));
+          const end = moment(new Date(datum.endDate.slice(0, -5)));
+          let diff = end.diff(start, "hours", true);
+          console.log("whats the difference", diff, start, end);
+          const newDatum = {
+            value: diff,
+            startDate: datum.startDate,
+            endDate: datum.endDate
+          };
+          return newDatum;
+        });
+        //this.setState({ sleepSamples: data });
+        return data;
+      };
+
+      let convertedSleep = convertSleep(props.sleepSamples);
       return {
-        // this sets the local state object to the newly updated props
-        hrSamples: props.hrSamples
+        hrSamples: props.hrSamples,
+        sleepSamples: convertedSleep
       };
     }
     console.log("null????????");
-    //props and state match, no re-render needed!
     return null;
   }
   componentWillUnmount() {
@@ -105,11 +121,21 @@ class Heartrate extends React.Component {
     let stepMesh;
     let stepMaterial;
 
+    let moodGeometry;
+    let moodMesh;
+    let moodMaterial;
+
+    let sleepGeometry;
+    let sleepMesh;
+    let sleepMaterial;
+
     let cubeGeometry;
     let cubeMesh;
     let cubeMaterial;
     let heartSampleLength = this.props.hrSamples.length;
     let stepSampleLength = this.props.stepSamples.length;
+    let sleepSampleLength = this.props.sleepSamples.length;
+    let moodSampleLength = this.props.moodSamples.length;
 
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
@@ -128,13 +154,25 @@ class Heartrate extends React.Component {
         shininess: 0
       });
       //re set up heart options:
-      heartGeometry = GeometrySetup({ limit: heartSampleLength }, 1, 1);
+      heartGeometry = GeometrySetup({ limit: heartSampleLength }, 1, 0.5);
       heartMaterial.vertexColors = THREE.VertexColors;
 
       heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
 
       scene.add(heartMesh);
-
+      ///-----------------------------------------------------
+      sleepMaterial = new THREE.MeshPhongMaterial({
+        color: 0x0043af,
+        side: THREE.DoubleSide,
+        flatShading: true,
+        vertexColors: THREE.VertexColors,
+        shininess: 0
+      });
+      sleepGeometry = GeometrySetup({ limit: sleepSampleLength }, 11, 1);
+      sleepMaterial.vertexColors = THREE.VertexColors;
+      sleepMesh = new THREE.Mesh(sleepGeometry, sleepMaterial);
+      scene.add(sleepMesh);
+      //--------------------------------------------------------
       stepMaterial = new THREE.MeshPhongMaterial({
         color: 0x28b7ae,
         side: THREE.DoubleSide,
@@ -148,7 +186,19 @@ class Heartrate extends React.Component {
       stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
 
       scene.add(stepMesh);
-
+      //--------------------------------------------------
+      // moodMaterial = new THREE.MeshPhongMaterial({
+      //   color: 0xffffff,
+      //   side: THREE.DoubleSide,
+      //   flatShading: true,
+      //   vertexColors: THREE.VertexColors,
+      //   shininess: 0
+      // });
+      // moodGeometry = GeometrySetup({ limit: moodSampleLength }, 100, 3);
+      // moodMaterial.vertexColors = THREE.VertexColors;
+      // moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
+      // scene.add(moodMesh);
+      //-------------------------------------------------------
       //debug cube
       cubeGeometry = new THREE.BoxGeometry(20, 20, 20);
       cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x0f0ff0 });
@@ -171,11 +221,10 @@ class Heartrate extends React.Component {
           1 //z index
         );
       }
+      //----------------------------------------------
       if (this.props.stepSamples && this.props.stepSamples.length) {
-        //console.log("trying to animate steps");
         stepGeometry.verticesNeedUpdate = true;
         stepGeometry.colorsNeedUpdate = true;
-        //console.log("step samples", this.props.stepSamples);
         MeshAnimator(
           stepGeometry,
           { limit: stepSampleLength },
@@ -186,15 +235,42 @@ class Heartrate extends React.Component {
         );
         stepGeometry.verticesNeedUpdate = true;
       }
-
+      //--------------------------------------------
+      if (this.state.sleepSamples && this.state.sleepSamples.length) {
+        console.log("Sleeps!", this.state.sleepSamples);
+        sleepGeometry.verticesNeedUpdate = true;
+        sleepGeometry.colorsNeedUpdate = true;
+        MeshAnimator(
+          sleepGeometry,
+          { limit: sleepSampleLength },
+          this.state.sleepSamples,
+          clock,
+          10, //scale
+          0.5 //z index
+        );
+        sleepGeometry.verticesNeedUpdate = true;
+      }
+      //--------------------------------------------------
+      // if (this.props.moodSamples && this.props.moodSamples.length) {
+      //   moodGeometry.verticesNeedUpdate = true;
+      //   moodGeometry.colorsNeedUpdate = true;
+      //   MeshAnimator(
+      //     moodGeometry,
+      //     { limit: moodSampleLength },
+      //     this.props.moodSamples,
+      //     clock,
+      //     100, //scale
+      //     3 //z index
+      //   );
+      //   moodGeometry.verticesNeedUpdate = true;
+      // }
+      //----------------------------------------------
       //move cube to touch position
-
       cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
       //console.log("cube pose", cubeMesh.position);
       gl.flush();
       rngl.endFrame();
     };
-
     init();
     animate();
   };
@@ -285,7 +361,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     hrSamples: state.heartRate.hrSamples,
-    stepSamples: state.steps
+    stepSamples: state.steps,
+    sleepSamples: state.sleep,
+    moodSamples: state.mood
   };
 };
 
