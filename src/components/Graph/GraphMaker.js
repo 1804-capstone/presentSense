@@ -40,7 +40,7 @@ class Graphmaker extends React.Component {
       xAxisLine: ""
     };
     // this.getSteps = this.getSteps.bind(this);
-    this.getHeartRate = this.getHeartRate.bind(this);
+    // this.getHeartRate = this.getHeartRate.bind(this);
     // this.getXAxis = this.getXAxis.bind(this);
   }
   componentDidMount() {
@@ -89,13 +89,13 @@ class Graphmaker extends React.Component {
 
           <View style={styles.graph}>
             <LineGraph
-              startDate={queryOptions.startDate}
-              endDate={queryOptions.endDate}
-              // data={{
-              //   steps: this.props.stepSamples,
-              //   heartRate: this.props.heartRateSamples,
-              //   sleep: this.props.sleepSamples
-              // }}
+            // startDate={queryOptions.startDate}
+            // endDate={queryOptions.endDate}
+            // data={{
+            //   steps: this.props.stepSamples,
+            //   heartRate: this.props.heartRateSamples,
+            //   sleep: this.props.sleepSamples
+            // }}
             />
           </View>
           <View style={styles.dateStyle}>
