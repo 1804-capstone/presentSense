@@ -24,40 +24,40 @@ const { Surface, Group, Shape } = ART;
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      paths: [],
-      steps: this.props.steps,
-      sleep: this.props.sleep,
-      heart: this.props.heartRate,
-      mood: this.props.mood
-    };
+    // this.state = {
+    //   paths: [],
+    //   steps: this.props.steps,
+    //   sleep: this.props.sleep,
+    //   heart: this.props.heartRate,
+    //   mood: this.props.mood
+    // };
     this.individualGraphMaker = this.individualGraphMaker.bind(this);
     this.xAxis = this.xAxis.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.steps !== state.steps) {
-      return {
-        steps: props.steps
-      };
-    }
-    if (props.sleep !== state.sleep) {
-      return { sleep: props.sleep };
-    }
-    if (props.heartRate !== state.heartRate) {
-      return { heartRate: props.heartRate };
-    }
-    if (props.mood !== state.mood) {
-      return { mood: props.mood };
-    }
-    if (props.startDate !== state.startDate) {
-      return { startDate: props.startDate };
-    }
-    if (props.endDate !== state.endDate) {
-      return { endDate: props.endDate };
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.steps !== state.steps) {
+  //     return {
+  //       steps: props.steps
+  //     };
+  //   }
+  //   if (props.sleep !== state.sleep) {
+  //     return { sleep: props.sleep };
+  //   }
+  //   if (props.heartRate !== state.heartRate) {
+  //     return { heartRate: props.heartRate };
+  //   }
+  //   if (props.mood !== state.mood) {
+  //     return { mood: props.mood };
+  //   }
+  //   if (props.startDate !== state.startDate) {
+  //     return { startDate: props.startDate };
+  //   }
+  //   if (props.endDate !== state.endDate) {
+  //     return { endDate: props.endDate };
+  //   }
+  //   return null;
+  // }
 
   componentDidMount() {
     // let linePaths = [];
@@ -121,13 +121,16 @@ class LineGraph extends React.Component {
     newData.reverse();
     let color;
     if (datum === "steps") {
-      color = "blue";
+      color = "#008b8b";
     }
     if (datum === "heartRate") {
-      color = "red";
+      color = "#006400";
     }
     if (datum === "sleep") {
-      color = "#8a2be2";
+      color = "#104e8b";
+    }
+    if (datum === "mood") {
+      color = "#68228b";
     }
     return {
       path: path(newData),
@@ -201,12 +204,14 @@ class LineGraph extends React.Component {
 
     for (let datum in this.props) {
       if (Array.isArray(this.props[datum])) {
+        console.log("Here is the metric: ", datum);
         let path = this.individualGraphMaker(
           this.props[datum],
           this.props.startDate,
           this.props.endDate,
           datum
         );
+        console.log(`here is the path for ${datum}:`, path);
         linePaths.push(path);
       }
     }
@@ -220,15 +225,15 @@ class LineGraph extends React.Component {
       </View>
     );
     const data = (
-      <View>
-        <Surface width={width * 0.8} height={height * 0.5}>
+      <View style={styles.container}>
+        <Surface width={width} height={height}>
           <Group x={0} y={0}>
             {linePaths.map(path => (
               <Shape
                 key={path.color}
                 d={path.path}
                 stroke={path.color}
-                strokeWidth={1}
+                strokeWidth={2}
               />
             ))}
             {points.map(point => (
@@ -237,6 +242,11 @@ class LineGraph extends React.Component {
             {/* {yPoints.map(point => (
               <Shape d={path(yPoints)} stroke="#000" strokeWidth={3} />
             ))} */}
+            {/* <Shape
+              d="M89.5389594561964,185.2777777777778L279.6344454939…015286,111.16666666666666L327.0129176979117,333.5"
+              stroke="#000"
+              strokeWidth={6}
+            /> */}
           </Group>
         </Surface>
       </View>
@@ -267,3 +277,13 @@ export default connect(mapState)(LineGraph);
 //     fetchSleep: queryOptions => dispatch(fetchSleep(queryOptions))
 //   };
 // };
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    padding: 0,
+    height: "100%",
+    width: "100%",
+    backgroundColor: "rgba(178, 223, 219, 1)"
+  }
+});
