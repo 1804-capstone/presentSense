@@ -253,21 +253,21 @@ export const HeartMeshAnimator = (
       g: 0.6 + 0.1 * Math.sin(clock.getElapsedTime() - 0.2 * dataValue),
       b: 0.8 + 0.3 * Math.sin(clock.getElapsedTime() + 0.1 * dataValue)
     };
-    for (let j = 0; j < 3; j++) {
-      if (i % 2 === 0) {
-        face.vertexColors[j].r = 1;
-        face.vertexColors[j].g = 1;
-        face.vertexColors[j].b = 1;
-        if(
+    // for (let j = 0; j < 3; j++) {
+    //   if (i % 2 === 0) {
+    //     face.vertexColors[j].r = 1;
+    //     face.vertexColors[j].g = 1;
+    //     face.vertexColors[j].b = 1;
+    //     if(
 
-        )
-      } else {
-        //outer double vertex
-        face.vertexColors[j].r = vertColor[i].r;
-        face.vertexColors[j].g = vertColor[i].g;
-        face.vertexColors[j].b = vertColor[i].b;
-      }
-    }
+    //     )
+    //   } else {
+    //     //outer double vertex
+    //     face.vertexColors[j].r = vertColor[i].r;
+    //     face.vertexColors[j].g = vertColor[i].g;
+    //     face.vertexColors[j].b = vertColor[i].b;
+    //   }
+    // }
     for (let j = 0; j < 3; j++) {
       if (j === 1 && i % 2 === 0) {
         //inner single vertex

@@ -118,7 +118,7 @@ const mapDispatch = dispatch => {
     setStartDate: startDate => dispatch(setStartDate(startDate)),
     setEndDate: endDate => dispatch(setEndDate(endDate)),
     toggleHeartRate: value => dispatch(toggleHeartRate(value)),
-    toggleMood: value => dispatch(toggleHeartRate(value)),
+    toggleMood: value => dispatch(toggleMood(value)),
     toggleSleep: value => dispatch(toggleSleep(value)),
     toggleStepCount: value => dispatch(toggleStepCount(value))
   };
