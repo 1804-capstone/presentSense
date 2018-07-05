@@ -8,7 +8,7 @@ export { default as Loading } from "./Loading";
 export { default as Heartrate } from "./Heartrate";
 export { default as AnimBlob } from "./AnimBlob";
 export { default as StepsGraph } from "./Graph/StepsGraph";
-export { default as GraphMaker } from "./Graph/GraphMaker";
+// export { default as GraphMaker } from "./Graph/GraphMaker";
 export { default as Preferences } from "./Preferences";
 export { default as MyJournals } from "./Journal/MyJournals";
 export { default as NewJournal } from "./Journal/NewJournal";
