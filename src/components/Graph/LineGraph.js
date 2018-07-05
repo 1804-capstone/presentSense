@@ -16,11 +16,20 @@ import { timeDay } from "d3-time";
 import { connect } from "react-redux";
 const { Surface, Group, Shape } = ART;
 
+// let timeOptions = {
+//   startDate: new Date(2018, 5, 1),
+//   endDate: new Date()
+// };
+
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      paths: []
+      paths: [],
+      steps: this.props.steps,
+      sleep: this.props.sleep,
+      heart: this.props.heartRate,
+      mood: this.props.mood
     };
     this.individualGraphMaker = this.individualGraphMaker.bind(this);
     this.xAxis = this.xAxis.bind(this);
@@ -51,20 +60,22 @@ class LineGraph extends React.Component {
   }
 
   componentDidMount() {
-    let linePaths = [];
-    let startDate = this.props.steps[0].startDate;
-    let endDate = this.props.steps[this.props.steps.length - 1].endDate;
-    console.log("Here are my props", this.props);
-    for (let datum in this.props) {
-      let path = this.individualGraphMaker(
-        this.props[datum],
-        this.props.startDate,
-        this.props.endDate,
-        datum
-      );
-      linePaths.push(path);
-    }
-    this.setState({ paths: linePaths });
+    // let linePaths = [];
+    let startDate = this.props.startDate;
+    let endDate = this.props.endDate;
+    console.log("here are the dates", startDate, endDate);
+    // for (let datum in this.props) {
+    //   if (Array.isArray(this.props[datum])) {
+    //     let path = this.individualGraphMaker(
+    //       this.props[datum],
+    //       this.props.startDate,
+    //       this.props.endDate,
+    //       datum
+    //     );
+    //     linePaths.push(path);
+    //   }
+    // }
+    // this.setState({ paths: linePaths });
   }
   individualGraphMaker = (data, startDate, endDate, datum) => {
     console.log(`here is the data for ${datum}`, data);
@@ -186,6 +197,19 @@ class LineGraph extends React.Component {
       this.props.startDate,
       this.props.endDate
     );
+    let linePaths = [];
+
+    for (let datum in this.props) {
+      if (Array.isArray(this.props[datum])) {
+        let path = this.individualGraphMaker(
+          this.props[datum],
+          this.props.startDate,
+          this.props.endDate,
+          datum
+        );
+        linePaths.push(path);
+      }
+    }
     // const values = this.props.data.steps.map(step => step.value);
     // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
     // const { yPoints, yPath } = this.yAxis(maxVal);
@@ -199,7 +223,7 @@ class LineGraph extends React.Component {
       <View>
         <Surface width={width * 0.8} height={height * 0.5}>
           <Group x={0} y={0}>
-            {this.state.paths.map(path => (
+            {linePaths.map(path => (
               <Shape
                 key={path.color}
                 d={path.path}
@@ -217,7 +241,7 @@ class LineGraph extends React.Component {
         </Surface>
       </View>
     );
-    return this.props.steps.length ? data : noData;
+    return data;
   }
 }
 
@@ -226,7 +250,9 @@ const mapState = state => {
     heartRate: state.heartRate.hrSamples,
     steps: state.steps,
     sleep: state.sleep,
-    mood: state.mood
+    mood: state.mood,
+    startDate: state.visMeta.startDate,
+    endDate: state.visMeta.endDate
   };
 };
 

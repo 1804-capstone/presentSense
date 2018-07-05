@@ -64,10 +64,10 @@ class Graphmaker extends React.Component {
     queryOptions = { ...queryOptions, endDate: new Date().toISOString() };
   }
 
-  getHeartRate() {
-    this.newQueryOptions();
-    this.props.fetchHeartRateOverTime(heartOptions);
-  }
+  // getHeartRate() {
+  //   this.newQueryOptions();
+  //   this.props.fetchHeartRateOverTime(heartOptions);
+  // }
   render() {
     console.log("here is my state", this.state);
     let minDate = new Date(queryOptions.startDate);
