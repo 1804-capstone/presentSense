@@ -249,7 +249,7 @@ class Heartrate extends React.Component {
       }
       //--------------------------------------------
       if (sleepSamples && sleepSampleLength > 0) {
-        console.log("Sleeps!", this.state.sleepSamples);
+        //console.log("Sleeps!", this.state.sleepSamples);
         sleepGeometry.verticesNeedUpdate = true;
         sleepGeometry.colorsNeedUpdate = true;
         MeshAnimator(

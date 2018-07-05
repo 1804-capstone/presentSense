@@ -79,12 +79,12 @@ export const MeshAnimator = (
   let dataPoint;
   let dataPoint2;
   let constrainedIndex;
-  console.log(
-    "GEOMETRY LEN",
-    geometry.vertices.length,
-    options.limit,
-    data.length
-  );
+  // console.log(
+  //   "GEOMETRY LEN",
+  //   geometry.vertices.length,
+  //   options.limit,
+  //   data.length
+  // );
   for (let i = 0; i < Math.floor(geometry.vertices.length / 2) - 1; i++) {
     if (data && data.length) {
       if (data.length < numPoints) {
