@@ -124,6 +124,7 @@ class MyData extends React.Component {
           <ActivityIndicator size="large" />
         ) : (
           <DataCarousel />
+          // <View><Text>Swipe up for Options</Text></View>
         )}
         <View style={styles.bottom}>
           <Text style={styles.bottomTxt}>Swipe up for options</Text>
@@ -141,10 +142,10 @@ const styles = StyleSheet.create({
     shadowRadius: 3
   },
   bottom: {
-    backgroundColor: '#00695C',
+    backgroundColor: "#00695C",
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   bottomTxt: {
     color: "white",

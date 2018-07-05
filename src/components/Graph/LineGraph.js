@@ -24,40 +24,40 @@ const { Surface, Group, Shape } = ART;
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      paths: [],
-      steps: this.props.steps,
-      sleep: this.props.sleep,
-      heart: this.props.heartRate,
-      mood: this.props.mood
-    };
+    // this.state = {
+    //   paths: [],
+    //   steps: this.props.steps,
+    //   sleep: this.props.sleep,
+    //   heart: this.props.heartRate,
+    //   mood: this.props.mood
+    // };
     this.individualGraphMaker = this.individualGraphMaker.bind(this);
     this.xAxis = this.xAxis.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.steps !== state.steps) {
-      return {
-        steps: props.steps
-      };
-    }
-    if (props.sleep !== state.sleep) {
-      return { sleep: props.sleep };
-    }
-    if (props.heartRate !== state.heartRate) {
-      return { heartRate: props.heartRate };
-    }
-    if (props.mood !== state.mood) {
-      return { mood: props.mood };
-    }
-    if (props.startDate !== state.startDate) {
-      return { startDate: props.startDate };
-    }
-    if (props.endDate !== state.endDate) {
-      return { endDate: props.endDate };
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.steps !== state.steps) {
+  //     return {
+  //       steps: props.steps
+  //     };
+  //   }
+  //   if (props.sleep !== state.sleep) {
+  //     return { sleep: props.sleep };
+  //   }
+  //   if (props.heartRate !== state.heartRate) {
+  //     return { heartRate: props.heartRate };
+  //   }
+  //   if (props.mood !== state.mood) {
+  //     return { mood: props.mood };
+  //   }
+  //   if (props.startDate !== state.startDate) {
+  //     return { startDate: props.startDate };
+  //   }
+  //   if (props.endDate !== state.endDate) {
+  //     return { endDate: props.endDate };
+  //   }
+  //   return null;
+  // }
 
   componentDidMount() {
     // let linePaths = [];
@@ -86,13 +86,13 @@ class LineGraph extends React.Component {
     const { width, height } = Dimensions.get("window");
     const x = scaleTime()
       .domain([min, max])
-      .range([0, width]);
+      .range([0, width * 0.8]);
 
     //convert sleep data
     if (datum === "sleep") {
       data = data.map(datum => {
-        const start = moment(new Date(datum.startDate));
-        const end = moment(new Date(datum.endDate));
+        const start = moment(new Date(datum.startDate.slice(0, -5)));
+        const end = moment(new Date(datum.endDate.slice(0, -5)));
         let diff = end.diff(start, "hours", true);
         const newDatum = {
           value: diff,
@@ -121,13 +121,16 @@ class LineGraph extends React.Component {
     newData.reverse();
     let color;
     if (datum === "steps") {
-      color = "blue";
+      color = "#008b8b";
     }
     if (datum === "heartRate") {
-      color = "red";
+      color = "#68228b";
     }
     if (datum === "sleep") {
-      color = "#8a2be2";
+      color = "#104e8b";
+    }
+    if (datum === "mood") {
+      color = "#006400";
     }
     return {
       path: path(newData),
@@ -150,9 +153,9 @@ class LineGraph extends React.Component {
         tick,
         y: 0
       },
-      { tick, y: height * 0.2 }
+      { tick, y: height * 0.1 }
     ]);
-    const points = dates.filter((date, index) => index % 3 === 0);
+    const points = dates.filter((date, index) => index % 2 === 0);
     const path = line()
       .x(d => x(d.tick))
       .y(d => y(d.y));
@@ -201,44 +204,53 @@ class LineGraph extends React.Component {
 
     for (let datum in this.props) {
       if (Array.isArray(this.props[datum])) {
+        console.log("Here is the metric: ", datum);
         let path = this.individualGraphMaker(
           this.props[datum],
           this.props.startDate,
           this.props.endDate,
           datum
         );
+        console.log(`here is the path for ${datum}:`, path);
         linePaths.push(path);
       }
     }
     // const values = this.props.data.steps.map(step => step.value);
     // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
     // const { yPoints, yPath } = this.yAxis(maxVal);
-    const noData = (
-      <View>
-        {" "}
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    // const noData = (
+    //   <View>
+    //     {" "}
+    //     <ActivityIndicator size="large" />
+    //   </View>
+    // );
     const data = (
-      <View>
-        <Surface width={width * 0.8} height={height * 0.5}>
-          <Group x={0} y={0}>
-            {linePaths.map(path => (
-              <Shape
-                key={path.color}
-                d={path.path}
-                stroke={path.color}
-                strokeWidth={1}
-              />
-            ))}
-            {points.map(point => (
-              <Shape d={path(point)} stroke="#000" strokeWidth={3} />
-            ))}
-            {/* {yPoints.map(point => (
+      <View style={styles.container}>
+        <View style={styles.graph}>
+          <Surface width={width * 0.8} height={height * 0.5}>
+            <Group x={0} y={0}>
+              {linePaths.map(path => (
+                <Shape
+                  key={path.color}
+                  d={path.path}
+                  stroke={path.color}
+                  strokeWidth={2}
+                />
+              ))}
+              {points.map(point => (
+                <Shape d={path(point)} stroke="#D3D3D3" strokeWidth={3} />
+              ))}
+              {/* {yPoints.map(point => (
               <Shape d={path(yPoints)} stroke="#000" strokeWidth={3} />
             ))} */}
-          </Group>
-        </Surface>
+              {/* <Shape
+              d="M89.5389594561964,185.2777777777778L279.6344454939…015286,111.16666666666666L327.0129176979117,333.5"
+              stroke="#000"
+              strokeWidth={6}
+            /> */}
+            </Group>
+          </Surface>
+        </View>
       </View>
     );
     return data;
@@ -267,3 +279,29 @@ export default connect(mapState)(LineGraph);
 //     fetchSleep: queryOptions => dispatch(fetchSleep(queryOptions))
 //   };
 // };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#E0F2F1",
+    flexDirection: "column"
+    // alignItems: "center",
+    // justifyContent: "space-between",
+    // paddingTop: "10%",
+    // paddingLeft: "10%",
+    // paddingRight: "10%",
+    // paddingBottom: "10%"
+  },
+  heading: {
+    flex: 1,
+    justifyContent: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    alignItems: "center"
+  },
+  graph: {
+    // paddingLeft: "5%",
+    // paddingRight: "5%",
+    // width: "50%"
+  }
+});

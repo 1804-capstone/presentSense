@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import Heartrate from "./Heartrate";
-import LineGraph from "./Graph/LineGraph";
+import GraphRender from "./Graph/GraphRender";
 
 const abstractContent = <Heartrate />;
-const graphContent = <LineGraph />;
+const graphContent = <GraphRender />;
 const contentArray = [graphContent, abstractContent];
 
 export default class DataCarousel extends React.Component {
@@ -26,7 +26,7 @@ export default class DataCarousel extends React.Component {
     if (index % 2 === 1) {
       return <Heartrate />;
     } else {
-      return <LineGraph />;
+      return <GraphRender />;
     }
   }
 
