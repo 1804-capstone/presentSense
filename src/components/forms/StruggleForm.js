@@ -22,13 +22,13 @@ export default class StruggleForm extends React.Component {
   render() {
     const { handleEntry } = this.props
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.welcome}>
           What's something you're currently struggling with?{" "}
         </Text>
         <TextInput
           placeholder="I'm struggling with..."
-          style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
+          style={styles.input}
           multiline
           numberOfLines={10}
           value={this.state.struggleContent}
@@ -43,7 +43,7 @@ export default class StruggleForm extends React.Component {
         </Text>
         <TextInput
           placeholder="I would tell my friend that..."
-          style={{ height: 60, borderColor: "gray", borderWidth: 1 }}
+          style={styles.input}
           multiline
           numberOfLines={10}
           value={this.state.adviceContent}
@@ -63,13 +63,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#E0F2F1",
     justifyContent: "space-between",
-    paddingTop: "10%",
-    paddingBottom: "10%"
+    padding: 15
   },
   welcome: {
     fontSize: 20,
     textAlign: "center",
-    marginTop: 20,
-    marginBottom: 20
+    marginBottom: 10,
+    marginTop: 10
+  },
+  input: {
+    height: 70,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: '90%',
+    fontSize: 18,
+    padding: 5,
+    marginBottom: 30
   }
 });
