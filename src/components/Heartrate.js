@@ -50,7 +50,8 @@ class Heartrate extends React.Component {
       hrSamples: [],
       stepSamples: [],
       sleepSamples: [],
-      key: 0
+      key: 0,
+      lastSelected: 0
     };
     // this.getHR = this.getHR.bind(this);
     // this.getSteps = this.getSteps.bind(this);
@@ -145,6 +146,7 @@ class Heartrate extends React.Component {
     // let direction;
     let originalColors = {};
     let lastSelected;
+    let gotSelected;
 
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
@@ -234,6 +236,8 @@ class Heartrate extends React.Component {
           };
         }
       }
+      let axesHelper = new THREE.AxesHelper(100);
+      scene.add(axesHelper);
       console.log("ORIGINAL COLORS!", originalColors);
     }
 
@@ -245,14 +249,10 @@ class Heartrate extends React.Component {
       moodGeometry.colorsNeedUpdate = true;
       sleepGeometry.colorsNeedUpdate = true;
       //console.log("KEEPCOLORS", originalColors);
-      cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
+      cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 30);
       let raycaster = new THREE.Raycaster();
       raycaster.set(
-        new THREE.Vector3(
-          this.state.touchPos.x,
-          this.state.touchPos.y,
-          cubeMesh.position.z + 10
-        ),
+        new THREE.Vector3(this.state.touchPos.x, this.state.touchPos.y, 10),
         new THREE.Vector3(0, 0, -1)
       );
       //filter scene children?
@@ -261,7 +261,6 @@ class Heartrate extends React.Component {
           return child;
         }
       });
-      let gotSelected;
       if (lastSelected && lastSelected.id) {
         gotSelected = lastSelected;
       }
