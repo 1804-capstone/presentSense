@@ -45,6 +45,7 @@ class Heartrate extends React.Component {
     super(props);
     this.state = {
       touchPos: { x: 0, y: 0 },
+      prevTouch: { x: 0, y: 0 },
       camera: {},
       hrSamples: [],
       stepSamples: [],
@@ -140,11 +141,16 @@ class Heartrate extends React.Component {
     let moodSamples = this.props.moodSamples;
     let moodSampleLength = this.props.moodSamples.length;
 
+    // let raycaster;
+    // let direction;
+
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.position.y = 0;
       camera.position.z = 500;
       scene = new THREE.Scene();
+      // let raycaster = new THREE.Raycaster();
+      // let direction =
 
       let light = new THREE.AmbientLight(0x404040, 3.7); // soft white light
       scene.add(light);
@@ -279,6 +285,25 @@ class Heartrate extends React.Component {
       //----------------------------------------------
       //move cube to touch position
       cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
+      let raycaster = new THREE.Raycaster();
+      raycaster.set(
+        new THREE.Vector3(
+          cubeMesh.position.x,
+          cubeMesh.position.y,
+          cubeMesh.position.z + 10
+        ),
+        new THREE.Vector3(0, 0, -1)
+      );
+      let intersects = raycaster.intersectObjects(scene.children);
+      // for (let i = 0; i < intersects.length; i++) {
+      //   intersects[i].object.material.color.set(0xfff200);
+      // }
+      if (intersects[intersects.length - 1]) {
+        intersects[intersects.length - 1].object.material.color.set(0xfff200);
+      }
+      for (let i = 0; i < intersects.length - 1; i++) {
+        intersects[i].object.material.color.set(0xffffff);
+      }
       //console.log("cube pose", cubeMesh.position);
       gl.flush();
       rngl.endFrame();
