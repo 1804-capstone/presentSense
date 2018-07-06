@@ -70,7 +70,7 @@ export const MeshAnimator = (
   data,
   clock,
   scale = 1,
-  zIndex = 1
+  zIndex
 ) => {
   //vert positions
 
@@ -175,7 +175,7 @@ export const HeartMeshAnimator = (
   data,
   clock,
   scale = 1,
-  zIndex = 1
+  zIndex
 ) => {
   //vert positions
 

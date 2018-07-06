@@ -148,12 +148,12 @@ class Heartrate extends React.Component {
     let lastSelected;
     let gotSelected;
 
-    function init() {
+    let raycaster = new THREE.Raycaster();
+    const init = () => {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
-      camera.position.y = 0;
+      camera.position.y = -50;
       camera.position.z = 500;
       scene = new THREE.Scene();
-      // let raycaster = new THREE.Raycaster();
 
       let light = new THREE.AmbientLight(0x404040, 3.7); // soft white light
       scene.add(light);
@@ -166,16 +166,16 @@ class Heartrate extends React.Component {
         shininess: 0
       });
       //re set up heart options:
-      heartGeometry = GeometrySetup({ limit: heartSampleLength }, 1, 0.5);
+      heartGeometry = GeometrySetup({ limit: heartSampleLength }, 1, 1);
       heartMaterial.vertexColors = THREE.VertexColors;
 
       heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
-
+      heartMesh.name = "Heartrate";
       scene.add(heartMesh);
       ///-----------------------------------------------------
 
       sleepMaterial = new THREE.MeshPhongMaterial({
-        color: 0x0043af,
+        color: 0x387eff,
         side: THREE.DoubleSide,
         flatShading: true,
         vertexColors: THREE.VertexColors,
@@ -184,10 +184,11 @@ class Heartrate extends React.Component {
       sleepGeometry = GeometrySetup(
         { limit: Math.max(3, sleepSampleLength) },
         11,
-        1
+        -3
       );
       sleepMaterial.vertexColors = THREE.VertexColors;
       sleepMesh = new THREE.Mesh(sleepGeometry, sleepMaterial);
+      sleepMesh.name = "Sleep";
       scene.add(sleepMesh);
 
       //--------------------------------------------------------
@@ -202,7 +203,7 @@ class Heartrate extends React.Component {
       stepMaterial.vertexColors = THREE.VertexColors;
 
       stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
-
+      stepMesh.name = "Steps";
       scene.add(stepMesh);
       //--------------------------------------------------
       if (moodSamples && moodSampleLength > 3) {
@@ -216,6 +217,7 @@ class Heartrate extends React.Component {
         moodGeometry = GeometrySetup({ limit: moodSampleLength }, 3, 3);
         moodMaterial.vertexColors = THREE.VertexColors;
         moodMesh = new THREE.Mesh(moodGeometry, moodMaterial);
+        moodMesh.name = "Mood";
         scene.add(moodMesh);
       }
 
@@ -227,7 +229,11 @@ class Heartrate extends React.Component {
       scene.add(cubeMesh);
 
       for (let i = 0; i < scene.children.length; i++) {
-        if (scene.children[i].type === "Mesh") {
+        if (
+          scene.children[i].type === "Mesh" &&
+          scene.children[i].name &&
+          scene.children[i].name.length
+        ) {
           //console.log("material???", scene.children[i].material);
           originalColors[scene.children[i].id] = {
             r: scene.children[i].material.color.r,
@@ -236,10 +242,10 @@ class Heartrate extends React.Component {
           };
         }
       }
-      let axesHelper = new THREE.AxesHelper(100);
-      scene.add(axesHelper);
-      console.log("ORIGINAL COLORS!", originalColors);
-    }
+      // let axesHelper = new THREE.AxesHelper(100);
+      // scene.add(axesHelper);
+      // console.log("ORIGINAL COLORS!", originalColors);
+    };
 
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
@@ -250,7 +256,7 @@ class Heartrate extends React.Component {
       sleepGeometry.colorsNeedUpdate = true;
       //console.log("KEEPCOLORS", originalColors);
       cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 30);
-      let raycaster = new THREE.Raycaster();
+      //let raycaster = new THREE.Raycaster();
       raycaster.set(
         new THREE.Vector3(this.state.touchPos.x, this.state.touchPos.y, 10),
         new THREE.Vector3(0, 0, -1)
@@ -265,17 +271,16 @@ class Heartrate extends React.Component {
         gotSelected = lastSelected;
       }
       for (let i = 0; i < myMeshes.length; i++) {
-        if (
-          gotSelected &&
-          gotSelected.id &&
-          gotSelected.id !== myMeshes[i].id
-        ) {
-          myMeshes[i].material.color.setRGB(
-            originalColors[myMeshes[i].id].r,
-            originalColors[myMeshes[i].id].g,
-            originalColors[myMeshes[i].id].b
-          );
-        } else if (!gotSelected || !gotSelected.id) {
+        console.log(
+          "my meshhhh",
+          myMeshes[i].id,
+          typeof myMeshes[i].id,
+          this.state.lastSelected
+        );
+        if (myMeshes[i].id === this.state.lastSelected) {
+          //console.log("GOT IT!");
+          myMeshes[i].material.color.setRGB(0.807, 1, 0.219);
+        } else {
           myMeshes[i].material.color.setRGB(
             originalColors[myMeshes[i].id].r,
             originalColors[myMeshes[i].id].g,
@@ -283,23 +288,25 @@ class Heartrate extends React.Component {
           );
         }
       }
+      if (this.state.lastSelected) {
+        let lastSelectedMesh = myMeshes.filter(
+          mesh => mesh.id === this.state.lastSelected
+        )[0];
+        // console.log(
+        //   "LAST SELECTED MESH",
+        //   lastSelectedMesh.id,
+        //   typeof lastSelectedMesh.id
+        // );
+      }
+      console.log("STATE??", typeof this.state.lastSelected);
 
-      //set the last intersected object to our "selected color"
-      // let intersects = raycaster.intersectObjects(myMeshes);
-      // if (
-      //   intersects[intersects.length - 1] &&
-      //   this.state.touchPos !== this.state.prevTouch
-      // ) {
-      //   intersects[intersects.length - 1].object.material.color.setRGB(
-      //     0.952,
-      //     0.627,
-      //     0.776
-      //   );
-      // }
       let intersects = raycaster.intersectObjects(myMeshes);
-      if (intersects[intersects.length - 1]) {
+      console.log("INTERSECTIONS", intersects.length);
+      if (intersects[0] && this.state.lastSelected === 0) {
         lastSelected = intersects[intersects.length - 1];
-        lastSelected.object.material.color.setRGB(0.952, 0.627, 0.776);
+        lastSelected.object.material.color.setRGB(0.807, 1, 0.219);
+        console.log("ID???", lastSelected.object.id);
+        this.setState({ lastSelected: lastSelected.object.id });
       }
 
       //------------------------------------------------------
@@ -340,7 +347,7 @@ class Heartrate extends React.Component {
         this.state.sleepSamples,
         clock,
         10, //scale
-        3 //z index
+        -3 //z index
       );
       sleepGeometry.verticesNeedUpdate = true;
       // }
@@ -380,7 +387,6 @@ class Heartrate extends React.Component {
       //   );
       // }
 
-      //console.log("cube pose", cubeMesh.position);
       gl.flush();
       rngl.endFrame();
     };
@@ -430,7 +436,8 @@ class Heartrate extends React.Component {
     );
 
     this.setState({
-      touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y }
+      touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y },
+      lastSelected: 0
     });
   }
   render() {
@@ -454,6 +461,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "#fff",
     alignItems: "center"
+  },
+  infoBar: {
+    position: "absolute",
+    height: width * 0.1
   },
   webglView: {
     width: width,
