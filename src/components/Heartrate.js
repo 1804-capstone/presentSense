@@ -421,7 +421,7 @@ class Heartrate extends React.Component {
     if (this.state.meshName.length && this.state.lastSelected !== 0) {
       visInfo = "Selected: " + this.state.meshName;
     } else {
-      visInfo = "Your Data";
+      visInfo = `Wellness Data for ${this.props.name}`;
     }
     return (
       <View style={styles.container}>
@@ -434,7 +434,7 @@ class Heartrate extends React.Component {
           </View>
         </TouchableOpacity>
         <View style={styles.infoBar}>
-          <Text style={{ fontSize: 24, fontWeight: "600", color: "#232323" }}>
+          <Text style={{ fontSize: 22, fontWeight: "500", color: "#232323" }}>
             {visInfo}
           </Text>
         </View>
@@ -473,7 +473,8 @@ const mapStateToProps = state => {
     hrSamples: state.heartRate.hrSamples,
     stepSamples: state.steps,
     sleepSamples: state.sleep,
-    moodSamples: state.mood
+    moodSamples: state.mood,
+    name: state.firestoreStore.preferences.name
   };
 };
 
