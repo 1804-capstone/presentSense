@@ -51,10 +51,10 @@ class Heartrate extends React.Component {
       stepSamples: [],
       sleepSamples: [],
       key: 0,
-      lastSelected: 0
+      lastSelected: 0,
+      meshName: ""
     };
-    // this.getHR = this.getHR.bind(this);
-    // this.getSteps = this.getSteps.bind(this);
+
     this.onContextCreate = this.onContextCreate.bind(this);
     this.interpolateArray = this.interpolateArray.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
@@ -242,9 +242,6 @@ class Heartrate extends React.Component {
           };
         }
       }
-      // let axesHelper = new THREE.AxesHelper(100);
-      // scene.add(axesHelper);
-      // console.log("ORIGINAL COLORS!", originalColors);
     };
 
     const animate = () => {
@@ -254,9 +251,7 @@ class Heartrate extends React.Component {
       stepGeometry.colorsNeedUpdate = true;
       moodGeometry.colorsNeedUpdate = true;
       sleepGeometry.colorsNeedUpdate = true;
-      //console.log("KEEPCOLORS", originalColors);
       cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 30);
-      //let raycaster = new THREE.Raycaster();
       raycaster.set(
         new THREE.Vector3(this.state.touchPos.x, this.state.touchPos.y, 10),
         new THREE.Vector3(0, 0, -1)
@@ -277,7 +272,10 @@ class Heartrate extends React.Component {
           typeof myMeshes[i].id,
           this.state.lastSelected
         );
-        if (myMeshes[i].id === this.state.lastSelected) {
+        if (
+          myMeshes[i].id === this.state.lastSelected ||
+          myMeshes[i].name === this.state.meshName
+        ) {
           //console.log("GOT IT!");
           myMeshes[i].material.color.setRGB(0.807, 1, 0.219);
         } else {
@@ -292,11 +290,6 @@ class Heartrate extends React.Component {
         let lastSelectedMesh = myMeshes.filter(
           mesh => mesh.id === this.state.lastSelected
         )[0];
-        // console.log(
-        //   "LAST SELECTED MESH",
-        //   lastSelectedMesh.id,
-        //   typeof lastSelectedMesh.id
-        // );
       }
       console.log("STATE??", typeof this.state.lastSelected);
 
@@ -306,7 +299,10 @@ class Heartrate extends React.Component {
         lastSelected = intersects[intersects.length - 1];
         lastSelected.object.material.color.setRGB(0.807, 1, 0.219);
         console.log("ID???", lastSelected.object.id);
-        this.setState({ lastSelected: lastSelected.object.id });
+        this.setState({
+          lastSelected: lastSelected.object.id,
+          meshName: lastSelected.object.name
+        });
       }
 
       //------------------------------------------------------
@@ -365,27 +361,6 @@ class Heartrate extends React.Component {
         );
         moodGeometry.verticesNeedUpdate = true;
       }
-      //----------------------------------------------
-      //move cube to touch position
-
-      // for (let i = 0; i < intersects.length; i++) {
-      //   intersects[i].object.material.color.set(0xfff200);
-      // }
-      // for (let i = 0; i < scene.children.length; i++) {
-      //   if (scene.children[i].type === "Mesh") {
-      //     console.log("material???", scene.children[i].material);
-      //   }
-      // }
-      // if (intersects[intersects.length - 1]) {
-      //   intersects[intersects.length - 1].object.material.color.set(0xfff200);
-      // }
-      // for (let i = 0; i < intersects.length - 1; i++) {
-      //   intersects[i].object.material.color.setRGB(
-      //     originalColors[i].r,
-      //     originalColors[i].g,
-      //     originalColors[i].b
-      //   );
-      // }
 
       gl.flush();
       rngl.endFrame();
@@ -437,10 +412,17 @@ class Heartrate extends React.Component {
 
     this.setState({
       touchPos: { x: vProjectedMousePos.x, y: vProjectedMousePos.y },
-      lastSelected: 0
+      lastSelected: 0,
+      meshName: ""
     });
   }
   render() {
+    let visInfo;
+    if (this.state.meshName.length && this.state.lastSelected !== 0) {
+      visInfo = "Selected: " + this.state.meshName;
+    } else {
+      visInfo = "Your Data";
+    }
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={event => this.handleTouch(event)}>
@@ -451,37 +433,40 @@ class Heartrate extends React.Component {
             />
           </View>
         </TouchableOpacity>
+        <View style={styles.infoBar}>
+          <Text style={{ fontSize: 24, fontWeight: "600", color: "#232323" }}>
+            {visInfo}
+          </Text>
+        </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     flex: 1,
     position: "absolute",
     backgroundColor: "#fff",
     alignItems: "center"
   },
   infoBar: {
+    flex: 0.1,
     position: "absolute",
-    height: width * 0.1
+    margin: "auto",
+    width: width,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#C8F8EE43",
+    paddingTop: height * 0.05,
+    paddingBottom: height * 0.05
+    //fontSize: 18
   },
   webglView: {
     width: width,
     height: height
   }
 });
-
-//getting our actions on props
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchLatestHeartRate: heartOptions =>
-//       dispatch(fetchLatestHeartRate(heartOptions)),
-//     fetchHeartRateOverTime: heartOptions =>
-//       dispatch(fetchHeartRateOverTime(heartOptions)),
-//     fetchLatestSteps: stepOptions => dispatch(fetchLatestSteps(stepOptions))
-//   };
-// };
 
 const mapStateToProps = state => {
   return {
