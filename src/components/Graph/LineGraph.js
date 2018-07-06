@@ -110,19 +110,35 @@ class LineGraph extends React.Component {
     //construct y-scale
     const values = data.map(datum => datum.value);
     const maxVal = values.sort((a, b) => a - b)[values.length - 1];
-    const y = scaleLinear()
-      .domain([0, maxVal])
-      .range([0, height * 0.5]);
+    let y;
+    if (datum === "mood") {
+      y = scaleLinear()
+        .domain([0, 5])
+        .range([0, height * 0.5]);
+    } else {
+      y = scaleLinear()
+        .domain([0, maxVal])
+        .range([0, height * 0.5]);
+    }
     // create svg path
     const path = line()
       .x(d => x(d.startDate))
       .y(d => y(d.value));
-    const newData = data.map(datum => ({
-      value: datum.value * -1 + maxVal,
-      startDate: new Date(datum.startDate.slice(0, -5)),
-      endDate: new Date(datum.endDate.slice(0, -5))
-    }));
+    let newData;
+    if (datum === "mood") {
+      newData = data.map(datum => ({
+        value: datum.value * -1 + 4,
+        startDate: new Date(datum.startDate.slice(0, -5)),
+        endDate: new Date(datum.endDate.slice(0, -5))
+      }));
+    } else
+      newData = data.map(datum => ({
+        value: datum.value * -1 + maxVal,
+        startDate: new Date(datum.startDate.slice(0, -5)),
+        endDate: new Date(datum.endDate.slice(0, -5))
+      }));
     newData.reverse();
+    console.log(`here is the new data for ${datum}`, newData);
     let color;
     if (datum === "steps") {
       color = "#008b8b";
@@ -136,6 +152,7 @@ class LineGraph extends React.Component {
     if (datum === "mood") {
       color = "#006400";
     }
+    console.log(`here is the path for ${datum}`, path(newData));
     return {
       path: path(newData),
       color
