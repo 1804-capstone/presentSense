@@ -90,10 +90,13 @@ class LineGraph extends React.Component {
 
     //convert sleep data
     if (datum === "sleep") {
+      console.log("**SLEEP DATAAAAA", data);
+
       data = data.map(datum => {
         const start = moment(new Date(datum.startDate.slice(0, -5)));
         const end = moment(new Date(datum.endDate.slice(0, -5)));
         let diff = end.diff(start, "hours", true);
+        console.log("whats the difference", diff, start, end);
         const newDatum = {
           value: diff,
           startDate: datum.startDate,
@@ -101,6 +104,7 @@ class LineGraph extends React.Component {
         };
         return newDatum;
       });
+      console.log("**SLEEP DATAAAAA", data);
     }
 
     //construct y-scale
