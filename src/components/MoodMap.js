@@ -49,7 +49,7 @@ class MoodMap extends Component {
               zoom: [0, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17],
               radius: [10, 10, 15, 20, 30, 60, 80, 100, 120, 150, 180, 200, 250, 250]}}
             gradient={{
-              colors: ["#79BC6A", "#BBCF4C", "#EEC20B", "#F29305", "#E50000"],
+              colors: ["#04725c", "#5d9601", "#EEC20B", "#db6b04", "#E50000"],
               values: [0, 0.25, 0.50, 0.75, 1]
               }}
             maxIntensity={100}
@@ -59,7 +59,7 @@ class MoodMap extends Component {
         <View style={styles.keyContainer}>
           <View style={styles.key}>
             <View style={{
-              backgroundColor: "#79BC6A",
+              backgroundColor: "#04725c",
               borderRadius: 25,
               height: 25,
               width: 25}} />
@@ -67,7 +67,7 @@ class MoodMap extends Component {
           </View>
           <View style={styles.key}>
             <View style={{
-                backgroundColor: "#BBCF4C",
+                backgroundColor: "#5d9601",
                 borderRadius: 25,
                 height: 25,
                 width: 25}} />
@@ -83,7 +83,7 @@ class MoodMap extends Component {
           </View>
           <View style={styles.key}>
             <View style={{
-                backgroundColor: "#F29305",
+                backgroundColor: "#db6b04",
                 borderRadius: 25,
                 height: 25,
                 width: 25}} />
