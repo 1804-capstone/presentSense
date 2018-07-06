@@ -143,6 +143,8 @@ class Heartrate extends React.Component {
 
     // let raycaster;
     // let direction;
+    let originalColors = {};
+    let lastSelected;
 
     function init() {
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
@@ -150,7 +152,6 @@ class Heartrate extends React.Component {
       camera.position.z = 500;
       scene = new THREE.Scene();
       // let raycaster = new THREE.Raycaster();
-      // let direction =
 
       let light = new THREE.AmbientLight(0x404040, 3.7); // soft white light
       scene.add(light);
@@ -222,11 +223,87 @@ class Heartrate extends React.Component {
       cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x0f0ff0 });
       cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
       scene.add(cubeMesh);
+
+      for (let i = 0; i < scene.children.length; i++) {
+        if (scene.children[i].type === "Mesh") {
+          //console.log("material???", scene.children[i].material);
+          originalColors[scene.children[i].id] = {
+            r: scene.children[i].material.color.r,
+            g: scene.children[i].material.color.g,
+            b: scene.children[i].material.color.b
+          };
+        }
+      }
+      console.log("ORIGINAL COLORS!", originalColors);
     }
 
     const animate = () => {
       this.requestId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
+      heartGeometry.colorsNeedUpdate = true;
+      stepGeometry.colorsNeedUpdate = true;
+      moodGeometry.colorsNeedUpdate = true;
+      sleepGeometry.colorsNeedUpdate = true;
+      //console.log("KEEPCOLORS", originalColors);
+      cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
+      let raycaster = new THREE.Raycaster();
+      raycaster.set(
+        new THREE.Vector3(
+          this.state.touchPos.x,
+          this.state.touchPos.y,
+          cubeMesh.position.z + 10
+        ),
+        new THREE.Vector3(0, 0, -1)
+      );
+      //filter scene children?
+      let myMeshes = scene.children.filter(child => {
+        if (originalColors.hasOwnProperty(child.id)) {
+          return child;
+        }
+      });
+      let gotSelected;
+      if (lastSelected && lastSelected.id) {
+        gotSelected = lastSelected;
+      }
+      for (let i = 0; i < myMeshes.length; i++) {
+        if (
+          gotSelected &&
+          gotSelected.id &&
+          gotSelected.id !== myMeshes[i].id
+        ) {
+          myMeshes[i].material.color.setRGB(
+            originalColors[myMeshes[i].id].r,
+            originalColors[myMeshes[i].id].g,
+            originalColors[myMeshes[i].id].b
+          );
+        } else if (!gotSelected || !gotSelected.id) {
+          myMeshes[i].material.color.setRGB(
+            originalColors[myMeshes[i].id].r,
+            originalColors[myMeshes[i].id].g,
+            originalColors[myMeshes[i].id].b
+          );
+        }
+      }
+
+      //set the last intersected object to our "selected color"
+      // let intersects = raycaster.intersectObjects(myMeshes);
+      // if (
+      //   intersects[intersects.length - 1] &&
+      //   this.state.touchPos !== this.state.prevTouch
+      // ) {
+      //   intersects[intersects.length - 1].object.material.color.setRGB(
+      //     0.952,
+      //     0.627,
+      //     0.776
+      //   );
+      // }
+      let intersects = raycaster.intersectObjects(myMeshes);
+      if (intersects[intersects.length - 1]) {
+        lastSelected = intersects[intersects.length - 1];
+        lastSelected.object.material.color.setRGB(0.952, 0.627, 0.776);
+      }
+
+      //------------------------------------------------------
       if (this.props.hrSamples && this.props.hrSamples.length) {
         heartGeometry.verticesNeedUpdate = true;
         heartGeometry.colorsNeedUpdate = true;
@@ -284,26 +361,26 @@ class Heartrate extends React.Component {
       }
       //----------------------------------------------
       //move cube to touch position
-      cubeMesh.position.set(this.state.touchPos.x, this.state.touchPos.y, 0);
-      let raycaster = new THREE.Raycaster();
-      raycaster.set(
-        new THREE.Vector3(
-          cubeMesh.position.x,
-          cubeMesh.position.y,
-          cubeMesh.position.z + 10
-        ),
-        new THREE.Vector3(0, 0, -1)
-      );
-      let intersects = raycaster.intersectObjects(scene.children);
+
       // for (let i = 0; i < intersects.length; i++) {
       //   intersects[i].object.material.color.set(0xfff200);
       // }
-      if (intersects[intersects.length - 1]) {
-        intersects[intersects.length - 1].object.material.color.set(0xfff200);
-      }
-      for (let i = 0; i < intersects.length - 1; i++) {
-        intersects[i].object.material.color.set(0xffffff);
-      }
+      // for (let i = 0; i < scene.children.length; i++) {
+      //   if (scene.children[i].type === "Mesh") {
+      //     console.log("material???", scene.children[i].material);
+      //   }
+      // }
+      // if (intersects[intersects.length - 1]) {
+      //   intersects[intersects.length - 1].object.material.color.set(0xfff200);
+      // }
+      // for (let i = 0; i < intersects.length - 1; i++) {
+      //   intersects[i].object.material.color.setRGB(
+      //     originalColors[i].r,
+      //     originalColors[i].g,
+      //     originalColors[i].b
+      //   );
+      // }
+
       //console.log("cube pose", cubeMesh.position);
       gl.flush();
       rngl.endFrame();
