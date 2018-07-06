@@ -87,7 +87,7 @@ export const MeshAnimator = (
   // );
   for (let i = 0; i < Math.floor(geometry.vertices.length / 2) - 1; i++) {
     if (data && data.length) {
-      if (data.length < numPoints) {
+      if (data.length <= numPoints) {
         constrainedIndex = i % data.length;
       } else {
         constrainedIndex = i;
@@ -326,7 +326,7 @@ export const MoodMeshAnimator = (
 ) => {
   //vert positions
 
-  let numPoints = options.limit || data.length;
+  let numPoints = data.length;
   let angle = (2 * Math.PI) / numPoints;
   let dataPoint;
   let dataPoint2;
@@ -360,18 +360,20 @@ export const MoodMeshAnimator = (
       dataPoint = 100 + 40 * Math.sin(2 * clock.getElapsedTime());
       dataPoint2 = 40 + 40 * Math.cos(clock.getElapsedTime());
     }
-
-    geometry.vertices[i * 2].set(
-      dataPoint * Math.sin(angle * i),
-      0 + dataPoint * Math.cos(angle * i),
-      zIndex
-    );
-
-    geometry.vertices[i * 2 + 1].set(
-      dataPoint2 * Math.sin(angle * i),
-      0 + dataPoint2 * Math.cos(angle * i),
-      zIndex
-    );
+    if (geometry.vertices && geometry.vertices[i * 2]) {
+      geometry.vertices[i * 2].set(
+        dataPoint * Math.sin(angle * i),
+        0 + dataPoint * Math.cos(angle * i),
+        zIndex
+      );
+    }
+    if (geometry.vertices && geometry.vertices[i * 2 + 1]) {
+      geometry.vertices[i * 2 + 1].set(
+        dataPoint2 * Math.sin(angle * i),
+        0 + dataPoint2 * Math.cos(angle * i),
+        zIndex
+      );
+    }
   }
 
   geometry.vertices[geometry.vertices.length - 2].set(

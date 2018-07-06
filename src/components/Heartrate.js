@@ -173,7 +173,7 @@ class Heartrate extends React.Component {
         shininess: 0
       });
       sleepGeometry = GeometrySetup(
-        { limit: Math.min(3, sleepSampleLength) },
+        { limit: Math.max(3, sleepSampleLength) },
         11,
         1
       );
@@ -248,21 +248,21 @@ class Heartrate extends React.Component {
         stepGeometry.verticesNeedUpdate = true;
       }
       //--------------------------------------------
-      if (sleepSamples && sleepSampleLength > 0) {
-        //console.log("Sleeps!", this.state.sleepSamples);
-        sleepGeometry.verticesNeedUpdate = true;
-        sleepGeometry.colorsNeedUpdate = true;
-        MeshAnimator(
-          sleepGeometry,
-          { limit: sleepSampleLength },
-          this.state.sleepSamples,
-          clock,
-          10, //scale
-          0.5 //z index
-        );
-        sleepGeometry.verticesNeedUpdate = true;
-      }
-      //--------------------------------------------------
+      // if (sleepSamples && sleepSampleLength > 0) {
+      //   //console.log("Sleeps!", this.state.sleepSamples);
+      sleepGeometry.verticesNeedUpdate = true;
+      sleepGeometry.colorsNeedUpdate = true;
+      MoodMeshAnimator(
+        sleepGeometry,
+        { limit: sleepSampleLength },
+        this.state.sleepSamples,
+        clock,
+        10, //scale
+        3 //z index
+      );
+      sleepGeometry.verticesNeedUpdate = true;
+      // }
+      // //--------------------------------------------------
       if (moodSamples && moodSampleLength > 3) {
         moodGeometry.verticesNeedUpdate = true;
         moodGeometry.colorsNeedUpdate = true;
@@ -350,6 +350,7 @@ class Heartrate extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "absolute",
     backgroundColor: "#fff",
     alignItems: "center"
   },
