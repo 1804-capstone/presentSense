@@ -36,7 +36,7 @@ const GraphRender = props => {
           alignItems: "center"
         }}
       >
-        <Text style={{ fontSize: 20 }}>Wellnesss data for {props.name}</Text>
+        <Text style={{ fontSize: 20 }}>Wellness data for {props.name}</Text>
         <Text style={{ fontSize: 15 }}>Swipe right for an abstract view</Text>
       </View>
       <View
