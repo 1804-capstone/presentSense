@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import LineGraph from "./LineGraph";
+import Preferences from "../Preferences";
 // import visMeta from "../../store/visMeta";
 import { setEndDate } from "../../store/visMeta";
 import { connect } from "react-redux";
@@ -28,11 +29,23 @@ const GraphRender = props => {
     <View style={styles.container}>
       <View
         style={{
+          marginTop: 100,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
+        <Text style={{ fontSize: 20 }}>Wellnesss data for {props.name}</Text>
+        <Text style={{ fontSize: 15 }}>Swipe right for an abstract view</Text>
+      </View>
+      <View
+        style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
           width: "100%",
-          marginTop: 100
+          marginTop: 30
           // transform: [{ rotate: "90deg" }]
         }}
       >
@@ -91,7 +104,8 @@ const mapState = state => {
     heartRateOn: state.visMeta.heartrate,
     stepCountOn: state.visMeta.stepCount,
     sleepOn: state.visMeta.sleep,
-    moodOn: state.visMeta.mood
+    moodOn: state.visMeta.mood,
+    name: state.firestoreStore.preferences.name
   };
 };
 
