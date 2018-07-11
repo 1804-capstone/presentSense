@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 PresentSense is an app for tracking and visualizing mental and physical wellness.
 
 ## Implementing a Mood Map:
-![mood map](https://media.giphy.com/media/5Sx7HI8fXeO8ePoSmz/giphy.gif)
+![](https://thumbs.gfycat.com/AntiqueFatherlyCanary-size_restricted.gif)
   * Follow directions for weight-based heatmap here: https://github.com/pjamrozowicz/react-native-heatmaps
   * In the component that loads the map, get user's location:
   ```javascript
