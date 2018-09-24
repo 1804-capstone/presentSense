@@ -9,80 +9,28 @@ import {
   ActivityIndicator
 } from "react-native";
 import React from "react";
-// import dummyData from "./DummyData";
 import moment from "moment";
 import d3 from "d3";
 import { timeDay } from "d3-time";
 import { connect } from "react-redux";
 const { Surface, Group, Shape } = ART;
 
-// let timeOptions = {
-//   startDate: new Date(2018, 5, 1),
-//   endDate: new Date()
-// };
-
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   paths: [],
-    //   steps: this.props.steps,
-    //   sleep: this.props.sleep,
-    //   heart: this.props.heartRate,
-    //   mood: this.props.mood
-    // };
     this.individualGraphMaker = this.individualGraphMaker.bind(this);
     this.xAxis = this.xAxis.bind(this);
   }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.steps !== state.steps) {
-  //     return {
-  //       steps: props.steps
-  //     };
-  //   }
-  //   if (props.sleep !== state.sleep) {
-  //     return { sleep: props.sleep };
-  //   }
-  //   if (props.heartRate !== state.heartRate) {
-  //     return { heartRate: props.heartRate };
-  //   }
-  //   if (props.mood !== state.mood) {
-  //     return { mood: props.mood };
-  //   }
-  //   if (props.startDate !== state.startDate) {
-  //     return { startDate: props.startDate };
-  //   }
-  //   if (props.endDate !== state.endDate) {
-  //     return { endDate: props.endDate };
-  //   }
-  //   return null;
-  // }
-
   componentDidMount() {
-    // let linePaths = [];
     let startDate = this.props.startDate;
     let endDate = this.props.endDate;
-    console.log("here are the dates", startDate, endDate);
-    // for (let datum in this.props) {
-    //   if (Array.isArray(this.props[datum])) {
-    //     let path = this.individualGraphMaker(
-    //       this.props[datum],
-    //       this.props.startDate,
-    //       this.props.endDate,
-    //       datum
-    //     );
-    //     linePaths.push(path);
-    //   }
-    // }
-    // this.setState({ paths: linePaths });
   }
   individualGraphMaker = (data, startDate, endDate, datum) => {
     console.log(`here is the data for ${datum}`, data);
     //construct x-scale
     const min = new Date(startDate);
     const max = new Date(endDate);
-    // console.log("the dates", startDate);
     const { width, height } = Dimensions.get("window");
     const x = scaleTime()
       .domain([min, max])
@@ -90,13 +38,10 @@ class LineGraph extends React.Component {
 
     //convert sleep data
     if (datum === "sleep") {
-      console.log("**SLEEP DATAAAAA", data);
-
       data = data.map(datum => {
         const start = moment(new Date(datum.startDate.slice(0, -5)));
         const end = moment(new Date(datum.endDate.slice(0, -5)));
         let diff = end.diff(start, "hours", true);
-        console.log("whats the difference", diff, start, end);
         const newDatum = {
           value: diff,
           startDate: datum.startDate,
@@ -104,7 +49,6 @@ class LineGraph extends React.Component {
         };
         return newDatum;
       });
-      console.log("**SLEEP DATAAAAA", data);
     }
 
     //construct y-scale
@@ -215,7 +159,6 @@ class LineGraph extends React.Component {
   // }
 
   render() {
-    console.log("****here is my state****", this.state);
     const { width, height } = Dimensions.get("window");
     const { path, points } = this.xAxis(
       this.props.startDate,
@@ -236,15 +179,7 @@ class LineGraph extends React.Component {
         linePaths.push(path);
       }
     }
-    // const values = this.props.data.steps.map(step => step.value);
-    // const maxVal = values.sort((a, b) => a - b)[values.length - 1];
-    // const { yPoints, yPath } = this.yAxis(maxVal);
-    // const noData = (
-    //   <View>
-    //     {" "}
-    //     <ActivityIndicator size="large" />
-    //   </View>
-    // );
+
     const data = (
       <View style={styles.container}>
         <View style={styles.graph}>
@@ -264,11 +199,6 @@ class LineGraph extends React.Component {
               {/* {yPoints.map(point => (
               <Shape d={path(yPoints)} stroke="#000" strokeWidth={3} />
             ))} */}
-              {/* <Shape
-              d="M89.5389594561964,185.2777777777778L279.6344454939…015286,111.16666666666666L327.0129176979117,333.5"
-              stroke="#000"
-              strokeWidth={6}
-            /> */}
             </Group>
           </Surface>
         </View>
@@ -291,27 +221,11 @@ const mapState = state => {
 
 export default connect(mapState)(LineGraph);
 
-// const mapDispatch = dispatch => {
-//   return {
-//     fetchHeartRateOverTime: queryOptions =>
-//       dispatch(fetchHeartRateOverTime(queryOptions)),
-//     fetchStepsOverTime: queryOptions =>
-//       dispatch(fetchLatestSteps(queryOptions)),
-//     fetchSleep: queryOptions => dispatch(fetchSleep(queryOptions))
-//   };
-// };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E0F2F1",
     flexDirection: "column"
-    // alignItems: "center",
-    // justifyContent: "space-between",
-    // paddingTop: "10%",
-    // paddingLeft: "10%",
-    // paddingRight: "10%",
-    // paddingBottom: "10%"
   },
   heading: {
     flex: 1,
@@ -319,10 +233,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     alignItems: "center"
-  },
-  graph: {
-    // paddingLeft: "5%",
-    // paddingRight: "5%",
-    // width: "50%"
   }
 });
